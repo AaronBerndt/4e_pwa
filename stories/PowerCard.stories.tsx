@@ -10,4 +10,4 @@ export default {
   },
 };
 
-export const Main = (args) => <PowerCard src="power11043" {...args} />;
+export const Main = (args) => <PowerCard id="power11860" {...args} />;

@@ -1,12 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
 import { PowerCard } from "../components/PowerCard";
-import "../styles/Home.module.css";
+import styles from "../styles/Home.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { powers } from "../components/powerJson";
 
-export default function Home() {
+export default function Characters() {
   const powerArray = Object.keys(powers);
   return (
     <Swiper
