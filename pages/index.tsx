@@ -6,9 +6,10 @@ import { powers } from "../components/powerJson";
 import "swiper/css";
 import useClasses from "../hooks/useClasses";
 import useAncestries from "../hooks/useAncestries";
+import useFeats from "../hooks/useFeats";
 
 export default function Home() {
-  const { data, isLoading } = useAncestries();
+  const { data, isLoading } = useFeats();
 
   if (isLoading) {
     return <p>...Loading</p>;
