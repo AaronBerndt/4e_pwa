@@ -5,9 +5,10 @@ import { PowerCard } from "../components/PowerCard";
 import { powers } from "../components/powerJson";
 import "swiper/css";
 import useClasses from "../hooks/useClasses";
+import useAncestries from "../hooks/useAncestries";
 
 export default function Home() {
-  const { data, isLoading } = useClasses();
+  const { data, isLoading } = useAncestries();
 
   if (isLoading) {
     return <p>...Loading</p>;
