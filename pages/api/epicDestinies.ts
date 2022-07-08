@@ -3,7 +3,7 @@ import { fetchCollection } from "../../utils/mongoUtils";
 
 export default async function handler(req, res) {
   try {
-    const data = await fetchCollection("epicDestiny");
+    const data = await fetchCollection("epicDestinies");
 
     res.status(200).send(orderBy(data));
   } catch (e) {
