@@ -1,7 +1,15 @@
+import usePowers from "../hooks/usePowers";
 import {
+  Avatar,
+  Checkbox,
   FormControl,
   Grid,
   InputLabel,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemButton,
+  ListItemText,
   MenuItem,
   Select,
   TextField,
@@ -55,6 +63,37 @@ export function CreateCharacterForm({ formik }) {
           </Select>
         </FormControl>
       </Grid>
+    </Grid>
+  );
+}
+
+export function PowersForm({ formik }) {
+  console.log(formik);
+  const { powers: characterPowers, characterClass } = formik.values;
+
+  const { data: powers, isLoading } = usePowers(characterClass);
+
+  return (
+    <Grid center>
+      <List>
+        {characterPowers.map((power) => (
+          <ListItem
+            key={power.name}
+            secondaryAction={
+              <Checkbox
+                edge="end"
+                onChange={() => formik.setFieldValue("characterPowers", [])}
+                checked={characterPowers.includes(power._id)}
+              />
+            }
+            disablePadding
+          >
+            <ListItemButton>
+              <ListItemText primary={power.name} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
     </Grid>
   );
 }

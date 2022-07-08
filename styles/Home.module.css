@@ -1,116 +1,270 @@
-.container {
-  padding: 0 2rem;
+.rpg {
+    /* background-image:url("viewer_category_icon.png"); */
+    display:inline-block;
+    width:34px;
+    height:34px
+}
+.card{ 
+    background:'green';
 }
 
-.main {
-  min-height: 100vh;
-  padding: 4rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.rpg.race {
+    background-position:0 0
 }
-
-.footer {
-  display: flex;
-  flex: 1;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
-  justify-content: center;
-  align-items: center;
+.rpg.background {
+    background-position:-34px 0
 }
-
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
+.rpg.theme {
+    background-position:-68px 0
 }
-
-.title a {
-  color: #0070f3;
-  text-decoration: none;
+.rpg.class {
+    background-position:-102px 0
 }
-
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
+.rpg.paragonpath {
+    background-position:-136px 0
 }
-
-.title {
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
+.rpg.epicdestiny{
+    background-position:-170px 0
 }
-
-.title,
-.description {
-  text-align: center;
+.rpg.power {
+    background-position:-204px 0
 }
-
-.description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
+.rpg.feat{
+    background-position:-238px 0
 }
-
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
+.rpg{
+    background-position:0 -34px
 }
-
-.grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
+.rpg.glossary{
+    background-position:-34px -34px
 }
-
-.card {
-  margin: 1rem;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
+.rpg.ritual{
+    background-position:-68px -34px
 }
-
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+.rpg.deity{
+    background-position:-102px -34px
 }
-
-.card h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
+.rpg.terrain,.rpg.trap{
+    background-position:-170px -34px
 }
-
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
+.rpg.item{
+    background-position:-204px -34px
 }
-
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
+.rpg.companion{
+    background-position:-238px -34px
 }
-
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
+.rpg.monster{
+    background-position:0 -68px
+}
+.rpg.poison{
+    background-position:-34px -68px
+}
+.rpg.disease{
+    background-position:-68px -68px
+}
+.rpg.armor{
+    background-position:-136px -68px
+}
+.rpg.implement{
+    background-position:-136px -34px
+}
+.rpg.weapon{
+    background-position:-102px -68px
+}
+.detail{
+    background-color:#f8f8f8;
+    border:2px solid #666;
+    border-radius:10px;
+    box-shadow:1ex 1ex 2ex #888;
+    font-size:90%;
+    line-height:1.2em;
+    max-width:800px;
+    margin:50px auto 10px;
+    padding:0 10px;
+    position:relative
+}
+.detail *{
+    padding:0;
+    margin:0
+}
+.detail h1,.detail h2,.detail h3{
+    display:table;
+    font-size:110%;
+    padding-top:1ex;
+    padding-bottom:.5ex;
+    width:100%
+}
+.detail h1+br,.detail h2+br,.detail h3+br{
+    display:none
+}
+.detail p,.detail div,.detail table{
+    padding-top:.5ex;
+    padding-bottom:.5ex
+}
+.detail p[class]:empty,.detail p:empty+br{
+    display:none
+}
+.detail table td:only-child:empty{
+    display:none
+}
+.detail>h1:first-child,.detail>h1.atwillpower,.detail>h1.encounterpower,.detail>h1.dailypower,.detail>h1.mihead,.detail .power>h1:first-child{
+    border-bottom:1px solid #666;
+    border-top-left-radius:8px;
+    border-top-right-radius:8px;
+    margin:0 -10px;
+    padding:8px 10px 5px;
+    width:calc(100% + 20px)
+}
+.detail>h1.atwillpower:not(:first-child),.detail>h1.encounterpower:not(:first-child),.detail>h1.dailypower:not(:first-child){
+    margin-top:10px
+}
+.detail h1 .level,.detail h1 .milevel,.detail h1 .thLevel{
+    display:table-cell;
+    padding-left:8px;
+    text-align:right;
+    vertical-align:top
+}
+.detail .cat{
+    color:#888;
+    display:inline-block;
+    /* float:left; */
+}
+.detail .publishedIn{
+    font-size:smaller;
+    color:#888;
+    text-align:right
+}
+.detail .publishedIn:after{
+    content:"";
+    display:table;
+    clear:both
+}
+.detail .player,.detail .monster,.detail .familiar{
+    background-color:#BBF
+}
+.detail .miset,.detail .mihead{
+    background-color:Gold
+}
+.detail .atwillpower{
+    background-color:#4F4
+}
+.detail .encounterpower{
+    background-color:#F44
+}
+.detail .dailypower{
+    background-color:#888
+}
+.detail .trap,.detail h1.thHead,.detail .poison{
+    background-color:#8B8
+}
+.detail .dm{
+    background-color:#DBF
+}
+.detail h2.mihead,.detail h1:not(:first-child),.detail .miflavor,.detail .flavor,.detail .flavortext,.detail>h1+i:not(:empty){
+    margin-left:-10px;
+    margin-right:-10px;
+    padding-left:10px;
+    padding-right:10px;
+    width:calc(100% + 20px)
+}
+.detail .miflavor,.detail .flavortext,.detail .flavor:not(.indent){
+    background-color:#CCC;
+    display:block;
+    padding-bottom:5px
+}
+.detail h1.monster+.flavor{
+    background-color:transparent
+}
+.detail>h1+i+br{
+    display:none
+}
+.detail .player+.flavor,.detail .bodytable .flavor,.detail>h1+i+.flavor,.detail>h1+i+br+.flavor{
+    background-color:transparent
+}
+.detail>h1+i:not(:empty){
+    background-color:#DDD;
+    display:block;
+    padding-top:5px;
+    padding-bottom:5px
+}
+.detail ul{
+    margin-left:1em
+}
+.detail table{
+    border-spacing:0
+}
+.detail table th,.detail table td{
+    padding:3px 10px
+}
+.detail *:not(h1)+table th{
+    background-color:#CCC
+}
+.detail *:not(h1)+table tr:nth-child(odd){
+    background-color:#e0e0e0
+}
+.detail .magicitem,.detail .bodytable{
+    margin-left:-10px;
+    margin-right:-10px;
+    padding-top:0;
+    width:calc(100% + 20px)
+}
+.detail b{
+    display:inline-block;
+    margin-left:2ex;
+    margin-right:.8ex;
+    margin-top:.8ex
+}
+.detail .powerstat b{
+    margin:0
+}
+.detail b:first-child,.detail h1+b,.detail h2+b,.detail h3+b,.detail br+b{
+    margin-left:0
+}
+.detail .power{
+    display:block;
+    border:1px solid grey;
+    border-radius:10px;
+    padding:0 10px;
+    margin-bottom:2ex
+}
+.detail .power>p:last-of-type{
+    border-bottom-left-radius:10px;
+    border-bottom-right-radius:10px;
+    margin-bottom:0
+}
+.detail .power>p:last-of-type+br:last-child{
+    display:none
+}
+.detail h1.magicitem,.detail h2.mihead{
+    margin-top:1ex;
+    background-color:#FE8
+}
+.detail .miright{
+    display:block;
+    float:right;
+    width:50%
+}
+.detail .ignore+.mihead{
+    margin-top:1em
+}
+.detail .ritualstats{
+    float:left;
+    margin-right:1em
+}
+.detail .ritualstats ~ p{
+    clear:left
+}
+.detail .ah1,.detail .ah2{
+    font-size:110%
+}
+.detail .trapblocktitle{
+    display:block;
+    font-weight:bold;
+    margin-top:1em
+}
+.detail .thXP{
+    display:block
+}
+.detail .trapblockbody{
+    display:block
 }

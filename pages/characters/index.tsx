@@ -7,6 +7,7 @@ export default function CharactersPage() {
   const { data: characters } = useCharacters();
   const { data: powers } = usePowers();
   console.log(characters, powers);
+
   return (
     <Grid>
       <Paper
