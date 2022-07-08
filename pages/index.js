@@ -1,26 +1,24 @@
-import Head from "next/head";
-import Image from "next/image";
-import { PowerCard } from "../components/PowerCard";
 import "../styles/Home.module.css";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import { powers } from "../components/powerJson";
+import Link from "next/link";
 
 export default function Home() {
-  const powerArray = Object.keys(powers);
   return (
-    <Swiper
-      spaceBetween={50}
-      ver
-      slidesPerView={1}
-      onSlideChange={() => console.log("slide change")}
-      onSwiper={(swiper) => console.log(swiper)}
-    >
-      {powerArray.map((power) => (
-        <SwiperSlide>
-          <PowerCard id={power} />
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <ul>
+      <li>
+        <Link href="/">
+          <a>Home</a>
+        </Link>
+      </li>
+      <li>
+        <Link href="/characters">
+          <a>About Us</a>
+        </Link>
+      </li>
+      <li>
+        <Link href="/blog/hello-world">
+          <a>Blog Post</a>
+        </Link>
+      </li>
+    </ul>
   );
 }

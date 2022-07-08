@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { powers } from "../components/powerJson";
 
-export default function Characters() {
+export default function CharacterPage() {
   const powerArray = Object.keys(powers);
   return (
     <Swiper

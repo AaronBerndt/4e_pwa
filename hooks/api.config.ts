@@ -1,3 +1,2 @@
-const FETCH_URL = "https://sotdl-api-fetch.vercel.app/api";
-
-export const CHARACTER_URL = `${FETCH_URL}/characters`;
+export const CHARACTER_URL = `/api/hello`;
+export const POWERS_URL = `/api/powers`;
