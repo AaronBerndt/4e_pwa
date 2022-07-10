@@ -4,6 +4,7 @@ import useAncestries from "../hooks/useAncestries";
 import usePowers from "../hooks/usePowers";
 import {
   Button,
+  Divider,
   Grid,
   List,
   ListItem,
@@ -66,6 +67,7 @@ export function PickPowersView() {
             >
               <ListItemDrawer content={power} />
             </ListItem>
+            <Divider />
           </Grid>
         ))}
       </List>

@@ -8,7 +8,9 @@ import {
   ListItemButton,
   SwipeableDrawer,
 } from "../node_modules/@mui/material/index";
+import { DisplayCard } from "./DisplayCard";
 import { ListItemDrawer } from "./ListItemDrawer";
+import { find } from "lodash";
 
 export function PickClassView() {
   const { data: classes, isLoading } = useClasses();
@@ -19,26 +21,38 @@ export function PickClassView() {
     return <div>...Loading</div>;
   }
 
-  const onSelectClass = (classToSelect) => {
+  const onSelectClass = (classToSelect) =>
     setCharacterClass(classToSelect.name);
-  };
+
+  const onRemoveClass = () => setCharacterClass("");
 
   return (
     <Grid container center>
-      <List secondaryAction={<Button onClick={onSelectClass}>Select</Button>}>
-        {classes.map((characterClass) => (
-          <ListItem
-            style={{ border: "10px" }}
-            secondaryAction={
-              <Button onClick={() => onSelectClass(characterClass)}>
-                Select
-              </Button>
-            }
-          >
-            <ListItemDrawer content={characterClass} />
-          </ListItem>
-        ))}
-      </List>
+      {selectedCharacterClass !== "" ? (
+        <>
+          <DisplayCard
+            htmlToRender={find(classes, { name: selectedCharacterClass }).html}
+          />
+          <Button variant="contained" onClick={onRemoveClass} fullWidth>
+            Choose another Class
+          </Button>
+        </>
+      ) : (
+        <List secondaryAction={<Button onClick={onSelectClass}>Select</Button>}>
+          {classes.map((characterClass) => (
+            <ListItem
+              style={{ border: "10px" }}
+              secondaryAction={
+                <Button onClick={() => onSelectClass(characterClass)}>
+                  Select
+                </Button>
+              }
+            >
+              <ListItemDrawer content={characterClass} />
+            </ListItem>
+          ))}
+        </List>
+      )}
     </Grid>
   );
 }

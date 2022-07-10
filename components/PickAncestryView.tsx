@@ -3,6 +3,7 @@ import { useCharacterBuilderContext } from "../context/CharacterBuildContext";
 import useAncestries from "../hooks/useAncestries";
 import {
   Button,
+  Divider,
   Grid,
   List,
   ListItem,
@@ -24,15 +25,22 @@ export function PickAncestryView() {
     return <div>...Loading</div>;
   }
 
-  const onSelectAncestry = (ancestryToSelect) => {
-    console.log(ancestryToSelect);
+  const onSelectAncestry = (ancestryToSelect) =>
     setAncestry(ancestryToSelect.name);
-  };
+
+  const onRemoveAncestry = () => setAncestry("");
 
   return (
     <Grid container center>
       {selectedAncestry !== "" ? (
-        <p>{selectedAncestry}</p>
+        <>
+          <DisplayCard
+            htmlToRender={find(ancestries, { name: selectedAncestry }).html}
+          />
+          <Button variant="contained" onClick={onRemoveAncestry} fullWidth>
+            Choose another Ancestry
+          </Button>
+        </>
       ) : (
         <List>
           {ancestries.map((ancestry) => (
@@ -47,6 +55,7 @@ export function PickAncestryView() {
               >
                 <ListItemDrawer content={ancestry} />
               </ListItem>
+              <Divider />
             </Grid>
           ))}
         </List>
