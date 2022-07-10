@@ -11,7 +11,11 @@ export const preFetchPowers = (queryClient: QueryClient) =>
   queryClient.prefetchQuery(KEY, fetchPowers);
 
 export default function usePowers(className?: string, level?: string) {
-  return useQuery<any>([KEY], fetchPowers, {
-    select: ({ data }) => data,
-  });
+  return useQuery<any>(
+    [KEY, className, level],
+    () => fetchPowers(className, level),
+    {
+      select: ({ data }) => data,
+    }
+  );
 }

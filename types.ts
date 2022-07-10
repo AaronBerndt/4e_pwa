@@ -36,6 +36,13 @@ export type Character = {
     reflex: number;
     will: number;
   };
+  feats: string[];
+  powers: {
+    atWill: string[];
+    encounter: string[];
+    daily: string[];
+    utility: string[];
+  };
   inventory: Item[];
   skills: string[];
   gear: {
@@ -63,4 +70,9 @@ export type Character = {
 export type Item = {
   _id: string;
   amount: number;
+};
+
+export type Filter = {
+  name: string;
+  value: string;
 };

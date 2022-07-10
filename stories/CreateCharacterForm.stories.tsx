@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  CharacterAttributesForm,
   CreateCharacterForm,
   PowersForm,
 } from "../components/CreateCharacterForm";
@@ -59,6 +60,26 @@ export const Feats = (args) => (
     {(props) => (
       <Form>
         <CreateCharacterForm formik={props} />;
+      </Form>
+    )}
+  </Formik>
+);
+
+export const CharacterAttributes = (args) => (
+  <Formik
+    initialValues={{
+      strength: 10,
+      dexterity: 10,
+      constitution: 10,
+      intelligence: 10,
+      wisdom: 10,
+      charisma: 10,
+    }}
+    onSubmit={(values) => console.log(values)}
+  >
+    {(props) => (
+      <Form>
+        <CharacterAttributesForm formik={props} />;
       </Form>
     )}
   </Formik>

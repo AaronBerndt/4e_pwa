@@ -7,6 +7,6 @@ type Props = {
   htmlToRender: string;
 };
 
-export function PowerCard({ htmlToRender }: Props) {
+export function DisplayCard({ htmlToRender }: Props) {
   return <div className="detail">{parse(htmlToRender)}</div>;
 }
