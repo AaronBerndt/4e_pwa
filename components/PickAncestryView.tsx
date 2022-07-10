@@ -32,13 +32,7 @@ export function PickAncestryView() {
   return (
     <Grid container center>
       {selectedAncestry !== "" ? (
-        <>
-          <DisplayCard
-            htmlToRender={
-              find(ancestries, { name: `${selectedAncestry.name}` })?.html
-            }
-          />
-        </>
+        <p>{selectedAncestry}</p>
       ) : (
         <List>
           {ancestries.map((ancestry) => (

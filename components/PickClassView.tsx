@@ -20,7 +20,7 @@ export function PickClassView() {
   }
 
   const onSelectClass = (classToSelect) => {
-    setCharacterClass(classToSelect);
+    setCharacterClass(classToSelect.name);
   };
 
   return (

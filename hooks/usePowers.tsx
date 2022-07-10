@@ -1,19 +1,39 @@
 import { QueryClient, useQuery } from "react-query";
 import axios from "../node_modules/axios/index";
-import { CHARACTER_URL, POWERS_URL } from "./api.config";
 
 export const KEY = "Fetch Powers";
 
-const fetchPowers = (className, level) =>
-  axios.get(`/api/powers/?className=${className}&level=${level}`);
+const fetchPowers = ({
+  level,
+  characterClass,
+  paragonPath,
+  epicDestiny,
+  ancestry,
+}) =>
+  axios.get(
+    `/api/powers?className=${characterClass}&level=${level}&paragonPath=${paragonPath}&ancestry=${ancestry}&epicDestiny=${epicDestiny}`
+  );
 
 export const preFetchPowers = (queryClient: QueryClient) =>
   queryClient.prefetchQuery(KEY, fetchPowers);
 
-export default function usePowers(className?: string, level?: string) {
+export default function usePowers({
+  level,
+  characterClass,
+  paragonPath,
+  epicDestiny,
+  ancestry,
+}) {
   return useQuery<any>(
-    [KEY, className, level],
-    () => fetchPowers(className, level),
+    [KEY, characterClass, paragonPath, epicDestiny, ancestry],
+    () =>
+      fetchPowers({
+        level,
+        characterClass,
+        paragonPath,
+        epicDestiny,
+        ancestry,
+      }),
     {
       select: ({ data }) => data,
     }

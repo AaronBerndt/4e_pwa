@@ -18,31 +18,50 @@ export function PickPowersView() {
     setPowers,
     level,
     characterClass,
-    paragonPaths,
+    paragonPath,
     epicDestiny,
     ancestry,
   } = useCharacterBuilderContext();
 
   const [filter, setFilter] = useState({ name: "", value: "" });
-  const { data: powers, isLoading } = usePowers();
+  const { data: powers, isLoading } = usePowers({
+    characterClass,
+    paragonPath,
+    epicDestiny,
+    ancestry,
+    level,
+  });
 
   if (isLoading) {
     return <div>...Loading</div>;
   }
 
-  const onSelectPower = (powerToSelect) => {
-    setPowers(powerToSelect);
-  };
+  const onSelectPowerAdd = (powerToSelect) =>
+    setPowers((prev) => [...prev, powerToSelect.name]);
+
+  const onSelectPowerRemove = (powerToSelect) =>
+    setPowers((prev) =>
+      prev.filter((powerName) => powerName !== powerToSelect.name)
+    );
 
   return (
-    <Grid container center>
+    <Grid container center xs={12}>
       <List>
         {powers.map((power) => (
-          <Grid item xs={12}>
+          <Grid item xs={12} md={12}>
             <ListItem
+              fullWidth
               style={{ border: "10px" }}
               secondaryAction={
-                <Button onClick={() => onSelectPower(power)}>Add</Button>
+                <>
+                  {selectedPowers.includes(power.name) ? (
+                    <Button onClick={() => onSelectPowerRemove(power)}>
+                      Remove
+                    </Button>
+                  ) : (
+                    <Button onClick={() => onSelectPowerAdd(power)}>Add</Button>
+                  )}
+                </>
               }
             >
               <ListItemDrawer content={power} />

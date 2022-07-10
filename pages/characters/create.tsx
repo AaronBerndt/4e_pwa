@@ -19,8 +19,7 @@ import { PickClassView } from "../../components/PickClassView";
 import { PickPowersView } from "../../components/PickPowersView";
 import { CharacterBuilderProvider } from "../../context/CharacterBuildContext";
 
-export default function CreateCharacterPage(stateProps) {
-  const { data: powers } = usePowers();
+export default function CreateCharacterPage() {
   const slides = ["Name/Level/Class/Race", "Powers", "Feats"];
   const [activeStep, setActiveStep] = useState(0);
   const handleNext = () => {
@@ -75,24 +74,4 @@ export default function CreateCharacterPage(stateProps) {
       />
     </Grid>
   );
-}
-
-export async function getStaticProps(ctx) {
-  const ancestries = await fetchCollection("ancestries");
-  const classes = await fetchCollection("classes");
-  const paragonPaths = await fetchCollection("paragonPaths");
-  const epicDestinies = await fetchCollection("epicDestinies");
-  const powers = await fetchCollection("powers", {
-    class: "Fighter",
-    level: "1",
-  });
-
-  return {
-    props: {
-      ancestries: ancestries.map((object) => omit(object, ["_id"])),
-      classes: classes.map((object) => omit(object, ["_id"])),
-      paragonPaths: paragonPaths.map((object) => omit(object, ["_id"])),
-      epicDestinies: epicDestinies.map((object) => omit(object, ["_id"])),
-    },
-  };
 }
