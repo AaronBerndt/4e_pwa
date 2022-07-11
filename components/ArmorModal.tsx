@@ -36,9 +36,9 @@ export function ArmorModal() {
     setGear((prev: Armor) => ({
       ...prev,
       armor: {
-        name: baseArmor.name,
+        name: baseArmor?.name,
         enhancement,
-        magicArmor: magicArmor.name,
+        magicArmor: magicArmor?.name,
       },
     }));
 
