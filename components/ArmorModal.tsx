@@ -25,7 +25,7 @@ export function ArmorModal() {
   const [enhancement, setEnhancement] = useState(0);
   const [magicArmor, setMagicArmor] = useState(null);
 
-  const { data: armorList, isLoading } = useArmor();
+  const { data: armorList, isLoading }: any = useArmor();
   const { open, toggleOpen } = useToggle();
 
   if (isLoading) {
@@ -55,7 +55,7 @@ export function ArmorModal() {
               <InputLabel id="armor">Base Armor</InputLabel>
               <Select
                 id="armor"
-                onChange={(e) => {
+                onChange={(e: any) => {
                   setBaseArmor(find(armorList, { name: e.target.value }));
                   setMagicArmor(null);
                 }}
@@ -77,7 +77,7 @@ export function ArmorModal() {
                   <InputLabel id="enhancement">Enhancement</InputLabel>
                   <Select
                     id="enhancement"
-                    onChange={(e) => setEnhancement(e.target.value)}
+                    onChange={(e: any) => setEnhancement(e.target.value)}
                   >
                     {range(1, 7).map((value) => (
                       <MenuItem value={value} key={value}>
@@ -90,7 +90,7 @@ export function ArmorModal() {
                   <InputLabel id="magic">Magic Armor</InputLabel>
                   <Select
                     id="magic"
-                    onChange={(e) =>
+                    onChange={(e: any) =>
                       setMagicArmor(find(armorList, { name: e.target.value }))
                     }
                   >

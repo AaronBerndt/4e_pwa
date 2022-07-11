@@ -6,9 +6,6 @@ export const KEY = "Fetch Items";
 const fetchItems = ({ category }) =>
   axios.get(`/api/items?category=${category}`);
 
-export const preFetchItems = (queryClient: QueryClient) =>
-  queryClient.prefetchQuery(KEY, fetchItems);
-
 export default function useItems(props) {
   return useQuery<any>([KEY, props], () => fetchItems(props), {
     select: ({ data }) => data,

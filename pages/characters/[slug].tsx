@@ -15,7 +15,7 @@ export default function CharacterPage(props) {
 
   console.log(character);
   return (
-    <Stack center spacing={2} style={{ padding: "15px" }}>
+    <Stack spacing={2} style={{ padding: "15px" }}>
       <h2>CharacterName: {character.name}</h2>
       <PowerCards cards={character.powers} />
     </Stack>

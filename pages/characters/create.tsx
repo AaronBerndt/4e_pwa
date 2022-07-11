@@ -19,7 +19,6 @@ import {
   Box,
 } from "../../node_modules/@mui/material/index";
 import { fetchCollection } from "../../utils/mongoUtils";
-import { Feats } from "../../stories/CreateCharacterForm.stories";
 import { PickFeatsView } from "../../components/PickFeatsView";
 import { PickGearView } from "../../components/PickGearView";
 import { WrapupView } from "../../components/WrapUpView";
@@ -67,9 +66,7 @@ export default function CreateCharacterPage(props) {
 
       <CharacterBuilderProvider>
         <Swiper
-          realIndex={activeStep}
           spaceBetween={15}
-          ver
           slidesPerView={1}
           onSlideChange={({ activeIndex }) => {
             setActiveStep(activeIndex);

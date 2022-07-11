@@ -15,14 +15,14 @@ export function CreateCharacterForm() {
     useCharacterBuilderContext();
 
   return (
-    <Stack center spacing={2} style={{ padding: "15px" }}>
+    <Stack spacing={2} style={{ padding: "15px" }}>
       <TextField
         fullWidth
         id="name"
         name="name"
         label="Name"
         value={name}
-        onChange={(e) => {
+        onChange={(e: any) => {
           setName(e.target.value);
         }}
       />
@@ -32,7 +32,7 @@ export function CreateCharacterForm() {
           labelId="levelLabel"
           value={level}
           label="level"
-          onChange={(e) => setLevel(e.target.value)}
+          onChange={(e: any) => setLevel(e.target.value)}
         >
           {range(1, 31).map((value) => (
             <MenuItem value={value} key={value}>
@@ -57,7 +57,7 @@ export function CreateCharacterForm() {
             fullWidth
             id={abilityScore}
             value={abilityScores[abilityScore]}
-            onChange={(e) =>
+            onChange={(e: any) =>
               setAbilityScores((prev) => ({
                 ...prev,
                 [abilityScore]: e.target.value,

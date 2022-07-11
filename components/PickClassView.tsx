@@ -14,7 +14,7 @@ import { ListItemDrawer } from "./ListItemDrawer";
 import { find } from "lodash";
 
 export function PickClassView({ setActiveStep }) {
-  const { data: classes, isLoading } = useClasses();
+  const { data: classes, isLoading }: any = useClasses();
   const { characterClass: selectedCharacterClass, setCharacterClass } =
     useCharacterBuilderContext();
 
@@ -30,7 +30,7 @@ export function PickClassView({ setActiveStep }) {
   const onRemoveClass = () => setCharacterClass("");
 
   return (
-    <Stack center spacing={2} style={{ padding: "15px" }}>
+    <Stack spacing={2} style={{ padding: "15px" }}>
       {selectedCharacterClass !== "" ? (
         <>
           <DisplayCard
@@ -41,7 +41,7 @@ export function PickClassView({ setActiveStep }) {
           </Button>
         </>
       ) : (
-        <List secondaryAction={<Button onClick={onSelectClass}>Select</Button>}>
+        <List>
           {classes.map((characterClass) => (
             <ListItem
               key={characterClass.name}

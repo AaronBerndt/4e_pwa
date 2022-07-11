@@ -39,12 +39,11 @@ export function PickTrainedSkillsView() {
     );
 
   return (
-    <Stack center spacing={2} style={{ padding: "15px" }}>
+    <Stack spacing={2} style={{ padding: "15px" }}>
       <List>
         {skillList.map((skill) => (
           <>
             <ListItem
-              fullWidth
               style={{ border: "10px" }}
               secondaryAction={
                 <>

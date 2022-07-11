@@ -9,7 +9,7 @@ export function ListItemDrawer({ content }) {
   return (
     <>
       <ListItemButton onClick={toggleOpen}>{content.name}</ListItemButton>
-      <SwipeableDrawer open={open} onClose={toggleOpen}>
+      <SwipeableDrawer open={open} onClose={toggleOpen} onOpen={() => null}>
         <DisplayCard htmlToRender={content.html} />
       </SwipeableDrawer>
     </>

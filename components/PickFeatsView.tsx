@@ -67,7 +67,7 @@ export function PickFeatsView() {
       : feats.filter(({ tier }: Feat) => tier === featTypeFilter);
 
   return (
-    <Stack center spacing={2} style={{ padding: "15px" }}>
+    <Stack spacing={2} style={{ padding: "15px" }}>
       <ButtonGroup fullWidth>
         <Button
           color={featTypeFilter === "All" ? "secondary" : "primary"}
@@ -99,7 +99,6 @@ export function PickFeatsView() {
         {filteredFeats.map((feat: Feat) => (
           <>
             <ListItem
-              fullWidth
               style={{ border: "10px" }}
               secondaryAction={
                 <>

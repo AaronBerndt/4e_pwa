@@ -40,12 +40,11 @@ export function PickPowersView() {
     );
 
   return (
-    <Stack center spacing={2} style={{ padding: "15px" }}>
+    <Stack spacing={2} style={{ padding: "15px" }}>
       <List>
         {powers.map((power: Power) => (
           <>
             <ListItem
-              fullWidth
               style={{ border: "10px" }}
               key={power.name}
               secondaryAction={

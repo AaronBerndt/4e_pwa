@@ -25,7 +25,7 @@ export function ShieldModal() {
   const [enhancement, setEnhancement] = useState(0);
   const [magicShield, setMagicShield] = useState(null);
 
-  const { data: armorList, isLoading } = useArmor();
+  const { data: armorList, isLoading }: any = useArmor();
   const { open, toggleOpen } = useToggle();
 
   if (isLoading) {
@@ -62,7 +62,7 @@ export function ShieldModal() {
               <InputLabel id="armor">Base Shield</InputLabel>
               <Select
                 id="armor"
-                onChange={(e) => {
+                onChange={(e: any) => {
                   setBaseShield(find(armorList, { name: e.target.value }));
                   setMagicShield(null);
                 }}
@@ -84,7 +84,7 @@ export function ShieldModal() {
                   <InputLabel id="enhancement">Enhancement</InputLabel>
                   <Select
                     id="enhancement"
-                    onChange={(e) => setEnhancement(e.target.value)}
+                    onChange={(e: any) => setEnhancement(e.target.value)}
                   >
                     {range(1, 7).map((value) => (
                       <MenuItem value={value} key={value}>
@@ -97,7 +97,7 @@ export function ShieldModal() {
                   <InputLabel id="magic">Magic Shield</InputLabel>
                   <Select
                     id="magic"
-                    onChange={(e) =>
+                    onChange={(e: any) =>
                       setMagicShield(find(armorList, { name: e.target.value }))
                     }
                   >

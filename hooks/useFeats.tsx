@@ -10,9 +10,6 @@ const fetchFeats = ({ ancestry, characterClass, featList, powerList, level }) =>
     )}&powerList=${powerList.join(",")}&level=${level}`
   );
 
-export const preFetchFeats = (queryClient: QueryClient) =>
-  queryClient.prefetchQuery(KEY, fetchFeats);
-
 export default function useFeats(props) {
   return useQuery<any>(
     [KEY],

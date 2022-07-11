@@ -8,9 +8,6 @@ const fetchEpicDestinies = ({ ancestry, className, powerList, featList }) =>
     `/api/epicDestinies?ancestry=${ancestry}&className=${className}&featList=${powerList}&featList=${featList}`
   );
 
-export const preFetchEpicDestinies = (queryClient: QueryClient) =>
-  queryClient.prefetchQuery(KEY, fetchEpicDestinies);
-
 export default function useEpicDestinies(props) {
   return useQuery<any>([KEY, props], () => fetchEpicDestinies(props), {
     select: ({ data }) => data,

@@ -3,25 +3,11 @@ import useCreateChracter from "../hooks/useCreateCharacter";
 import { Button, Grid } from "../node_modules/@mui/material/index";
 
 export function WrapupView() {
-  const {
-    name,
-    level,
-    ancestry,
-    abilityScores,
-    characterClass,
-    paragonPath,
-    epicDestiny,
-    powers,
-    feats,
-    trainedSkills,
-    gear,
-    inventory,
-    currency,
-  } = useCharacterBuilderContext();
-  const { mutate: createCharacter } = useCreateChracter();
+  const { name, level, characterClass } = useCharacterBuilderContext();
+  const { mutate: createCharacter }: any = useCreateChracter();
 
   return (
-    <Grid container center>
+    <Grid>
       <Grid item xs={12}>
         Name: {name}
       </Grid>
@@ -35,7 +21,12 @@ export function WrapupView() {
       <Grid item xs={12}></Grid>
       <Grid item xs={12}></Grid>
 
-      <Button variant="contained" fullWidth onClick={createCharacter}>
+      <Button
+        variant="outlined"
+        color="secondary"
+        fullWidth
+        onClick={() => createCharacter}
+      >
         Create Character
       </Button>
     </Grid>

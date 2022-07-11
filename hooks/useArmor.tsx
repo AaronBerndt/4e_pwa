@@ -3,7 +3,7 @@ import axios from "../node_modules/axios/index";
 
 export const KEY = "Fetch Armor";
 
-const fetchArmor = (className, level) => axios.get(`/api/armor`);
+const fetchArmor = () => axios.get(`/api/armor`);
 
 export const preFetchArmor = (queryClient: QueryClient) =>
   queryClient.prefetchQuery(KEY, fetchArmor);

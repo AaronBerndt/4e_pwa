@@ -16,7 +16,7 @@ import { find } from "lodash";
 
 export function PickAncestryView({ setActiveStep }) {
   const [filter, setFilter] = useState({ name: "", value: "" });
-  const { data: ancestries, isLoading } = useAncestries();
+  const { data: ancestries, isLoading }: any = useAncestries();
 
   const { ancestry: selectedAncestry, setAncestry } =
     useCharacterBuilderContext();
@@ -33,7 +33,7 @@ export function PickAncestryView({ setActiveStep }) {
   }
 
   return (
-    <Stack center spacing={2} style={{ padding: "15px" }}>
+    <Stack spacing={2} style={{ padding: "15px" }}>
       {selectedAncestry !== "" ? (
         <>
           <DisplayCard

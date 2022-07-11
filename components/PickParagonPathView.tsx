@@ -34,7 +34,7 @@ export function PickParagonPathView() {
   const onRemoveParagonPath = () => setCharacterParagonPath("");
 
   return (
-    <Grid container center>
+    <Grid>
       {selectedParagonPath !== "" ? (
         <>
           <DisplayCard
@@ -47,11 +47,7 @@ export function PickParagonPathView() {
           </Button>
         </>
       ) : (
-        <List
-          secondaryAction={
-            <Button onClick={onSelectParagonPath}>Select</Button>
-          }
-        >
+        <List>
           {paragonPaths.map((paragonPath) => (
             <ListItem
               key={paragonPath.name}
