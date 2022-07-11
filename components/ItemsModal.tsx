@@ -9,11 +9,22 @@ import {
   DialogTitle,
   List,
   ListItemButton,
+  Dialog,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  DialogActions,
 } from "../node_modules/@mui/material/index";
 import { Gear } from "../types";
+import { useState } from "react";
+import { DisplayCard } from "./DisplayCard";
 
 export function ItemsModal({ gearName }) {
+  console.log(gearName);
   const { gear, setGear } = useCharacterBuilderContext();
+  const [item, setItem] = useState(null);
+
   const { data: items, isLoading } = useItems({
     category: gearName === "Rings" ? "Ring" : gearName,
   });
@@ -24,30 +35,46 @@ export function ItemsModal({ gearName }) {
     return <Skeleton animation="wave" />;
   }
 
-  const onItemSelect = (value: string) => {
+  const onItemSelect = (value) => {
     setGear((prev: Gear) => ({
       ...prev,
-      [gearName.toLowerCase()]: value,
+      [gearName.toLowerCase()]: value.name,
     }));
   };
 
   return (
     <>
+      {item && <DisplayCard htmlToRender={item.html} />}
       <Button fullWidth variant="contained" onClick={toggleOpen}>
-        Add {gearName}
+        {gear[gearName === "Rings" ? "rings" : gearName.toLowerCase()] === ""
+          ? "Add"
+          : "Change"}{" "}
+        {gearName}
       </Button>
-      <SwipeableDrawer open={open} onClose={toggleOpen} fullWidth>
+      <Dialog open={open} onClose={toggleOpen} fullScreen>
         <Stack>
           <DialogTitle>{gearName}</DialogTitle>
-          <List>
-            {items.map((item) => (
-              <ListItemButton onClick={() => onItemSelect(item)}>
-                {item.name}
-              </ListItemButton>
-            ))}
-          </List>
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="item">{gearName}</InputLabel>
+            <Select
+              id="item"
+              onChange={(e) => setItem(e.target.value)}
+              value={gear[gearName.toLowerCase()]}
+            >
+              {items.map((item) => (
+                <MenuItem value={item} key={item.name}>
+                  {item.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Stack>
-      </SwipeableDrawer>
+
+        {item && <DisplayCard htmlToRender={item.html} />}
+        <DialogActions>
+          <Button onClick={toggleOpen}>Close</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

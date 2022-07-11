@@ -35,7 +35,9 @@ export function CreateCharacterForm() {
           onChange={(e) => setLevel(e.target.value)}
         >
           {range(1, 31).map((value) => (
-            <MenuItem value={value}>{value}</MenuItem>
+            <MenuItem value={value} key={value}>
+              {value}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>
@@ -49,7 +51,7 @@ export function CreateCharacterForm() {
         "wisdom",
         "charisma",
       ].map((abilityScore) => (
-        <FormControl fullWidth>
+        <FormControl fullWidth key={abilityScore}>
           <InputLabel id={abilityScore}>{capitalize(abilityScore)}</InputLabel>
           <Select
             fullWidth
@@ -63,7 +65,9 @@ export function CreateCharacterForm() {
             }
           >
             {range(1, 31).map((value) => (
-              <MenuItem value={value}>{value}</MenuItem>
+              <MenuItem value={value} key={value}>
+                {value}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>

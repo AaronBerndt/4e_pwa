@@ -15,8 +15,8 @@ export function PowerCards({ cards }: Props) {
       onSlideChange={() => console.log("slide change")}
       onSwiper={(swiper) => console.log(swiper)}
     >
-      {cards.map(({ html }) => (
-        <SwiperSlide>
+      {cards.map(({ html }, i) => (
+        <SwiperSlide key={i}>
           <PowerCard htmlToRender={html} />
         </SwiperSlide>
       ))}

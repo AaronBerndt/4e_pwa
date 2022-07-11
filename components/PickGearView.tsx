@@ -4,6 +4,7 @@ import { ArmorModal } from "./ArmorModal";
 import { ItemsModal } from "./ItemsModal";
 import { WeaponsModal } from "./WeaponsModal";
 import { capitalize } from "lodash";
+import { ShieldModal } from "./ShieldModal";
 
 export function PickGearView() {
   const { gear, setGear } = useCharacterBuilderContext();
@@ -15,9 +16,9 @@ export function PickGearView() {
           {gearName === "weapons" ? (
             <WeaponsModal />
           ) : gearName === "armor" ? (
-            <ArmorModal type="Armor" />
+            <ArmorModal />
           ) : gearName === "shield" ? (
-            <ArmorModal type="Shield" />
+            <ShieldModal />
           ) : (
             <ItemsModal gearName={capitalize(gearName)} />
           )}

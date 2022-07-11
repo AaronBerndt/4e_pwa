@@ -13,8 +13,8 @@ export default function CharacterPage() {
       onSlideChange={() => console.log("slide change")}
       onSwiper={(swiper) => console.log(swiper)}
     >
-      {powerArray.map((power) => (
-        <SwiperSlide>
+      {powerArray.map((power, i) => (
+        <SwiperSlide key={i}>
           <PowerCard htmlToRender={power} />
         </SwiperSlide>
       ))}

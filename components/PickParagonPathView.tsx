@@ -54,6 +54,7 @@ export function PickParagonPathView() {
         >
           {paragonPaths.map((paragonPath) => (
             <ListItem
+              key={paragonPath.name}
               style={{ border: "10px" }}
               secondaryAction={
                 <Button onClick={() => onSelectParagonPath(paragonPath)}>

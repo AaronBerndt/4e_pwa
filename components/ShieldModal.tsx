@@ -1,6 +1,5 @@
 import { useCharacterBuilderContext } from "../context/CharacterBuildContext";
 import useToggle from "../hooks/useToggleOpen";
-import useArmor from "../hooks/useArmor";
 import {
   Skeleton,
   Button,
@@ -14,16 +13,17 @@ import {
   MenuItem,
   DialogActions,
 } from "../node_modules/@mui/material/index";
-import { Armor, Gear } from "../types";
+import { Gear } from "../types";
 import { find, range } from "lodash";
 import { useState } from "react";
 import { DisplayCard } from "./DisplayCard";
+import useArmor from "../hooks/useArmor";
 
-export function ArmorModal() {
+export function ShieldModal() {
   const { gear, setGear } = useCharacterBuilderContext();
-  const [baseArmor, setBaseArmor] = useState(null);
+  const [baseShield, setBaseShield] = useState(null);
   const [enhancement, setEnhancement] = useState(0);
-  const [magicArmor, setMagicArmor] = useState(null);
+  const [magicShield, setMagicShield] = useState(null);
 
   const { data: armorList, isLoading } = useArmor();
   const { open, toggleOpen } = useToggle();
@@ -32,36 +32,43 @@ export function ArmorModal() {
     return <Skeleton animation="wave" />;
   }
 
-  const onAddArmor = () =>
-    setGear((prev: Armor) => ({
+  const onShieldSelect = (value) => {
+    setGear((prev: Gear) => ({
       ...prev,
-      armor: {
-        name: baseArmor.name,
+      shield: { name: value.name, enhacement: 0 },
+    }));
+  };
+
+  const onAddShield = () =>
+    setGear((prev) => ({
+      ...prev,
+      shield: {
+        name: baseShield.name,
         enhancement,
-        magicArmor: magicArmor.name,
+        magicShield: magicShield.name,
       },
     }));
 
   return (
     <>
       <Button fullWidth variant="contained" onClick={toggleOpen}>
-        Add Armor
+        Add Shield
       </Button>
       <Dialog open={open} onClose={toggleOpen} fullScreen>
-        <DialogTitle>Armor</DialogTitle>
+        <DialogTitle>Shield</DialogTitle>
         <DialogContent>
           <Stack>
             <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="armor">Base Armor</InputLabel>
+              <InputLabel id="armor">Base Shield</InputLabel>
               <Select
                 id="armor"
                 onChange={(e) => {
-                  setBaseArmor(find(armorList, { name: e.target.value }));
-                  setMagicArmor(null);
+                  setBaseShield(find(armorList, { name: e.target.value }));
+                  setMagicShield(null);
                 }}
               >
                 {armorList
-                  .filter(({ type }) => !type.includes("Shield"))
+                  .filter(({ type }) => type.includes("Shield"))
                   .filter(({ rarity }) => rarity === "Mundane")
                   .map((item) => (
                     <MenuItem value={item.name} key={item.name}>
@@ -70,9 +77,9 @@ export function ArmorModal() {
                   ))}
               </Select>
             </FormControl>
-            {baseArmor && (
+            {baseShield && (
               <>
-                <DisplayCard htmlToRender={baseArmor.html} />
+                <DisplayCard htmlToRender={baseShield.html} />
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                   <InputLabel id="enhancement">Enhancement</InputLabel>
                   <Select
@@ -87,17 +94,17 @@ export function ArmorModal() {
                   </Select>
                 </FormControl>
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                  <InputLabel id="magic">Magic Armor</InputLabel>
+                  <InputLabel id="magic">Magic Shield</InputLabel>
                   <Select
                     id="magic"
                     onChange={(e) =>
-                      setMagicArmor(find(armorList, { name: e.target.value }))
+                      setMagicShield(find(armorList, { name: e.target.value }))
                     }
                   >
                     {armorList
                       .filter(({ rarity }) => rarity !== "Mundane")
-                      .filter(
-                        ({ type: armorType }) => armorType === baseArmor.type
+                      .filter(({ type: armorType }) =>
+                        /Shield/i.test(armorType)
                       )
                       .map((item) => (
                         <MenuItem value={item.name} key={item.name}>
@@ -106,15 +113,15 @@ export function ArmorModal() {
                       ))}
                   </Select>
                 </FormControl>
-                {magicArmor && <DisplayCard htmlToRender={magicArmor.html} />}
+                {magicShield && <DisplayCard htmlToRender={magicShield.html} />}
               </>
             )}
           </Stack>
         </DialogContent>
         <DialogActions>
           <Button onClick={toggleOpen}>Close</Button>
-          <Button onClick={onAddArmor}>
-            {gear["armor"] === "" ? "Add Armor" : "Change Armor"}
+          <Button onClick={onAddShield}>
+            {gear["shield"] === "" ? "Add Shield" : "Change Shield"}
           </Button>
         </DialogActions>
       </Dialog>
