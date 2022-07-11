@@ -52,6 +52,7 @@ const CharacterBuilderContext = createContext<any>({
   trainedSkills: [],
   setTrainedSkills: Function,
   gear: defaultGear,
+  inventory: [],
   setInventory: Function,
   currency: defaultCurrency,
 });

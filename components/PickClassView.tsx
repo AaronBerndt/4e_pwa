@@ -40,20 +40,24 @@ export function PickClassView({ setActiveStep }) {
           </Button>
         </>
       ) : (
-        <List secondaryAction={<Button onClick={onSelectClass}>Select</Button>}>
-          {classes.map((characterClass) => (
-            <ListItem
-              style={{ border: "10px" }}
-              secondaryAction={
-                <Button onClick={() => onSelectClass(characterClass)}>
-                  Select
-                </Button>
-              }
-            >
-              <ListItemDrawer content={characterClass} />
-            </ListItem>
-          ))}
-        </List>
+        <Grid item xs={12} md={12}>
+          <List
+            secondaryAction={<Button onClick={onSelectClass}>Select</Button>}
+          >
+            {classes.map((characterClass) => (
+              <ListItem
+                style={{ border: "10px" }}
+                secondaryAction={
+                  <Button onClick={() => onSelectClass(characterClass)}>
+                    Select
+                  </Button>
+                }
+              >
+                <ListItemDrawer content={characterClass} />
+              </ListItem>
+            ))}
+          </List>
+        </Grid>
       )}
     </Grid>
   );

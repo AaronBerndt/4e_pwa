@@ -14,11 +14,16 @@ import {
   MobileStepper,
   Button,
   Grid,
+  Typography,
+  Paper,
+  Box,
 } from "../../node_modules/@mui/material/index";
 import { fetchCollection } from "../../utils/mongoUtils";
 import { Feats } from "../../stories/CreateCharacterForm.stories";
 import { PickFeatsView } from "../../components/PickFeatsView";
 import { PickGearView } from "../../components/PickGearView";
+import { WrapupView } from "../../components/WrapUpView";
+import { PickTrainedSkillsView } from "../../components/PickTrainedSkillsView";
 export default function CreateCharacterPage(props) {
   const slides = ["Name/Level/Class/Race", "Powers", "Feats"];
   const [activeStep, setActiveStep] = useState(0);
@@ -30,16 +35,43 @@ export default function CreateCharacterPage(props) {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  const steps = [
+    "Character Info",
+    "Ancestry",
+    "Class",
+    "Trained Skills",
+    "Powers",
+    "Feats",
+    "Gear",
+    "Wrap Up",
+  ];
+
   return (
     <Grid>
+      <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
+        <Paper
+          square
+          elevation={0}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            height: 50,
+            pl: 2,
+            bgcolor: "background.default",
+          }}
+        >
+          <Typography>{steps[activeStep]}</Typography>
+        </Paper>
+      </Box>
+
       <CharacterBuilderProvider>
         <Swiper
           realIndex={activeStep}
           spaceBetween={15}
           ver
           slidesPerView={1}
-          onSlideChange={({ previousIndex }) => {
-            setActiveStep(previousIndex + 1);
+          onSlideChange={({ activeIndex }) => {
+            setActiveStep(activeIndex);
           }}
         >
           <SwiperSlide>
@@ -52,6 +84,9 @@ export default function CreateCharacterPage(props) {
             <PickClassView setActiveStep={setActiveStep} />
           </SwiperSlide>
           <SwiperSlide>
+            <PickTrainedSkillsView />
+          </SwiperSlide>
+          <SwiperSlide>
             <PickPowersView />
           </SwiperSlide>
           <SwiperSlide>
@@ -60,11 +95,14 @@ export default function CreateCharacterPage(props) {
           <SwiperSlide>
             <PickGearView />
           </SwiperSlide>
+          <SwiperSlide>
+            <WrapupView />
+          </SwiperSlide>
         </Swiper>
       </CharacterBuilderProvider>
       <MobileStepper
         variant="dots"
-        steps={6}
+        steps={steps.length}
         position="bottom"
         activeStep={activeStep}
         sx={{ maxWidth: 400, flexGrow: 1 }}

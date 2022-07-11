@@ -44,23 +44,25 @@ export function PickAncestryView({ setActiveStep }) {
           </Button>
         </>
       ) : (
-        <List>
-          {ancestries.map((ancestry) => (
-            <Grid item xs={12} key={ancestry._id}>
-              <ListItem
-                style={{ border: "10px" }}
-                secondaryAction={
-                  <Button onClick={() => onSelectAncestry(ancestry)}>
-                    Select
-                  </Button>
-                }
-              >
-                <ListItemDrawer content={ancestry} />
-              </ListItem>
-              <Divider />
-            </Grid>
-          ))}
-        </List>
+        <Grid item xs={12}>
+          <List>
+            {ancestries.map((ancestry) => (
+              <>
+                <ListItem
+                  style={{ border: "10px" }}
+                  secondaryAction={
+                    <Button onClick={() => onSelectAncestry(ancestry)}>
+                      Select
+                    </Button>
+                  }
+                >
+                  <ListItemDrawer content={ancestry} />
+                </ListItem>
+                <Divider />
+              </>
+            ))}
+          </List>
+        </Grid>
       )}
     </Grid>
   );

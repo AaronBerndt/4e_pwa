@@ -37,12 +37,7 @@ export type Character = {
     will: number;
   };
   feats: string[];
-  powers: {
-    atWill: string[];
-    encounter: string[];
-    daily: string[];
-    utility: string[];
-  };
+  powers: string[];
   inventory: Item[];
   skills: string[];
   gear: {

@@ -50,30 +50,32 @@ export function PickFeatsView() {
 
   return (
     <Grid container center xs={12}>
-      <List>
-        {feats.map((feat) => (
-          <Grid item xs={12} md={12}>
-            <ListItem
-              fullWidth
-              style={{ border: "10px" }}
-              secondaryAction={
-                <>
-                  {selectedFeats.includes(feat.name) ? (
-                    <Button onClick={() => onSelectFeatRemove(feat)}>
-                      Remove
-                    </Button>
-                  ) : (
-                    <Button onClick={() => onSelectFeatAdd(feat)}>Add</Button>
-                  )}
-                </>
-              }
-            >
-              <ListItemDrawer content={feat} />
-            </ListItem>
-            <Divider />
-          </Grid>
-        ))}
-      </List>
+      <Grid item xs={12} md={12}>
+        <List>
+          {feats.map((feat) => (
+            <>
+              <ListItem
+                fullWidth
+                style={{ border: "10px" }}
+                secondaryAction={
+                  <>
+                    {selectedFeats.includes(feat.name) ? (
+                      <Button onClick={() => onSelectFeatRemove(feat)}>
+                        Remove
+                      </Button>
+                    ) : (
+                      <Button onClick={() => onSelectFeatAdd(feat)}>Add</Button>
+                    )}
+                  </>
+                }
+              >
+                <ListItemDrawer content={feat} />
+              </ListItem>
+              <Divider />
+            </>
+          ))}
+        </List>
+      </Grid>
     </Grid>
   );
 }

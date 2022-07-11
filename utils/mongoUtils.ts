@@ -33,12 +33,12 @@ export async function fetchCollection(collectionName: string, filters?: any) {
   }
 }
 
-
 export async function insertIntoCollection(
   collectionName: string,
   newDocuments: any
 ) {
   try {
+    console.log(newDocuments);
     if (uri === undefined) {
       throw "URI is undefined";
     }

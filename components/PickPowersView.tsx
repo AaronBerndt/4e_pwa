@@ -26,21 +26,13 @@ export function PickPowersView() {
 
   const [filter, setFilter] = useState({ name: "", value: "" });
 
-  const {
-    data: powers,
-    isLoading,
-    refetch,
-  } = usePowers({
+  const { data: powers, isLoading } = usePowers({
     characterClass,
     paragonPath,
     epicDestiny,
     ancestry,
     level,
   });
-
-  if (ancestry && characterClass && !isLoading) {
-    refetch();
-  }
 
   if (isLoading) {
     return <div>...Loading</div>;

@@ -12,7 +12,6 @@ export const preFetchFeats = (queryClient: QueryClient) =>
 export default function useFeats(props) {
   return useQuery<any>([KEY, props], () => fetchFeats(props), {
     select: ({ data }) => data,
-    enabled: false,
     initialData: [],
   });
 }

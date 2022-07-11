@@ -33,7 +33,6 @@ export default function usePowers({
       }),
     {
       select: ({ data }) => data,
-      enabled: false,
     }
   );
 }
