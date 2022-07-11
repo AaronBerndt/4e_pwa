@@ -45,30 +45,34 @@ export function PickPowersView() {
 
   return (
     <Grid container center xs={12}>
-      <List>
-        {powers.map((power: Power) => (
-          <Grid item xs={12} md={12} key={power.name}>
-            <ListItem
-              fullWidth
-              style={{ border: "10px" }}
-              secondaryAction={
-                <>
-                  {selectedPowers.includes(power.name) ? (
-                    <Button onClick={() => onSelectPowerRemove(power)}>
-                      Remove
-                    </Button>
-                  ) : (
-                    <Button onClick={() => onSelectPowerAdd(power)}>Add</Button>
-                  )}
-                </>
-              }
-            >
-              <ListItemDrawer content={power} />
-            </ListItem>
-            <Divider />
-          </Grid>
-        ))}
-      </List>
+      <Grid item xs={12} md={12}>
+        <List>
+          {powers.map((power: Power) => (
+            <>
+              <ListItem
+                fullWidth
+                style={{ border: "10px" }}
+                secondaryAction={
+                  <>
+                    {selectedPowers.includes(power.name) ? (
+                      <Button onClick={() => onSelectPowerRemove(power)}>
+                        Remove
+                      </Button>
+                    ) : (
+                      <Button onClick={() => onSelectPowerAdd(power)}>
+                        Add
+                      </Button>
+                    )}
+                  </>
+                }
+              >
+                <ListItemDrawer content={power} />
+              </ListItem>
+              <Divider />
+            </>
+          ))}
+        </List>
+      </Grid>
     </Grid>
   );
 }

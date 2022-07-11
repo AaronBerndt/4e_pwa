@@ -23,6 +23,7 @@ export function PickFeatsView() {
     characterClass,
     ancestry,
     abilityScores,
+    level,
   } = useCharacterBuilderContext();
   const [featTypeFilter, setFeatTypeFilter] = useState<any>("All");
 
@@ -33,6 +34,7 @@ export function PickFeatsView() {
   } = useFeats({
     ancestry,
     characterClass,
+    level,
     powerList: powers,
     featList: selectedFeats,
     abilityScores,
