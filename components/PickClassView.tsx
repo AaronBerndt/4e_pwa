@@ -6,6 +6,7 @@ import {
   List,
   ListItem,
   ListItemButton,
+  Stack,
   SwipeableDrawer,
 } from "../node_modules/@mui/material/index";
 import { DisplayCard } from "./DisplayCard";
@@ -29,7 +30,7 @@ export function PickClassView({ setActiveStep }) {
   const onRemoveClass = () => setCharacterClass("");
 
   return (
-    <Grid container center>
+    <Stack center spacing={2} style={{ padding: "15px" }}>
       {selectedCharacterClass !== "" ? (
         <>
           <DisplayCard
@@ -40,26 +41,22 @@ export function PickClassView({ setActiveStep }) {
           </Button>
         </>
       ) : (
-        <Grid item xs={12} md={12}>
-          <List
-            secondaryAction={<Button onClick={onSelectClass}>Select</Button>}
-          >
-            {classes.map((characterClass) => (
-              <ListItem
-                key={characterClass.name}
-                style={{ border: "10px" }}
-                secondaryAction={
-                  <Button onClick={() => onSelectClass(characterClass)}>
-                    Select
-                  </Button>
-                }
-              >
-                <ListItemDrawer content={characterClass} />
-              </ListItem>
-            ))}
-          </List>
-        </Grid>
+        <List secondaryAction={<Button onClick={onSelectClass}>Select</Button>}>
+          {classes.map((characterClass) => (
+            <ListItem
+              key={characterClass.name}
+              style={{ border: "10px" }}
+              secondaryAction={
+                <Button onClick={() => onSelectClass(characterClass)}>
+                  Select
+                </Button>
+              }
+            >
+              <ListItemDrawer content={characterClass} />
+            </ListItem>
+          ))}
+        </List>
       )}
-    </Grid>
+    </Stack>
   );
 }

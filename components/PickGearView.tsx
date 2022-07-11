@@ -1,18 +1,18 @@
 import { useCharacterBuilderContext } from "../context/CharacterBuildContext";
 import useArmor from "../hooks/useArmor";
 import useWeapons from "../hooks/useWeapons";
-import { Grid } from "../node_modules/@mui/material/index";
+import { Button, Grid, Stack } from "../node_modules/@mui/material/index";
 
 export function PickGearView() {
   const { gear, setGear } = useCharacterBuilderContext();
 
   return (
-    <Grid container center>
+    <Stack spacing={2}>
       {Object.keys(gear).map((gearKey) => (
-        <Grid item xs={12}>
+        <Button fullWidth variant="contained">
           {gearKey}
-        </Grid>
+        </Button>
       ))}
-    </Grid>
+    </Stack>
   );
 }

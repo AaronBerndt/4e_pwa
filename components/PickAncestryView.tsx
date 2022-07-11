@@ -4,10 +4,10 @@ import useAncestries from "../hooks/useAncestries";
 import {
   Button,
   Divider,
-  Grid,
   List,
   ListItem,
   ListItemButton,
+  Stack,
   SwipeableDrawer,
 } from "../node_modules/@mui/material/index";
 import { DisplayCard } from "./DisplayCard";
@@ -33,7 +33,7 @@ export function PickAncestryView({ setActiveStep }) {
   }
 
   return (
-    <Grid container center>
+    <Stack center spacing={2} style={{ padding: "15px" }}>
       {selectedAncestry !== "" ? (
         <>
           <DisplayCard
@@ -44,26 +44,24 @@ export function PickAncestryView({ setActiveStep }) {
           </Button>
         </>
       ) : (
-        <Grid item xs={12}>
-          <List>
-            {ancestries.map((ancestry) => (
-              <>
-                <ListItem
-                  style={{ border: "10px" }}
-                  secondaryAction={
-                    <Button onClick={() => onSelectAncestry(ancestry)}>
-                      Select
-                    </Button>
-                  }
-                >
-                  <ListItemDrawer content={ancestry} />
-                </ListItem>
-                <Divider />
-              </>
-            ))}
-          </List>
-        </Grid>
+        <List>
+          {ancestries.map((ancestry) => (
+            <>
+              <ListItem
+                style={{ border: "10px" }}
+                secondaryAction={
+                  <Button onClick={() => onSelectAncestry(ancestry)}>
+                    Select
+                  </Button>
+                }
+              >
+                <ListItemDrawer content={ancestry} />
+              </ListItem>
+              <Divider />
+            </>
+          ))}
+        </List>
       )}
-    </Grid>
+    </Stack>
   );
 }

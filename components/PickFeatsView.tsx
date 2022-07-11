@@ -10,6 +10,7 @@ import {
   List,
   ListItem,
   ListItemButton,
+  Stack,
   SwipeableDrawer,
 } from "../node_modules/@mui/material/index";
 import { Feat } from "../types";
@@ -66,62 +67,58 @@ export function PickFeatsView() {
       : feats.filter(({ tier }: Feat) => tier === featTypeFilter);
 
   return (
-    <Grid container center xs={12}>
-      <Grid item xs={12}>
-        <ButtonGroup fullWidth>
-          <Button
-            color={featTypeFilter === "All" ? "secondary" : "primary"}
-            onClick={() => setFeatTypeFilter("All")}
-          >
-            All
-          </Button>
-          <Button
-            color={featTypeFilter === "Heroic" ? "secondary" : "primary"}
-            onClick={() => setFeatTypeFilter("Heroic")}
-          >
-            Heroic
-          </Button>
-          <Button
-            color={featTypeFilter === "Paragon" ? "secondary" : "primary"}
-            onClick={() => setFeatTypeFilter("Paragon")}
-          >
-            Paragon
-          </Button>
-          <Button
-            color={featTypeFilter === "Epic" ? "secondary" : "primary"}
-            onClick={() => setFeatTypeFilter("Epic")}
-          >
-            Epic
-          </Button>
-        </ButtonGroup>
-      </Grid>
+    <Stack center spacing={2} style={{ padding: "15px" }}>
+      <ButtonGroup fullWidth>
+        <Button
+          color={featTypeFilter === "All" ? "secondary" : "primary"}
+          onClick={() => setFeatTypeFilter("All")}
+        >
+          All
+        </Button>
+        <Button
+          color={featTypeFilter === "Heroic" ? "secondary" : "primary"}
+          onClick={() => setFeatTypeFilter("Heroic")}
+        >
+          Heroic
+        </Button>
+        <Button
+          color={featTypeFilter === "Paragon" ? "secondary" : "primary"}
+          onClick={() => setFeatTypeFilter("Paragon")}
+        >
+          Paragon
+        </Button>
+        <Button
+          color={featTypeFilter === "Epic" ? "secondary" : "primary"}
+          onClick={() => setFeatTypeFilter("Epic")}
+        >
+          Epic
+        </Button>
+      </ButtonGroup>
 
-      <Grid item xs={12} md={12}>
-        <List>
-          {filteredFeats.map((feat: Feat) => (
-            <>
-              <ListItem
-                fullWidth
-                style={{ border: "10px" }}
-                secondaryAction={
-                  <>
-                    {selectedFeats.includes(feat.name) ? (
-                      <Button onClick={() => onSelectFeatRemove(feat)}>
-                        Remove
-                      </Button>
-                    ) : (
-                      <Button onClick={() => onSelectFeatAdd(feat)}>Add</Button>
-                    )}
-                  </>
-                }
-              >
-                <ListItemDrawer content={feat} />
-              </ListItem>
-              <Divider />
-            </>
-          ))}
-        </List>
-      </Grid>
-    </Grid>
+      <List>
+        {filteredFeats.map((feat: Feat) => (
+          <>
+            <ListItem
+              fullWidth
+              style={{ border: "10px" }}
+              secondaryAction={
+                <>
+                  {selectedFeats.includes(feat.name) ? (
+                    <Button onClick={() => onSelectFeatRemove(feat)}>
+                      Remove
+                    </Button>
+                  ) : (
+                    <Button onClick={() => onSelectFeatAdd(feat)}>Add</Button>
+                  )}
+                </>
+              }
+            >
+              <ListItemDrawer content={feat} />
+            </ListItem>
+            <Divider />
+          </>
+        ))}
+      </List>
+    </Stack>
   );
 }

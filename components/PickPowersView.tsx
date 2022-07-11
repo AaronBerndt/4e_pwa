@@ -1,15 +1,11 @@
-import { useState } from "react";
 import { useCharacterBuilderContext } from "../context/CharacterBuildContext";
-import useAncestries from "../hooks/useAncestries";
 import usePowers from "../hooks/usePowers";
 import {
   Button,
   Divider,
-  Grid,
   List,
   ListItem,
-  ListItemButton,
-  SwipeableDrawer,
+  Stack,
 } from "../node_modules/@mui/material/index";
 import { Power } from "../types";
 import { ListItemDrawer } from "./ListItemDrawer";
@@ -44,35 +40,31 @@ export function PickPowersView() {
     );
 
   return (
-    <Grid container center xs={12}>
-      <Grid item xs={12} md={12}>
-        <List>
-          {powers.map((power: Power) => (
-            <>
-              <ListItem
-                fullWidth
-                style={{ border: "10px" }}
-                secondaryAction={
-                  <>
-                    {selectedPowers.includes(power.name) ? (
-                      <Button onClick={() => onSelectPowerRemove(power)}>
-                        Remove
-                      </Button>
-                    ) : (
-                      <Button onClick={() => onSelectPowerAdd(power)}>
-                        Add
-                      </Button>
-                    )}
-                  </>
-                }
-              >
-                <ListItemDrawer content={power} />
-              </ListItem>
-              <Divider />
-            </>
-          ))}
-        </List>
-      </Grid>
-    </Grid>
+    <Stack center spacing={2} style={{ padding: "15px" }}>
+      <List>
+        {powers.map((power: Power) => (
+          <>
+            <ListItem
+              fullWidth
+              style={{ border: "10px" }}
+              secondaryAction={
+                <>
+                  {selectedPowers.includes(power.name) ? (
+                    <Button onClick={() => onSelectPowerRemove(power)}>
+                      Remove
+                    </Button>
+                  ) : (
+                    <Button onClick={() => onSelectPowerAdd(power)}>Add</Button>
+                  )}
+                </>
+              }
+            >
+              <ListItemDrawer content={power} />
+            </ListItem>
+            <Divider />
+          </>
+        ))}
+      </List>
+    </Stack>
   );
 }
