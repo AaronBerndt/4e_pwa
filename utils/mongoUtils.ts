@@ -9,7 +9,7 @@ async function connectToDatabase() {
     return cachedDb;
   }
 
-  const client = await MongoClient.connect(uri, { useNewUrlParser: true });
+  const client = await MongoClient.connect(uri);
 
   const db = client.db("4e");
 
