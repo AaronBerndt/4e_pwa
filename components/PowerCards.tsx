@@ -1,8 +1,9 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { PowerCard } from "../components/PowerCard";
 
 import "swiper/css";
 import { Cards } from "../types";
+import { DisplayCard } from "./DisplayCard";
+import { chunk } from "lodash";
 
 type Props = {
   cards: Cards;
@@ -15,9 +16,11 @@ export function PowerCards({ cards }: Props) {
       onSlideChange={() => console.log("slide change")}
       onSwiper={(swiper) => console.log(swiper)}
     >
-      {cards.map(({ html }, i) => (
+      {chunk(cards, 3).map((chunk, i) => (
         <SwiperSlide key={i}>
-          <PowerCard htmlToRender={html} />
+          {chunk.map(({ html, name }) => (
+            <DisplayCard htmlToRender={html} key={name} />
+          ))}
         </SwiperSlide>
       ))}
     </Swiper>

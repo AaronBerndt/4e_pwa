@@ -4,9 +4,9 @@ import { fetchCollection, insertIntoCollection } from "../../utils/mongoUtils";
 export default async function handler(req, res) {
   try {
     const { documents } = req.body.data;
-    console.log(documents);
-    const result = await insertIntoCollection("characters", {
-      ...document,
+
+    const characterToAdd = {
+      ...documents,
       characterState: {
         actionPoints: 1,
         secondWind: 1,
@@ -16,7 +16,9 @@ export default async function handler(req, res) {
         expendedPowers: [],
         effects: [],
       },
-    });
+    };
+
+    const result = await insertIntoCollection("characters", characterToAdd);
 
     console.log(result);
 

@@ -1,23 +1,23 @@
 import styles from "../styles/Home.module.css";
+import { useRouter } from "next/router";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import powers from "../api/powers";
-import { PowerCard } from "../../components/PowerCard";
+import { useCharacter } from "../../hooks/useCharacters";
+import { Skeleton, Stack } from "../../node_modules/@mui/material/index";
+import { PowerCards } from "../../components/PowerCards";
 
-export default function CharacterPage() {
-  const powerArray = Object.keys(powers);
+export default function CharacterPage(props) {
+  const { query } = useRouter();
+  const { data: character, isLoading } = useCharacter(query.slug);
+  if (isLoading) {
+    return <Skeleton />;
+  }
+
+  console.log(character);
   return (
-    <Swiper
-      spaceBetween={50}
-      slidesPerView={1}
-      onSlideChange={() => console.log("slide change")}
-      onSwiper={(swiper) => console.log(swiper)}
-    >
-      {powerArray.map((power, i) => (
-        <SwiperSlide key={i}>
-          <PowerCard htmlToRender={power} />
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <Stack center spacing={2} style={{ padding: "15px" }}>
+      <h2>CharacterName: {character.name}</h2>
+      <PowerCards cards={character.powers} />
+    </Stack>
   );
 }

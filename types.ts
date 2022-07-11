@@ -40,17 +40,7 @@ export type Character = {
   powers: string[];
   inventory: Item[];
   skills: string[];
-  gear: {
-    weapons: string[];
-    armor: string;
-    arms: string;
-    feet: string;
-    hands: string;
-    head: string;
-    neck: string;
-    rings: string[];
-    waist: string;
-  };
+  gear: Gear;
   characterState: [
     actionPoints: number,
     secondWind: number,
@@ -92,4 +82,24 @@ export type Power = {
   keywords: string;
   sourceBook: string;
   html: string;
+};
+
+export type Gear = {
+  weapons: string[];
+  armor: string;
+  shield: string;
+  implement: string;
+  arms: string;
+  feet: string;
+  hands: string;
+  head: string;
+  neck: string;
+  rings: string[];
+  waist: string;
+};
+
+export type Armor = {
+  name: string;
+  enhancement: string[];
+  magicArmor: string;
 };

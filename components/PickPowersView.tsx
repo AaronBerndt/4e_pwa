@@ -47,6 +47,7 @@ export function PickPowersView() {
             <ListItem
               fullWidth
               style={{ border: "10px" }}
+              key={power.name}
               secondaryAction={
                 <>
                   {selectedPowers.includes(power.name) ? (

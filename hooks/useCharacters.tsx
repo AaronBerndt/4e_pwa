@@ -26,7 +26,11 @@ export function usePlayerCharacters(playerId: string) {
 }
 
 export function useCharacter(characterId: any) {
-  return useQuery([FETCH_CHARACTER_KEY, characterId], () =>
-    axios.get(`/api/characters?_id=${characterId}`)
+  return useQuery(
+    [FETCH_CHARACTER_KEY, characterId],
+    () => axios.get(`/api/characters?_id=${characterId}`),
+    {
+      select: ({ data }) => data,
+    }
   );
 }

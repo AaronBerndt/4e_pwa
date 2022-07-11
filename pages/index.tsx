@@ -1,16 +1,33 @@
 import useCharacters from "../hooks/useCharacters";
-import { Paper, Button, Grid } from "../node_modules/@mui/material/index";
+import {
+  Paper,
+  Button,
+  Grid,
+  List,
+  ListItemButton,
+  Stack,
+  ListItem,
+} from "../node_modules/@mui/material/index";
 import Link from "../node_modules/next/link";
 
 export default function CharactersPage() {
   const { data: characters } = useCharacters();
 
   return (
-    <Grid>
+    <Stack center spacing={2} style={{ padding: "15px" }}>
       <Paper
         sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
         elevation={3}
       >
+        <List>
+          {characters.map((character) => (
+            <ListItemButton>
+              <Link href={`/characters/${character._id}`}>
+                <a>{character.name}</a>
+              </Link>
+            </ListItemButton>
+          ))}
+        </List>
         <Link href="characters/create" passHref>
           <Button
             color="secondary"
@@ -22,6 +39,6 @@ export default function CharactersPage() {
           </Button>
         </Link>
       </Paper>
-    </Grid>
+    </Stack>
   );
 }

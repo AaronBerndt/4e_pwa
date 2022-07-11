@@ -21,7 +21,6 @@ import { useState } from "react";
 import { DisplayCard } from "./DisplayCard";
 
 export function ItemsModal({ gearName }) {
-  console.log(gearName);
   const { gear, setGear } = useCharacterBuilderContext();
   const [item, setItem] = useState(null);
 
