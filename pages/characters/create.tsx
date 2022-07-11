@@ -70,6 +70,7 @@ export default function CreateCharacterPage(props) {
           slidesPerView={1}
           onSlideChange={({ activeIndex }) => {
             setActiveStep(activeIndex);
+            window.scrollTo(0, 0);
           }}
         >
           <SwiperSlide>
