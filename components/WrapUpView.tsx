@@ -25,7 +25,7 @@ export function WrapupView() {
         variant="outlined"
         color="secondary"
         fullWidth
-        onClick={() => createCharacter}
+        onClick={() => createCharacter()}
       >
         Create Character
       </Button>
