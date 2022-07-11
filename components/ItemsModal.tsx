@@ -13,7 +13,9 @@ import {
 
 export function ItemsModal({ gearName }) {
   const { gear, setGear } = useCharacterBuilderContext();
-  const { data: items, isLoading } = useItems({ category: gearName });
+  const { data: items, isLoading } = useItems({
+    category: gearName === "Rings" ? "Ring" : gearName,
+  });
 
   const { open, toggleOpen } = useToggle();
 

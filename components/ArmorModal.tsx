@@ -11,7 +11,7 @@ import {
   ListItemButton,
 } from "../node_modules/@mui/material/index";
 
-export function ArmorModal() {
+export function ArmorModal({ type }) {
   const { gear, setGear } = useCharacterBuilderContext();
   const { data: armorList, isLoading } = useArmor();
   const { open, toggleOpen } = useToggle();
@@ -23,15 +23,17 @@ export function ArmorModal() {
   return (
     <>
       <Button fullWidth variant="contained" onClick={toggleOpen}>
-        Add Armor
+        Add {type}
       </Button>
       <SwipeableDrawer open={open} onClose={toggleOpen} fullWidth>
         <Stack>
-          <DialogTitle>Armor</DialogTitle>
+          <DialogTitle>{type}</DialogTitle>
           <List>
-            {armorList.map((item) => (
-              <ListItemButton>{item.name}</ListItemButton>
-            ))}
+            {armorList
+              .filter(({ name }) => name.includes(type))
+              .map((item) => (
+                <ListItemButton>{item.name}</ListItemButton>
+              ))}
           </List>
         </Stack>
       </SwipeableDrawer>

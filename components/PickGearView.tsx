@@ -15,7 +15,9 @@ export function PickGearView() {
           {gearName === "weapons" ? (
             <WeaponsModal />
           ) : gearName === "armor" ? (
-            <ArmorModal />
+            <ArmorModal type="Armor" />
+          ) : gearName === "shield" ? (
+            <ArmorModal type="Shield" />
           ) : (
             <ItemsModal gearName={capitalize(gearName)} />
           )}
