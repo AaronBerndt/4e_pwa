@@ -3,14 +3,7 @@ import { fetchCollection } from "../../utils/mongoUtils";
 
 export default async function handler(req, res) {
   try {
-    const {
-      powerList,
-      className,
-      level,
-      epicDestiny,
-      ancestry,
-      paragonPath,
-    }: any = req.query;
+    const { powerList, className, level }: any = req.query;
 
     const data = await fetchCollection(
       "powers",
@@ -18,7 +11,7 @@ export default async function handler(req, res) {
         ? { $or: powerList.split(",").map((name: any) => ({ name })) }
         : className && level
         ? {
-            $or: [className, epicDestiny, paragonPath, ancestry]
+            $or: [className]
               .filter((value) => value !== "")
               .map((value) => ({ class: value })),
             level: { $lte: level },
@@ -26,7 +19,7 @@ export default async function handler(req, res) {
         : null
     );
 
-    res.status(200).send(orderBy(data));
+    res.status(200).send(data);
   } catch (e) {
     res.status(504).send(e);
   }

@@ -9,10 +9,7 @@ const fetchPowers = ({
   paragonPath,
   epicDestiny,
   ancestry,
-}) =>
-  axios.get(
-    `/api/powers?className=${characterClass}&level=${level}&paragonPath=${paragonPath}&ancestry=${ancestry}&epicDestiny=${epicDestiny}`
-  );
+}) => axios.get(`/api/powers?className=${characterClass}&level=${level}`);
 
 export const preFetchPowers = (queryClient: QueryClient) =>
   queryClient.prefetchQuery(KEY, fetchPowers);

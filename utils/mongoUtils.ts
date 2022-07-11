@@ -33,6 +33,7 @@ export async function fetchCollection(collectionName: string, filters?: any) {
   }
 }
 
+
 export async function insertIntoCollection(
   collectionName: string,
   newDocuments: any

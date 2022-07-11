@@ -1,29 +1,15 @@
-import useAncestries from "../hooks/useAncestries";
-import useClasses from "../hooks/useClasses";
-import useEpicDestinies from "../hooks/useEpicDestinies";
-import useParagonPaths from "../hooks/useParagonPaths";
-import usePowers from "../hooks/usePowers";
 import { range, capitalize } from "lodash";
 import {
-  Avatar,
-  Checkbox,
   FormControl,
   Grid,
   InputLabel,
-  LinearProgress,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemText,
   MenuItem,
   Select,
   TextField,
 } from "../node_modules/@mui/material/index";
-import { Form, Formik } from "../node_modules/formik/dist/index";
 import { useCharacterBuilderContext } from "../context/CharacterBuildContext";
 
-export function CreateCharacterForm({}) {
+export function CreateCharacterForm() {
   const { name, level, setLevel, setName, abilityScores, setAbilityScores } =
     useCharacterBuilderContext();
 

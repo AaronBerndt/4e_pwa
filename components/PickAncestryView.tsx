@@ -17,18 +17,18 @@ import { find } from "lodash";
 export function PickAncestryView() {
   const [filter, setFilter] = useState({ name: "", value: "" });
   const { data: ancestries, isLoading } = useAncestries();
+
   const { ancestry: selectedAncestry, setAncestry } =
     useCharacterBuilderContext();
-
-  console.log(selectedAncestry);
-  if (isLoading) {
-    return <div>...Loading</div>;
-  }
 
   const onSelectAncestry = (ancestryToSelect) =>
     setAncestry(ancestryToSelect.name);
 
   const onRemoveAncestry = () => setAncestry("");
+
+  if (isLoading) {
+    return <p>...Loading</p>;
+  }
 
   return (
     <Grid container center>

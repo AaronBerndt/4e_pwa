@@ -1,25 +1,23 @@
-import usePowers from "../../hooks/usePowers";
-import {
-  Stepper,
-  Step,
-  StepLabel,
-  Grid,
-  MobileStepper,
-  Button,
-} from "../../node_modules/@mui/material/index";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { MongoClient } from "mongodb";
+import { omit } from "lodash";
+
+import "swiper/css";
 import { useState } from "react";
 import { CreateCharacterForm } from "../../components/CreateCharacterForm";
-import { Form, Formik } from "../../node_modules/formik/dist/index";
-import { fetchCollection } from "../../utils/mongoUtils";
-import { omit } from "lodash";
 import { PickAncestryView } from "../../components/PickAncestryView";
-import "swiper/css";
 import { PickClassView } from "../../components/PickClassView";
+import { PickParagonPathView } from "../../components/PickParagonPathView";
 import { PickPowersView } from "../../components/PickPowersView";
 import { CharacterBuilderProvider } from "../../context/CharacterBuildContext";
-
-export default function CreateCharacterPage() {
+import {
+  MobileStepper,
+  Button,
+  Grid,
+} from "../../node_modules/@mui/material/index";
+import { fetchCollection } from "../../utils/mongoUtils";
+import { Feats } from "../../stories/CreateCharacterForm.stories";
+export default function CreateCharacterPage(props) {
   const slides = ["Name/Level/Class/Race", "Powers", "Feats"];
   const [activeStep, setActiveStep] = useState(0);
   const handleNext = () => {
@@ -29,6 +27,8 @@ export default function CreateCharacterPage() {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+
+  console.log(props);
   return (
     <Grid>
       <CharacterBuilderProvider>
