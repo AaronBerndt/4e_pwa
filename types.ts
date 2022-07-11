@@ -71,3 +71,25 @@ export type Filter = {
   name: string;
   value: string;
 };
+
+export type Feat = {
+  _id: string;
+  id: string;
+  name: string;
+  tier: string;
+  prerequisite: string;
+  sourceBook: string;
+  html: string;
+};
+
+export type Power = {
+  _id: string;
+  id: string;
+  name: string;
+  level: string;
+  type: string;
+  action: string;
+  keywords: string;
+  sourceBook: string;
+  html: string;
+};

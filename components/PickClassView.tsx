@@ -46,6 +46,7 @@ export function PickClassView({ setActiveStep }) {
           >
             {classes.map((characterClass) => (
               <ListItem
+                key={characterClass.name}
                 style={{ border: "10px" }}
                 secondaryAction={
                   <Button onClick={() => onSelectClass(characterClass)}>

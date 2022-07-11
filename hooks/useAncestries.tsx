@@ -13,5 +13,7 @@ export const preFetchPowers = (queryClient: QueryClient) =>
 export default function useAncestries(filter?: Filter) {
   return useQuery<any>([KEY], fetchAncestries, {
     select: ({ data }) => data,
+    cacheTime: Infinity,
+    refetchOnWindowFocus: false,
   });
 }

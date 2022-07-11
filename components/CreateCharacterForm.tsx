@@ -54,7 +54,7 @@ export function CreateCharacterForm() {
         "wisdom",
         "charisma",
       ].map((abilityScore) => (
-        <Grid item xs={12}>
+        <Grid item xs={12} key={abilityScore}>
           <FormControl fullWidth>
             <InputLabel id={abilityScore}>
               {capitalize(abilityScore)}

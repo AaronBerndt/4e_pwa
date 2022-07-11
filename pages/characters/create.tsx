@@ -60,7 +60,7 @@ export default function CreateCharacterPage(props) {
             bgcolor: "background.default",
           }}
         >
-          <Typography>{steps[activeStep]}</Typography>
+          <Typography variant="h4">{steps[activeStep]}</Typography>
         </Paper>
       </Box>
 

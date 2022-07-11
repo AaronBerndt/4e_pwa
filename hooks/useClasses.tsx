@@ -12,5 +12,7 @@ export const preFetchPowers = (queryClient: QueryClient) =>
 export default function useClasses(className?: string, level?: string) {
   return useQuery<any>([KEY], fetchClasses, {
     select: ({ data }) => data,
+    cacheTime: Infinity,
+    refetchOnWindowFocus: false,
   });
 }

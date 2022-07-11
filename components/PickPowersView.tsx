@@ -11,6 +11,7 @@ import {
   ListItemButton,
   SwipeableDrawer,
 } from "../node_modules/@mui/material/index";
+import { Power } from "../types";
 import { ListItemDrawer } from "./ListItemDrawer";
 
 export function PickPowersView() {
@@ -19,18 +20,10 @@ export function PickPowersView() {
     setPowers,
     level,
     characterClass,
-    paragonPath,
-    epicDestiny,
-    ancestry,
   } = useCharacterBuilderContext();
-
-  const [filter, setFilter] = useState({ name: "", value: "" });
 
   const { data: powers, isLoading } = usePowers({
     characterClass,
-    paragonPath,
-    epicDestiny,
-    ancestry,
     level,
   });
 
@@ -42,19 +35,19 @@ export function PickPowersView() {
     return <div>No Data Found</div>;
   }
 
-  const onSelectPowerAdd = (powerToSelect) =>
-    setPowers((prev) => [...prev, powerToSelect.name]);
+  const onSelectPowerAdd = (powerToSelect: Power) =>
+    setPowers((prev: string[]) => [...prev, powerToSelect.name]);
 
-  const onSelectPowerRemove = (powerToSelect) =>
-    setPowers((prev) =>
-      prev.filter((powerName) => powerName !== powerToSelect.name)
+  const onSelectPowerRemove = (powerToSelect: Power) =>
+    setPowers((prev: string[]) =>
+      prev.filter((powerName: string) => powerName !== powerToSelect.name)
     );
 
   return (
     <Grid container center xs={12}>
       <List>
-        {powers.map((power) => (
-          <Grid item xs={12} md={12}>
+        {powers.map((power: Power) => (
+          <Grid item xs={12} md={12} key={power.name}>
             <ListItem
               fullWidth
               style={{ border: "10px" }}
