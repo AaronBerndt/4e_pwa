@@ -14,15 +14,17 @@ import { DisplayCard } from "./DisplayCard";
 import { ListItemDrawer } from "./ListItemDrawer";
 import { find } from "lodash";
 
-export function PickAncestryView() {
+export function PickAncestryView({ setActiveStep }) {
   const [filter, setFilter] = useState({ name: "", value: "" });
   const { data: ancestries, isLoading } = useAncestries();
 
   const { ancestry: selectedAncestry, setAncestry } =
     useCharacterBuilderContext();
 
-  const onSelectAncestry = (ancestryToSelect) =>
+  const onSelectAncestry = (ancestryToSelect) => {
     setAncestry(ancestryToSelect.name);
+    setActiveStep((prev) => prev + 1);
+  };
 
   const onRemoveAncestry = () => setAncestry("");
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useCharacterBuilderContext } from "../context/CharacterBuildContext";
 import useAncestries from "../hooks/useAncestries";
-import usePowers from "../hooks/usePowers";
+import useFeats from "../hooks/useFeats";
 import {
   Button,
   Divider,
@@ -13,32 +13,22 @@ import {
 } from "../node_modules/@mui/material/index";
 import { ListItemDrawer } from "./ListItemDrawer";
 
-export function PickPowersView() {
+export function PickFeatsView() {
   const {
-    powers: selectedPowers,
-    setPowers,
-    level,
+    feats: selectedFeats,
+    setFeats,
     characterClass,
-    paragonPath,
-    epicDestiny,
     ancestry,
   } = useCharacterBuilderContext();
 
   const [filter, setFilter] = useState({ name: "", value: "" });
-
   const {
-    data: powers,
+    data: feats,
     isLoading,
     refetch,
-  } = usePowers({
-    characterClass,
-    paragonPath,
-    epicDestiny,
-    ancestry,
-    level,
-  });
+  } = useFeats({ ancestry, characterClass });
 
-  if (ancestry && characterClass && !isLoading) {
+  if (feats === [] && ancestry && characterClass && !isLoading) {
     refetch();
   }
 
@@ -46,39 +36,39 @@ export function PickPowersView() {
     return <div>...Loading</div>;
   }
 
-  if (!powers) {
+  if (!feats) {
     return <div>No Data Found</div>;
   }
 
-  const onSelectPowerAdd = (powerToSelect) =>
-    setPowers((prev) => [...prev, powerToSelect.name]);
+  const onSelectFeatAdd = (featToSelect) =>
+    setFeats((prev) => [...prev, featToSelect.name]);
 
-  const onSelectPowerRemove = (powerToSelect) =>
-    setPowers((prev) =>
-      prev.filter((powerName) => powerName !== powerToSelect.name)
+  const onSelectFeatRemove = (featToSelect) =>
+    setFeats((prev) =>
+      prev.filter((featName) => featName !== featToSelect.name)
     );
 
   return (
     <Grid container center xs={12}>
       <List>
-        {powers.map((power) => (
+        {feats.map((feat) => (
           <Grid item xs={12} md={12}>
             <ListItem
               fullWidth
               style={{ border: "10px" }}
               secondaryAction={
                 <>
-                  {selectedPowers.includes(power.name) ? (
-                    <Button onClick={() => onSelectPowerRemove(power)}>
+                  {selectedFeats.includes(feat.name) ? (
+                    <Button onClick={() => onSelectFeatRemove(feat)}>
                       Remove
                     </Button>
                   ) : (
-                    <Button onClick={() => onSelectPowerAdd(power)}>Add</Button>
+                    <Button onClick={() => onSelectFeatAdd(feat)}>Add</Button>
                   )}
                 </>
               }
             >
-              <ListItemDrawer content={power} />
+              <ListItemDrawer content={feat} />
             </ListItem>
             <Divider />
           </Grid>

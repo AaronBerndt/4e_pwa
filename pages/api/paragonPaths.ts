@@ -23,8 +23,6 @@ export default async function handler(req, res) {
             $or: [
               { prerequisite: "" },
               { prerequisite: { $regex: new RegExp(ancestry, "i") } },
-              { prerequisite: { $regex: new RegExp(ancestry, "i") } },
-              { prerequisite: { $regex: new RegExp(ancestry, "i") } },
               { prerequisite: { $regex: new RegExp(className, "i") } },
               { prerequisite: { $regex: new RegExp(powerSource, "i") } },
               {

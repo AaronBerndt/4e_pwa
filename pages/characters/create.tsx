@@ -17,6 +17,8 @@ import {
 } from "../../node_modules/@mui/material/index";
 import { fetchCollection } from "../../utils/mongoUtils";
 import { Feats } from "../../stories/CreateCharacterForm.stories";
+import { PickFeatsView } from "../../components/PickFeatsView";
+import { PickGearView } from "../../components/PickGearView";
 export default function CreateCharacterPage(props) {
   const slides = ["Name/Level/Class/Race", "Powers", "Feats"];
   const [activeStep, setActiveStep] = useState(0);
@@ -28,7 +30,6 @@ export default function CreateCharacterPage(props) {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  console.log(props);
   return (
     <Grid>
       <CharacterBuilderProvider>
@@ -45,20 +46,26 @@ export default function CreateCharacterPage(props) {
             <CreateCharacterForm />
           </SwiperSlide>
           <SwiperSlide>
-            <PickAncestryView />
+            <PickAncestryView setActiveStep={setActiveStep} />
           </SwiperSlide>
           <SwiperSlide>
-            <PickClassView />
+            <PickClassView setActiveStep={setActiveStep} />
           </SwiperSlide>
           <SwiperSlide>
             <PickPowersView />
+          </SwiperSlide>
+          <SwiperSlide>
+            <PickFeatsView />
+          </SwiperSlide>
+          <SwiperSlide>
+            <PickGearView />
           </SwiperSlide>
         </Swiper>
       </CharacterBuilderProvider>
       <MobileStepper
         variant="dots"
-        steps={3}
-        position="static"
+        steps={6}
+        position="bottom"
         activeStep={activeStep}
         sx={{ maxWidth: 400, flexGrow: 1 }}
         nextButton={

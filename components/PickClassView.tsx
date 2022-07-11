@@ -12,7 +12,7 @@ import { DisplayCard } from "./DisplayCard";
 import { ListItemDrawer } from "./ListItemDrawer";
 import { find } from "lodash";
 
-export function PickClassView() {
+export function PickClassView({ setActiveStep }) {
   const { data: classes, isLoading } = useClasses();
   const { characterClass: selectedCharacterClass, setCharacterClass } =
     useCharacterBuilderContext();
@@ -21,8 +21,10 @@ export function PickClassView() {
     return <div>...Loading</div>;
   }
 
-  const onSelectClass = (classToSelect) =>
+  const onSelectClass = (classToSelect) => {
     setCharacterClass(classToSelect.name);
+    setActiveStep((prev) => prev + 1);
+  };
 
   const onRemoveClass = () => setCharacterClass("");
 
