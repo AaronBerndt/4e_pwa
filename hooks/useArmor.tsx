@@ -11,5 +11,7 @@ export const preFetchArmor = (queryClient: QueryClient) =>
 export default function useArmor() {
   return useQuery<any>([KEY], fetchArmor, {
     select: ({ data }) => data,
+    cacheTime: Infinity,
+    refetchOnWindowFocus: false,
   });
 }

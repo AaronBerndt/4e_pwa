@@ -1,17 +1,25 @@
 import { useCharacterBuilderContext } from "../context/CharacterBuildContext";
-import useArmor from "../hooks/useArmor";
-import useWeapons from "../hooks/useWeapons";
-import { Button, Grid, Stack } from "../node_modules/@mui/material/index";
+import { Stack } from "../node_modules/@mui/material/index";
+import { ArmorModal } from "./ArmorModal";
+import { ItemsModal } from "./ItemsModal";
+import { WeaponsModal } from "./WeaponsModal";
+import { capitalize } from "lodash";
 
 export function PickGearView() {
   const { gear, setGear } = useCharacterBuilderContext();
 
   return (
     <Stack spacing={2}>
-      {Object.keys(gear).map((gearKey) => (
-        <Button fullWidth variant="contained">
-          {gearKey}
-        </Button>
+      {Object.keys(gear).map((gearName) => (
+        <>
+          {gearName === "weapons" ? (
+            <WeaponsModal />
+          ) : gearName === "armor" ? (
+            <ArmorModal />
+          ) : (
+            <ItemsModal gearName={capitalize(gearName)} />
+          )}
+        </>
       ))}
     </Stack>
   );

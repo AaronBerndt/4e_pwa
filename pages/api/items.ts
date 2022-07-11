@@ -3,7 +3,8 @@ import { fetchCollection } from "../../utils/mongoUtils";
 
 export default async function handler(req, res) {
   try {
-    const data = await fetchCollection("items");
+    let { category }: any = req.query;
+    const data = await fetchCollection("items", { category });
 
     res.status(200).send(orderBy(data));
   } catch (e) {

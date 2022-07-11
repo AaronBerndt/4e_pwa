@@ -3,13 +3,16 @@ import axios from "../node_modules/axios/index";
 
 export const KEY = "Fetch Items";
 
-const fetchItems = (className, level) => axios.get(`/api/items`);
+const fetchItems = ({ category }) =>
+  axios.get(`/api/items?category=${category}`);
 
 export const preFetchItems = (queryClient: QueryClient) =>
   queryClient.prefetchQuery(KEY, fetchItems);
 
-export default function useItems() {
-  return useQuery<any>([KEY], fetchItems, {
+export default function useItems(props) {
+  return useQuery<any>([KEY, props], () => fetchItems(props), {
     select: ({ data }) => data,
+    cacheTime: Infinity,
+    refetchOnWindowFocus: false,
   });
 }

@@ -14,6 +14,7 @@ const defaultAbilityScores = {
 const defaultGear = {
   weapons: [],
   armor: "",
+  shield: "",
   arms: "",
   feet: "",
   hands: "",

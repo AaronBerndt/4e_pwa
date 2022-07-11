@@ -3,7 +3,7 @@ import axios from "../node_modules/axios/index";
 
 export const KEY = "Fetch Weapons";
 
-const fetchWeapons = (className, level) => axios.get(`/api/weapons`);
+const fetchWeapons = () => axios.get(`/api/weapons`);
 
 export const preFetchWeapons = (queryClient: QueryClient) =>
   queryClient.prefetchQuery(KEY, fetchWeapons);
@@ -11,5 +11,7 @@ export const preFetchWeapons = (queryClient: QueryClient) =>
 export default function useWeapons() {
   return useQuery<any>([KEY], fetchWeapons, {
     select: ({ data }) => data,
+    cacheTime: Infinity,
+    refetchOnWindowFocus: false,
   });
 }
