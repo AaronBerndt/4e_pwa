@@ -13,9 +13,16 @@ import { ListItemDrawer } from "./ListItemDrawer";
 import { find } from "lodash";
 
 export function PickParagonPathView() {
-  const { data: paragonPaths, isLoading } = useParagonPaths();
-  const { paragonPath: selectedParagonPath, setCharacterParagonPath } =
-    useCharacterBuilderContext();
+  const {
+    paragonPath: selectedParagonPath,
+    setCharacterParagonPath,
+    ancestry,
+    className,
+  } = useCharacterBuilderContext();
+  const { data: paragonPaths, isLoading } = useParagonPaths({
+    ancestry,
+    className,
+  });
 
   if (isLoading) {
     return <div>...Loading</div>;

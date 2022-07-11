@@ -2,9 +2,9 @@ import { orderBy } from "lodash";
 import { fetchCollection } from "../../utils/mongoUtils";
 
 export default async function handler(req, res) {
-  const { name, ancestry, className } = req.query;
+  const { name, ancestry, className, powerList, featList } = req.query;
   try {
-    const [{ powerSource }] = await fetchCollection("classes", {
+    const [{ powerSource, role }] = await fetchCollection("classes", {
       name: new RegExp(className),
     });
 
@@ -25,6 +25,7 @@ export default async function handler(req, res) {
               { prerequisite: { $regex: new RegExp(ancestry, "i") } },
               { prerequisite: { $regex: new RegExp(className, "i") } },
               { prerequisite: { $regex: new RegExp(powerSource, "i") } },
+              { prerequisite: { $regex: new RegExp(role, "i") } },
               {
                 prerequisite: {
                   $regex: new RegExp(powerSource + "origin", "i"),

@@ -24,6 +24,7 @@ import { PickFeatsView } from "../../components/PickFeatsView";
 import { PickGearView } from "../../components/PickGearView";
 import { WrapupView } from "../../components/WrapUpView";
 import { PickTrainedSkillsView } from "../../components/PickTrainedSkillsView";
+
 export default function CreateCharacterPage(props) {
   const slides = ["Name/Level/Class/Race", "Powers", "Feats"];
   const [activeStep, setActiveStep] = useState(0);
