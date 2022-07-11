@@ -3,8 +3,9 @@ import { fetchCollection } from "../../utils/mongoUtils";
 
 export default async function handler(req, res) {
   try {
-    const { powerList, className, level }: any = req.query;
+    let { powerList, className, level }: any = req.query;
 
+    className = className.includes("Fighter") ? "Fighter" : className;
     const data = await fetchCollection(
       "powers",
       powerList
