@@ -15,7 +15,7 @@ export const preFetchFeats = (queryClient: QueryClient) =>
 
 export default function useFeats(props) {
   return useQuery<any>(
-    [KEY, props],
+    [KEY],
 
     ![props.ancestry, props.characterClass].includes("")
       ? () => fetchFeats(props)
