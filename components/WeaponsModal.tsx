@@ -10,6 +10,7 @@ import {
   List,
   ListItemButton,
 } from "../node_modules/@mui/material/index";
+import { Gear } from "../types";
 
 export function WeaponsModal() {
   const { gear, setGear } = useCharacterBuilderContext();
@@ -20,6 +21,13 @@ export function WeaponsModal() {
     return <Skeleton animation="wave" />;
   }
 
+  const onWeaponSelect = (value: string) => {
+    setGear((prev: Gear) => ({
+      ...prev,
+      ["weapons"]: [...prev.weapons, value],
+    }));
+  };
+
   return (
     <>
       <Button fullWidth variant="contained" onClick={toggleOpen}>
@@ -29,8 +37,10 @@ export function WeaponsModal() {
         <Stack>
           <DialogTitle>Weapons</DialogTitle>
           <List>
-            {weapons.map((item) => (
-              <ListItemButton>{item.name}</ListItemButton>
+            {weapons.map((weapon) => (
+              <ListItemButton onWeaponSelect={() => onWeaponSelect(weapon)}>
+                {weapon.name}
+              </ListItemButton>
             ))}
           </List>
         </Stack>

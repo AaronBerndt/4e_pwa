@@ -10,6 +10,7 @@ import {
   List,
   ListItemButton,
 } from "../node_modules/@mui/material/index";
+import { Gear } from "../types";
 
 export function ItemsModal({ gearName }) {
   const { gear, setGear } = useCharacterBuilderContext();
@@ -23,6 +24,13 @@ export function ItemsModal({ gearName }) {
     return <Skeleton animation="wave" />;
   }
 
+  const onItemSelect = (value: string) => {
+    setGear((prev: Gear) => ({
+      ...prev,
+      [gearName.toLowerCase()]: value,
+    }));
+  };
+
   return (
     <>
       <Button fullWidth variant="contained" onClick={toggleOpen}>
@@ -33,7 +41,9 @@ export function ItemsModal({ gearName }) {
           <DialogTitle>{gearName}</DialogTitle>
           <List>
             {items.map((item) => (
-              <ListItemButton>{item.name}</ListItemButton>
+              <ListItemButton onClick={() => onItemSelect(item)}>
+                {item.name}
+              </ListItemButton>
             ))}
           </List>
         </Stack>

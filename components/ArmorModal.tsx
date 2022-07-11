@@ -10,6 +10,7 @@ import {
   List,
   ListItemButton,
 } from "../node_modules/@mui/material/index";
+import { Gear } from "../types";
 
 export function ArmorModal({ type }) {
   const { gear, setGear } = useCharacterBuilderContext();
@@ -19,6 +20,13 @@ export function ArmorModal({ type }) {
   if (isLoading) {
     return <Skeleton animation="wave" />;
   }
+
+  const onArmorSelect = (value: string) => {
+    setGear((prev: Gear) => ({
+      ...prev,
+      [type.toLowerCase()]: value,
+    }));
+  };
 
   return (
     <>
@@ -32,7 +40,9 @@ export function ArmorModal({ type }) {
             {armorList
               .filter(({ name }) => name.includes(type))
               .map((item) => (
-                <ListItemButton>{item.name}</ListItemButton>
+                <ListItemButton onClick={() => onArmorSelect(item)}>
+                  {item.name}
+                </ListItemButton>
               ))}
           </List>
         </Stack>
