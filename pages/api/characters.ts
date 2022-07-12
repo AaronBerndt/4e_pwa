@@ -1,26 +1,73 @@
-import { orderBy } from "lodash";
-import { ObjectId } from "mongodb";
-import { fetchCollection } from "../../utils/mongoUtils";
+import { orderBy } from 'lodash';
+import { ObjectId } from 'mongodb';
+import {Character} from '../../types';
+import { fetchCollection } from '../../utils/mongoUtils';
 
 function calculateModifiers(abilityScore) {
   return Math.floor((abilityScore - 10) / 2);
 }
+
+function calculateAttackBonus(
+  abilityScore: number,
+  characterData: Character,
+  keywords: string[]
+) {
+  const isWeapon = keywords.includes('Weapon');
+
+  const proficiency = isWeapon? 1 : 0
+  const enhancement = 0
+  const feat = 0
+  const classBonus = 0
+
+  return Math.floor((characterData.level) / 2) + abilityScore + proficiency + enhancement + feat + classBonus
+}
+
+function calculateDamageRoll(
+  abilityScore: number,
+  characterData: Character,
+  keywords: string[]
+) {
+  const isWeapon = keywords.includes('Weapon');
+
+  const proficiency = isWeapon? 1 : 0
+  const enhancement = 0
+  const feat = 0
+  const classBonus = 0
+
+  return Math.floor((characterData.level) / 2) + abilityScore + proficiency
+}
+
 
 export default async function handler(req, res) {
   try {
     const _id: any = req.query._id;
 
     let data = await fetchCollection(
-      "characters",
+      'characters',
       _id ? { _id: new ObjectId(_id) } : null
     );
 
     if (_id) {
-      const [{ feats, powers, trainedSkills, abilityScores, ...rest }] = data;
+      const [
+        {
+          feats,
+          powers,
+          characterClass,
+          trainedSkills,
+          abilityScores,
+          ...rest
+        },
+      ] = data;
 
-      let newPowerList = await fetchCollection("powers", {
+      let classData = await fetchCollection('classes', {
+        name: characterClass,
+      });
+
+      console.log(classData);
+
+      let newPowerList = await fetchCollection('powers', {
         $or: powers.map((power) => ({
-          name: { $regex: new RegExp("^" + power, "i") },
+          name: { $regex: new RegExp('^' + power, 'i') },
         })),
       });
 
@@ -34,21 +81,21 @@ export default async function handler(req, res) {
       newPowerList = newPowerList.map((power) => {
         const { html, ...rest } = power;
 
-        // const newHtml = html
-        //   .replace("Strength modifier", abilityModifiers("strength"))
-        //   .replace("Dexterity modifier", abilityModifiers("dexterity"))
-        //   .replace("constitution modifier", abilityModifiers("constitution"))
-        //   .replace("intelligence modifier", abilityModifiers("intelligence"))
-        //   .replace("wisdom modifier", abilityModifiers("wisdom"))
-        //   .replace("charisma", abilityModifiers("charisma"))
-        //   .replace("Strength", abilityModifiers("strength"))
-        //   .replace("Dexterity", abilityModifiers("dexterity"))
-        //   .replace("constitution", abilityModifiers("constitution"))
-        //   .replace("intelligence", abilityModifiers("intelligence"))
-        //   .replace("wisdom", abilityModifiers("wisdom"))
-        //   .replace("charisma", abilityModifiers("charisma"));
+        const newHtml = html
+          .replace(/strength modifier/i, abilityModifiers['strength'])
+          .replace(/dexterity modifier/i, abilityModifiers['dexterity'])
+          .replace(/constitution modifier/i, abilityModifiers['constitution'])
+          .replace(/intelligence modifier/i, abilityModifiers['intelligence'])
+          .replace(/wisdom modifier/i, abilityModifiers['wisdom'])
+          .replace(/charisma modifier/i, abilityModifiers['charisma'])
+          .replace(/Strength/, calculateAttackBonus(abilityModifiers['strength'], data, rest.keywords))
+          .replace(/Dexterity/, calculateAttackBonus(abilityModifiers['dexterity'],data,rest.keywords))
+          .replace(/Constitution/, calculateAttackBonus(abilityModifiers['constitution'],data,rest.keywords))
+          .replace(/Intelligence/, calculateAttackBonus(abilityModifiers['intelligence'],data,rest.keywords))
+          .replace(/Wisdom/, calculateAttackBonus(abilityModifiers['wisdom'],data,rest.keywords))
+          .replace(/Charisma/, calculateAttackBonus(abilityModifiers['charisma'],data,rest.keywords))
 
-        return power;
+        return { html: newHtml, ...rest };
       });
 
       // let newFeatList = await fetchCollection("feats", {
