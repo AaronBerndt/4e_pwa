@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 
       let newPowerList = await fetchCollection("powers", {
         $or: powers.map((power) => ({
-          name: { $regex: new RegExp(power, "i") },
+          name: { $regex: new RegExp("^" + power, "i") },
         })),
       });
 
