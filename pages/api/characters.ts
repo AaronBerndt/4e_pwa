@@ -1,7 +1,7 @@
-import { orderBy } from 'lodash';
-import { ObjectId } from 'mongodb';
-import {Character} from '../../types';
-import { fetchCollection } from '../../utils/mongoUtils';
+import { orderBy } from "lodash";
+import { ObjectId } from "mongodb";
+import { Character } from "../../types";
+import { fetchCollection } from "../../utils/mongoUtils";
 
 function calculateModifiers(abilityScore) {
   return Math.floor((abilityScore - 10) / 2);
@@ -12,14 +12,21 @@ function calculateAttackBonus(
   characterData: Character,
   keywords: string[]
 ) {
-  const isWeapon = keywords.includes('Weapon');
+  const isWeapon = keywords.includes("Weapon");
 
-  const proficiency = isWeapon? 1 : 0
-  const enhancement = 0
-  const feat = 0
-  const classBonus = 0
+  const proficiency = isWeapon ? 1 : 0;
+  const enhancement = 0;
+  const feat = 0;
+  const classBonus = 0;
 
-  return Math.floor((characterData.level) / 2) + abilityScore + proficiency + enhancement + feat + classBonus
+  return (
+    Math.floor(characterData.level / 2) +
+    abilityScore +
+    proficiency +
+    enhancement +
+    feat +
+    classBonus
+  );
 }
 
 function calculateDamageRoll(
@@ -27,23 +34,22 @@ function calculateDamageRoll(
   characterData: Character,
   keywords: string[]
 ) {
-  const isWeapon = keywords.includes('Weapon');
+  const isWeapon = keywords.includes("Weapon");
 
-  const proficiency = isWeapon? 1 : 0
-  const enhancement = 0
-  const feat = 0
-  const classBonus = 0
+  const proficiency = isWeapon ? 1 : 0;
+  const enhancement = 0;
+  const feat = 0;
+  const classBonus = 0;
 
-  return Math.floor((characterData.level) / 2) + abilityScore + proficiency
+  return Math.floor(characterData.level / 2) + abilityScore + proficiency;
 }
-
 
 export default async function handler(req, res) {
   try {
     const _id: any = req.query._id;
 
     let data = await fetchCollection(
-      'characters',
+      "characters",
       _id ? { _id: new ObjectId(_id) } : null
     );
 
@@ -59,15 +65,15 @@ export default async function handler(req, res) {
         },
       ] = data;
 
-      let classData = await fetchCollection('classes', {
+      let classData = await fetchCollection("classes", {
         name: characterClass,
       });
 
       console.log(classData);
 
-      let newPowerList = await fetchCollection('powers', {
+      let newPowerList = await fetchCollection("powers", {
         $or: powers.map((power) => ({
-          name: { $regex: new RegExp('^' + power, 'i') },
+          name: { $regex: new RegExp("^" + power, "i") },
         })),
       });
 
@@ -82,18 +88,60 @@ export default async function handler(req, res) {
         const { html, ...rest } = power;
 
         const newHtml = html
-          .replace(/strength modifier/i, abilityModifiers['strength'])
-          .replace(/dexterity modifier/i, abilityModifiers['dexterity'])
-          .replace(/constitution modifier/i, abilityModifiers['constitution'])
-          .replace(/intelligence modifier/i, abilityModifiers['intelligence'])
-          .replace(/wisdom modifier/i, abilityModifiers['wisdom'])
-          .replace(/charisma modifier/i, abilityModifiers['charisma'])
-          .replace(/Strength/, calculateAttackBonus(abilityModifiers['strength'], data, rest.keywords))
-          .replace(/Dexterity/, calculateAttackBonus(abilityModifiers['dexterity'],data,rest.keywords))
-          .replace(/Constitution/, calculateAttackBonus(abilityModifiers['constitution'],data,rest.keywords))
-          .replace(/Intelligence/, calculateAttackBonus(abilityModifiers['intelligence'],data,rest.keywords))
-          .replace(/Wisdom/, calculateAttackBonus(abilityModifiers['wisdom'],data,rest.keywords))
-          .replace(/Charisma/, calculateAttackBonus(abilityModifiers['charisma'],data,rest.keywords))
+          .replace(/strength modifier/i, abilityModifiers["strength"])
+          .replace(/dexterity modifier/i, abilityModifiers["dexterity"])
+          .replace(/constitution modifier/i, abilityModifiers["constitution"])
+          .replace(/intelligence modifier/i, abilityModifiers["intelligence"])
+          .replace(/wisdom modifier/i, abilityModifiers["wisdom"])
+          .replace(/charisma modifier/i, abilityModifiers["charisma"])
+          .replace(
+            /Strength/,
+            calculateAttackBonus(
+              abilityModifiers["strength"],
+              data,
+              rest.keywords
+            )
+          )
+          .replace(
+            /Dexterity/,
+            calculateAttackBonus(
+              abilityModifiers["dexterity"],
+              data,
+              rest.keywords
+            )
+          )
+          .replace(
+            /Constitution/,
+            calculateAttackBonus(
+              abilityModifiers["constitution"],
+              data,
+              rest.keywords
+            )
+          )
+          .replace(
+            /Intelligence/,
+            calculateAttackBonus(
+              abilityModifiers["intelligence"],
+              data,
+              rest.keywords
+            )
+          )
+          .replace(
+            /Wisdom/,
+            calculateAttackBonus(
+              abilityModifiers["wisdom"],
+              data,
+              rest.keywords
+            )
+          )
+          .replace(
+            /Charisma/,
+            calculateAttackBonus(
+              abilityModifiers["charisma"],
+              data,
+              rest.keywords
+            )
+          );
 
         return { html: newHtml, ...rest };
       });

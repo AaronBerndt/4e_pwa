@@ -71,6 +71,7 @@ const classFeatures = {
         },
       ],
     },
+    { name: "Ritual Casting", type: "feat" },
   ],
   Assassin: [
     {
@@ -142,7 +143,355 @@ const classFeatures = {
     },
     {
       name: "Feral Might",
-      choices: [{ name: "Relex" }],
+      choices: [
+        {
+          name: "Rageblood Vigor",
+          description:
+            "Whenever your attack reduces an enemy to 0 hit points, you gain temporary hit points equal to your Constitution modifier. The number of temporary hit points equals 5 + your Constitution modifier at 11th level and 10 + your Constitution modifier at 21st level.",
+          powerGained: "Swift Charge",
+        },
+        {
+          name: "Thaneborn Triumph",
+          description:
+            "Whenever you bloody an enemy, the next attack by you or an ally against that enemy gains a bonus to the attack roll equal to your Charisma modifier.",
+          powerGained: "Roar of Triumph",
+        },
+        {
+          name: "Thunderborn Wrath",
+          description:
+            "Once per round when your attack bloodies an enemy, each enemy adjacent to you takes thunder damage equal to your Constitution modifier.",
+          powerGained: "War Cry",
+        },
+
+        {
+          name: "Whirling Slayer",
+          description:
+            "You can wield a one-handed weapon in your off hand and treat it as an off-hand weapon. In addition, once per round when your attack bloodies an enemy, you can shift 2 squares as a free action, and each enemy adjacent to you at the end of the shift grants combat advantage to you until the end of your next turn.",
+          powerGained: "Whirling Lunge",
+        },
+      ],
+    },
+    { name: "Rage striek", type: "power" },
+    {
+      name: "Rampage",
+      description:
+        "Once per round, when you score a critical hit with a barbarian attack power, you can immediately make a melee basic attack as a free action. You do not have to attack the same target that you scored a critical hit against.",
+    },
+  ],
+  Bard: [
+    { name: "Ritual Casting", type: "feat" },
+
+    {
+      name: "BARDIC VIRTUE",
+      choices: [
+        {
+          name: "Virtue of Cunning",
+          description:
+            "Once per round, when an enemy attack misses an ally within a number of squares of you equal to 5 + your Intelligence modifier, you can slide that ally 1 square as a free action.",
+        },
+        {
+          name: "Virtue of Prescience",
+          description:
+            "Once per encounter as an immediate interrupt, when an enemy hits one ally within 5 squares of you, you grant that ally a power bonus equal to your Wisdom modifier to the defense targeted by the triggering enemy until the end of that enemy's turn.",
+        },
+
+        {
+          name: "Virtue of Valor",
+          description:
+            "Once per round, when any ally within 5 squares of you reduces an enemy to 0 hit points or bloodies an enemy, you can grant temporary hit points to that ally as a free action. The number of temporary hit points equals 1 + your Constitution modifier at 1st level, 3 + your Constitution modifier at 11th level, and 5 + your Constitution modifier at 21st level.",
+        },
+      ],
+    },
+
+    { name: "Majestic Word", type: "power" },
+    {
+      name: "Multiclass Versatility",
+      description:
+        "You can choose class-specific multiclass feats from more than one class.",
+    },
+    {
+      name: "Skill Versatility",
+      classBonus: [{ name: "Untrained Skills", value: 1 }],
+    },
+    {
+      name: "Song of Rest",
+      description:
+        "When you play an instrument or sing during a short rest, you and each ally who can hear you are affected by your Song of Rest. When an affected character spends healing surges at the end of the rest, that character regains additional hit points equal to your Charisma modifier with each healing surge. A character can be affected by only one Song of Rest at a time",
+    },
+    {
+      name: "Words of Friendship",
+      type: "power",
+    },
+  ],
+  Battlemind: [
+    { name: "Psionic Augmentation", type: "feature" },
+    { name: "Battlemind's Demand", type: "power" },
+    { name: "Blurred Step", type: "power" },
+    { name: "Mind Ppike", type: "power" },
+    {
+      name: "Psionic Study",
+      choices: [
+        {
+          name: "Battle Resilience",
+          powerGained: "Battle Resilience",
+        },
+        {
+          name: "Persistent Harrier",
+          powerGained: "Persistent Harrier",
+        },
+
+        {
+          name: "Speed of Thought",
+          powerGained: "Speed of Thought",
+        },
+        {
+          name: "Will Focus",
+          powerGained: "Will Focus",
+        },
+      ],
+    },
+  ],
+  Cleric: [
+    { name: "Channel Divinity", type: "power" },
+    {
+      name: "Healer's Lore",
+      description:
+        "When you restore hit points to a creature by using a cleric power that has the healing keyword, add your Wisdom modifier to the hit points regained, but only if the healing involves the creature spending a healing surge.",
+      classBonus: {
+        name: "Healing",
+        value: "Wisdom modifier",
+        keywords: "Healing",
+      },
+    },
+    { name: "Healing Word", type: "power" },
+  ],
+  Druid: [
+    {
+      name: "Balance of Nature",
+      description:
+        "Some druids favor being in beast form, while others prefer being in humanoid form. However, just as druids seek balance in the world between divine and primordial forces, druids pursue balance within their own minds and bodies. You begin with three at-will attack powers. Throughout your career, at least one of those powers, and no more than two, must have the beast form keyword. By this means, you have access to useful attacks in either beast form or humanoid form.",
+    },
+    {
+      name: "Primal Aspect",
+      choices: [
+        {
+          name: "Primal Guardian",
+          overide: {
+            name: "AC",
+            value: "Constitution modifier",
+          },
+        },
+        {
+          name: "Primal Predator",
+          classBonus: {
+            name: "Speed",
+            value: 1,
+          },
+        },
+        {
+          name: "Primal Swarm",
+          description:
+            "While you are in beast form and not wearing heavy armor, melee attacks and ranged attacks deal less damage to you. When you take damage from either type of attack, the damage is reduced by your Constitution modifier.",
+        },
+        {
+          name: "Primal Wrath",
+          classBonus: {
+            name: "Attack",
+            value: 1,
+            keywords: ["cold", "fire", "lightning", "thunder"],
+          },
+        },
+      ],
+    },
+
+    { name: "Ritual Casting", type: "feat" },
+    { name: "Wild Shape", type: "power" },
+  ],
+  Fighter: [
+    {
+      name: "Combat Power",
+      choices: [
+        {
+          name: "Combat Superiority",
+          description:
+            "You gain a bonus to the attack rolls of opportunity attacks. The bonus equals your Wisdom modifier. An enemy hit by your opportunity attack stops moving, if a move provoked the attack. If the enemy still has actions remaining, it can use them to resume moving.",
+          classBonus: {
+            name: "Opportunity Attacks",
+            value: "Wisdom modifier",
+          },
+        },
+        { name: "Combat Agility", type: "power" },
+      ],
+    },
+    { name: "Combat Challenge", type: "power" },
+    {
+      name: "Fighter Talents",
+      choices: [
+        {
+          name: "Arena Training",
+          description:
+            "You treat all weapons with which you are not proficient as improvised weapons. You gain a +2 proficiency bonus to attack rolls with improvised weapons. Your attacks with one-handed improvised weapons deal 1d8 damage, and your attacks with two-handed improvised weapons deal 1d10 damage. While you are not wearing heavy armor, you gain a +1 bonus to AC. This bonus increases to +2 at 11th level and +3 at 21st level. You select two weapons as your arena weapons. If you are not already proficient with these weapons, you gain proficiency with them. In addition, any of your feats that grant feat bonuses to attack rolls or damage rolls with one of your arena weapons apply to your other arena weapon as well.",
+
+          classBonus: [
+            {
+              name: "Attack",
+              value: 2,
+              conditon: "not proficient",
+            },
+            {
+              name: "AC",
+              value: [1, 2, 3],
+              level: [1, 11, 21],
+              conditon: [
+                {
+                  name: "Armor",
+                  equiped: false,
+                  value: ["heavy armor"],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: "Arena Training",
+          description:
+            "Whenever you hit an enemy with a melee or a close attack, you gain temporary hit points equal to your Constitution modifier, plus any temporary hit points normally granted by the power. You gain the hit points only after the attack is resolved. If you use an invigorating fighter attack power and miss every target with it, you gain temporary hit points equal to your Constitution modifier.When wearing light armor or chainmail, you gain a +1 bonus to damage rolls with melee and close weapon attacks whenever you have temporary hit points. This bonus increases to +2 if you're wielding an axe, a hammer, a mace, or a pick.",
+
+          classBonus: [
+            {
+              name: "Damage",
+              value: 1,
+              conditon: [
+                {
+                  name: "Armor",
+                  equiped: true,
+                  value: ["light armor", " chainmail"],
+                },
+                { name: "Temporary hit points", value: "Not zero" },
+              ],
+            },
+            {
+              name: "Damage",
+              value: 1,
+              conditon: [
+                {
+                  name: "Weapon",
+                  equiped: true,
+                  value: ["axe", "hammer", "mace", "pick"],
+                },
+                {
+                  name: "Armor",
+                  equiped: true,
+                  value: ["light armor", " chainmail"],
+                },
+                { name: "Temporary hit points", value: "Not zero" },
+              ],
+            },
+          ],
+        },
+        {
+          name: "Brawler Style",
+          classBonus: [
+            {
+              name: "AC",
+              value: 1,
+            },
+            {
+              name: "Fortitude",
+              value: 2,
+            },
+
+            {
+              name: "Attack",
+              value: [2, 4, 6],
+              level: [1, 11, 21],
+              conditon: [
+                {
+                  name: "Weapon",
+                  equiped: true,
+                  value: ["unarmed"],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: "One-handed Weapon Talent",
+          classBonus: [
+            {
+              name: "Attack",
+              value: 1,
+              conditon: [
+                {
+                  name: "Weapon",
+                  equiped: true,
+                  value: ["one-handed"],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: "Two-handed Weapon Talent",
+          classBonus: [
+            {
+              name: "Attack",
+              value: 1,
+              conditon: [
+                {
+                  name: "Weapon",
+                  equiped: true,
+                  value: ["two-handed"],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: "Tempest Technique",
+          featGained: "Two-Weapon Defense",
+          classBonus: [
+            {
+              name: "Damage",
+              value: 1,
+              conditon: [
+                {
+                  name: "Armor",
+                  equiped: true,
+                  value: ["light armor", "chainmail"],
+                },
+              ],
+            },
+            {
+              name: "Damage",
+              value: 1,
+              conditon: [
+                {
+                  name: "Armor",
+                  equiped: true,
+                  value: ["light armor", "chainmail"],
+                },
+                {
+                  name: "Weapon",
+                  equiped: true,
+                  value: ["off-hand"],
+                },
+              ],
+            },
+            {
+              name: "Attack",
+              value: 1,
+              conditon: [
+                {
+                  name: "Weapon",
+                  equiped: true,
+                  value: ["off-hand"],
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
   ],
 };
@@ -158,6 +507,8 @@ export default async function handler(req, res) {
       const regex3 = /Healing Surges per Day<\/b>:(.*)<br><br><b>Trained/;
       const regex4 = /Build Options: <\/b>(.*)<br><b>Class features/;
       const regex5 = /<b>Class features: <\/b>(.*)<br><\/blockquote>/;
+      const regex6 = /<b>Armor Proficiencies: <\/b>(.*)<br><b>Weapon/;
+      const regex7 = /<b>Weapon Proficiencies: <\/b>(.*)<br><b>Bonus/;
 
       const bonusToDefense = regex.exec(characterClass.html);
       const hitpointsAtFirstLevel = regex1.exec(characterClass.html);
@@ -165,6 +516,8 @@ export default async function handler(req, res) {
       const healingSurgesPerDay = regex3.exec(characterClass.html);
       const buildOptions = regex4.exec(characterClass.html);
       const classFeatures = regex5.exec(characterClass.html);
+      const armorProficiencies = regex6.exec(characterClass.html);
+      const weaponProficiencies = regex7.exec(characterClass.html);
 
       return {
         ...characterClass,
@@ -176,6 +529,13 @@ export default async function handler(req, res) {
           : "",
         buildOptions: buildOptions ? buildOptions[1].trim() : "",
         classFeatures: classFeatures ? classFeatures[1].trim() : "",
+        armorProficiencies: armorProficiencies
+          ? armorProficiencies[1].trim()
+          : "",
+
+        weaponProficiencies: weaponProficiencies
+          ? weaponProficiencies[1].trim()
+          : "",
       };
     });
 
