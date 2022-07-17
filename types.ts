@@ -16,6 +16,7 @@ export type Cards = Card[];
 export type Character = {
   _id: string;
   name: string;
+  level: number;
   ancestry: string;
   class: string;
   paragonPath: string;
