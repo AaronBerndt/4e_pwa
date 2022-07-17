@@ -1,4 +1,6 @@
-export const skillList = [
+import { Skill } from "./types";
+
+export const skillList: Skill[] = [
   { name: "Acrobatics", modifier: "dexterity", hasArmorPenality: true },
   { name: "Arcana", modifier: "intelligence", hasArmorPenality: false },
   { name: "Athletics", modifier: "strength", hasArmorPenality: true },

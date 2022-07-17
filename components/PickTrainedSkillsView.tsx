@@ -29,7 +29,7 @@ export function PickTrainedSkillsView() {
               style={{ border: "10px" }}
               secondaryAction={
                 <>
-                  {trainedSkills.includes(skill) ? (
+                  {trainedSkills.includes(skill.name) ? (
                     <Button onClick={() => onSelectPowerRemove(skill.name)}>
                       Remove
                     </Button>
@@ -41,10 +41,7 @@ export function PickTrainedSkillsView() {
                 </>
               }
             >
-              <ListItemText
-                primary={skill.name}
-                secondaryAction={skill.modifier}
-              />
+              <ListItemText primary={skill.name} secondary={skill.modifier} />
             </ListItem>
             <Divider />
           </>

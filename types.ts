@@ -104,3 +104,9 @@ export type Armor = {
   enhancement: string[];
   magicArmor: string;
 };
+
+export type Skill = {
+  name: string;
+  modifier: string;
+  hasArmorPenality: boolean;
+};
