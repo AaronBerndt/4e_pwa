@@ -1,5 +1,6 @@
 import { orderBy, max } from "lodash";
 import { ObjectId } from "mongodb";
+import { skillList } from "../../constants";
 import { Character } from "../../types";
 import { fetchCollection } from "../../utils/mongoUtils";
 
@@ -30,6 +31,24 @@ function calculateAttackBonus(
 }
 
 function calculateWeaponDamage(characterData) {}
+function calculateSkills(characterData, abilityModifiers) {
+  const characterLevel = Math.floor(characterData.level / 2);
+
+  return Object.assign(
+    {},
+    ...skillList.map((skill) => {
+      console.log(characterData.trainedSkills.includes(skill.name));
+      return {
+        [skill.name]:
+          characterLevel +
+          abilityModifiers[skill.modifier] +
+          characterData.trainedSkills.includes(skill.name)
+            ? 5
+            : 0,
+      };
+    })
+  );
+}
 
 async function calculateDefenses(characterData, classData, abilityModifiers) {
   const { gear, level } = characterData;
@@ -252,6 +271,7 @@ export default async function handler(req, res) {
       //   $or: feats.map((feat) => ({ name: { $regex: new RegExp(feat, "i") } })),
       // });
 
+      console.log(calculateSkills(characterData, abilityModifiers));
       const hitpoints = calculateHitpoints(characterData, classData[0]);
       finalData = {
         ...rest,
@@ -267,6 +287,7 @@ export default async function handler(req, res) {
         ),
         surgeValue: calculateHealSurgeValue(hitpoints),
         powers: newPowerList,
+        skills: calculateSkills(characterData, abilityModifiers),
         feats,
       };
     }
