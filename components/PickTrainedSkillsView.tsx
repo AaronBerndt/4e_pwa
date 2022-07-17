@@ -1,3 +1,4 @@
+import { skillList } from "../constants";
 import { useCharacterBuilderContext } from "../context/CharacterBuildContext";
 import {
   Button,
@@ -9,25 +10,6 @@ import {
 } from "../node_modules/@mui/material/index";
 
 export function PickTrainedSkillsView() {
-  const skillList = [
-    "Acrobatics",
-    "Arcana",
-    "Athletics",
-    "Bluff",
-    "Diplomacy",
-    "Dungeoneering",
-    "Endurance",
-    "Heal",
-    "History",
-    "Insight",
-    "Intimidate",
-    "Nature",
-    "Perception",
-    "Religion",
-    "Stealth",
-    "Streetwise",
-    "Thievery",
-  ];
   const { trainedSkills, setTrainedSkills } = useCharacterBuilderContext();
 
   const onSelectPowerAdd = (skillToSelect: string) =>
@@ -47,17 +29,19 @@ export function PickTrainedSkillsView() {
               style={{ border: "10px" }}
               secondaryAction={
                 <>
-                  {trainedSkills.includes(skill) ? (
-                    <Button onClick={() => onSelectPowerRemove(skill)}>
+                  {trainedSkills.includes(skill.name) ? (
+                    <Button onClick={() => onSelectPowerRemove(skill.name)}>
                       Remove
                     </Button>
                   ) : (
-                    <Button onClick={() => onSelectPowerAdd(skill)}>Add</Button>
+                    <Button onClick={() => onSelectPowerAdd(skill.name)}>
+                      Add
+                    </Button>
                   )}
                 </>
               }
             >
-              <ListItemText primary={skill} />
+              <ListItemText primary={skill.name} secondary={skill.modifier} />
             </ListItem>
             <Divider />
           </>

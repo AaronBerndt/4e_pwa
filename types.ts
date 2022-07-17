@@ -16,6 +16,7 @@ export type Cards = Card[];
 export type Character = {
   _id: string;
   name: string;
+  level: number;
   ancestry: string;
   class: string;
   paragonPath: string;
@@ -102,4 +103,10 @@ export type Armor = {
   name: string;
   enhancement: string[];
   magicArmor: string;
+};
+
+export type Skill = {
+  name: string;
+  modifier: string;
+  hasArmorPenality: boolean;
 };
