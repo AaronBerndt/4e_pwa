@@ -32,12 +32,10 @@ function calculateAttackBonus(
 
 async function calculateSpeed(characterData) {
   const { ancestry, gear } = characterData;
-  console.log(characterData);
   const ancestryData = await fetchCollection("ancestries", {
     name: new RegExp("^" + characterData.ancestry),
   });
 
-  console.log(ancestryData);
 
   return ancestryData[0].speed;
 }
@@ -54,7 +52,6 @@ function calculateSkills(characterData, abilityModifiers) {
   return Object.assign(
     {},
     ...skillList.map((skill) => {
-      console.log(characterData.trainedSkills.includes(skill.name));
       return {
         [skill.name]:
           characterLevel +

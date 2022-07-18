@@ -24,8 +24,8 @@ export default function CharacterPage(props) {
 
   console.log(character);
   return (
-    <Stack spacing={2} style={{ padding: "15px" }}>
-      <Stack direction="row">
+    <Stack spacing={10} style={{ padding: "15px" }}>
+      <Stack direction="row" justifyContent="space-between">
         <h2>{character.name}</h2>
         <HealthWorkspaceModal
           hitpoints={character.hitpoints}

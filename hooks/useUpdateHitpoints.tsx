@@ -1,17 +1,17 @@
-import { useMutation, useQueryClient } from "react-query";
-import axios from "../node_modules/axios/index";
-import { FETCH_CHARACTER_KEY } from "./useCharacters";
+import { useMutation, useQueryClient } from 'react-query';
+import axios from '../node_modules/axios/index';
+import { FETCH_CHARACTER_KEY } from './useCharacters';
 type MutateProps = {
   _id: string;
   healthChangeAmount: number;
-  type: "heal" | "damage" | "add temporary hitpoints";
+  type: 'heal' | 'damage' | 'add temporary hitpoints';
 };
 export default function useUpdateHitPoints() {
   const queryClient = useQueryClient();
 
   return useMutation(
     ({ healthChangeAmount, type, _id }) =>
-      axios.post("/api/updateCharacterHitpoints", {
+      axios.post('/api/updateCharacterHitpoints', {
         data: { healthChangeAmount, _id, type },
       }),
     {
@@ -28,14 +28,17 @@ export default function useUpdateHitPoints() {
           ...rest
         } = previousCharacterState.data;
 
+        console.log(rest.hitpoints - damage);
         const newCharacterState = {
           ...rest,
           characterState: {
             damage:
-              type !== "add temporary hitpoints"
-                ? type === "heal"
+              type !== 'add temporary hitpoints'
+                ? type === 'heal'
                   ? damage - healthChangeAmount <= 0
                     ? 0
+                    : Math.sign(rest.hitpoints - damage) === (-1 || 0)
+                    ? healthChangeAmount
                     : damage - healthChangeAmount
                   : damage +
                     (healthChangeAmount - temporaryHitpoints <= 0
@@ -43,11 +46,11 @@ export default function useUpdateHitPoints() {
                       : healthChangeAmount - temporaryHitpoints)
                 : damage,
             temporaryHitpoints:
-              type === "add temporary hitpoints"
+              type === 'add temporary hitpoints'
                 ? healthChangeAmount > temporaryHitpoints
                   ? healthChangeAmount
                   : temporaryHitpoints
-                : type === "damage"
+                : type === 'damage'
                 ? temporaryHitpoints - healthChangeAmount <= 0
                   ? 0
                   : temporaryHitpoints - healthChangeAmount
