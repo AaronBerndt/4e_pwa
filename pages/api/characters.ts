@@ -30,7 +30,24 @@ function calculateAttackBonus(
   );
 }
 
-function calculateWeaponDamage(characterData) {}
+async function calculateSpeed(characterData) {
+  const { ancestry, gear } = characterData;
+  console.log(characterData);
+  const ancestryData = await fetchCollection("ancestries", {
+    name: new RegExp("^" + characterData.ancestry),
+  });
+
+  console.log(ancestryData);
+
+  return ancestryData[0].speed;
+}
+
+function calculateInitiative(characterData, abilityModifiers) {
+  const { feats, level } = characterData;
+  const characterLevel = Math.floor(level / 2);
+  return characterLevel + abilityModifiers["dexterity"];
+}
+
 function calculateSkills(characterData, abilityModifiers) {
   const characterLevel = Math.floor(characterData.level / 2);
 
@@ -271,11 +288,12 @@ export default async function handler(req, res) {
       //   $or: feats.map((feat) => ({ name: { $regex: new RegExp(feat, "i") } })),
       // });
 
-      console.log(calculateSkills(characterData, abilityModifiers));
       const hitpoints = calculateHitpoints(characterData, classData[0]);
       finalData = {
         ...rest,
         hitpoints,
+        speed: await calculateSpeed(characterData),
+        initiative: calculateInitiative(characterData, abilityModifiers),
         surgesPerDay: calculateHealSurges(
           abilityModifiers.constitution,
           classData[0]
