@@ -30,6 +30,7 @@ export default function CharacterPage(props) {
         <HealthWorkspaceModal
           hitpoints={character.hitpoints}
           characterState={character.characterState}
+          _id={character._id}
         />
       </Stack>
       <DefenesesSpace defeneses={character.defeneses} />

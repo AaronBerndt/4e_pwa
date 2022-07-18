@@ -16,6 +16,12 @@ type OtherSpacesProps = {
   actionPoints: number;
 };
 
+type HealWorkSpaceProps = {
+  hitpoints: number;
+  hitpointsRemaining: number;
+  temporaryHitpoints: number;
+};
+
 const Div = styled.div`
   position: relative;
   cursor: pointer;
@@ -71,6 +77,32 @@ export function OtherSpaces({
         speed,
         initiative,
         actionPoints,
+      }).map(([NAME, VALUE]) => (
+        <Div>
+          <AttributeValue>{VALUE}</AttributeValue>
+          <AttributeHeader>{NAME}</AttributeHeader>
+        </Div>
+      ))}
+    </Stack>
+  );
+}
+
+export function HealthWorkSpace({
+  hitpointsRemaining,
+  temporaryHitpoints,
+  hitpoints,
+}: HealWorkSpaceProps) {
+  return (
+    <Stack
+      direction="row"
+      spacing={2}
+      justifyContent="center"
+      alignItems="center"
+    >
+      {Object.entries({
+        "Current HP": hitpointsRemaining,
+        "Max HP": hitpoints,
+        "Temp HP": temporaryHitpoints,
       }).map(([NAME, VALUE]) => (
         <Div>
           <AttributeValue>{VALUE}</AttributeValue>
