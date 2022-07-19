@@ -87,7 +87,7 @@ export function HealthWorkspaceModal({
           <span>Hit Points</span>
           <Stack direction="row" spacing={1}>
             {range(characterState.deathSaves).map((i) => (
-              <GiDeathSkull />
+              <GiDeathSkull key={i} />
             ))}
           </Stack>
         </Stack>

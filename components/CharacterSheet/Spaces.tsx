@@ -52,7 +52,7 @@ export function DefenesesSpace({ defeneses }: DefenesesSpaceProps) {
       alignItems="center"
     >
       {Object.entries(defeneses).map(([NAME, VALUE]) => (
-        <Div>
+        <Div key={NAME}>
           <AttributeValue>{VALUE}</AttributeValue>
           <AttributeHeader>{NAME}</AttributeHeader>
         </Div>
@@ -78,7 +78,7 @@ export function OtherSpaces({
         initiative,
         actionPoints,
       }).map(([NAME, VALUE]) => (
-        <Div>
+        <Div key={NAME}>
           <AttributeValue>{VALUE}</AttributeValue>
           <AttributeHeader>{NAME}</AttributeHeader>
         </Div>
@@ -104,7 +104,7 @@ export function HealthWorkSpace({
         "Max HP": hitpoints,
         "Temp HP": temporaryHitpoints,
       }).map(([NAME, VALUE]) => (
-        <Div>
+        <Div key={NAME}>
           <AttributeValue>{VALUE}</AttributeValue>
           <AttributeHeader>{NAME}</AttributeHeader>
         </Div>
