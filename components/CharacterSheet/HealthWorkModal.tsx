@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { range } from 'lodash';
-import styled from 'styled-components';
-import useToggle from '../../hooks/useToggleOpen';
-import useUpdateHitPoints from '../../hooks/useUpdateHitpoints';
+import { useState } from "react";
+import { range } from "lodash";
+import styled from "styled-components";
+import useToggle from "../../hooks/useToggleOpen";
+import useUpdateHitPoints from "../../hooks/useUpdateHitpoints";
 import {
   Button,
   ButtonGroup,
@@ -16,9 +16,11 @@ import {
   StepLabel,
   Stepper,
   TextField,
-} from '../../node_modules/@mui/material/index';
-import { CharacterState } from '../../types';
-import { HealthWorkSpace } from './Spaces';
+} from "../../node_modules/@mui/material/index";
+import { CharacterState } from "../../types";
+import { HealthWorkSpace } from "./Spaces";
+import { GiDeathSkull } from "react-icons/gi";
+import useUpdateDeathSaves from "../../hooks/useUpdateDeathSaves";
 
 type Props = {
   hitpoints: number;
@@ -57,9 +59,15 @@ export function HealthWorkspaceModal({
   const { open, toggleOpen } = useToggle();
   const [value, setValue] = useState(0);
   const { mutate: updateCharacterHitPoints } = useUpdateHitPoints();
+  const { mutate: updateDeathSaves } = useUpdateDeathSaves();
 
   const onClick = (type) =>
-    updateCharacterHitPoints({ healthChangeAmount: Number(value), _id, type });
+    updateCharacterHitPoints({
+      healthChangeAmount: Number(value),
+      _id,
+      type,
+      hitpoints,
+    });
 
   return (
     <>
@@ -78,9 +86,9 @@ export function HealthWorkspaceModal({
           </span>
           <span>Hit Points</span>
           <Stack direction="row" spacing={1}>
-	  {Array(characterState.deathSaves).map((i) =>
-            <DeathSaveMarker key={i} />
-	    )}
+            {range(characterState.deathSaves).map((i) => (
+              <GiDeathSkull />
+            ))}
           </Stack>
         </Stack>
       </Button>
@@ -100,14 +108,16 @@ export function HealthWorkspaceModal({
                   activeStep={characterState.deathSaves}
                   alternativeLabel
                 >
-                  {range(0, 4).map((label) => (
-                    <Step key={label} label="stuff">
-                      <StepButton key={label} />
+                  {range(1, 4).map((label) => (
+                    <Step key={label}>
+                      <StepLabel />
                     </Step>
                   ))}
                 </Stepper>
 
-                <Button variant="contained">Death Save</Button>
+                <Button variant="contained" onClick={() => updateDeathSaves()}>
+                  Add Death Save
+                </Button>
               </>
             )}
 
@@ -120,20 +130,20 @@ export function HealthWorkspaceModal({
             <ButtonGroup fullWidth>
               <HealingButton
                 variant="contained"
-                onClick={() => onClick('heal')}
+                onClick={() => onClick("heal")}
               >
                 Heal
               </HealingButton>
               <DamageButton
                 variant="contained"
-                onClick={() => onClick('damage')}
+                onClick={() => onClick("damage")}
               >
                 Damage
               </DamageButton>
             </ButtonGroup>
             <TemporaryHitPointsButton
               variant="contained"
-              onClick={() => onClick('add temporary hitpoints')}
+              onClick={() => onClick("add temporary hitpoints")}
             >
               Add Temp Hitpoints
             </TemporaryHitPointsButton>

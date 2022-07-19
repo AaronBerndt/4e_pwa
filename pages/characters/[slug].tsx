@@ -18,11 +18,11 @@ import {
 export default function CharacterPage(props) {
   const { query } = useRouter();
   const { data: character, isLoading } = useCharacter(query.slug);
-  if (isLoading) {
+
+  if (!query.slug || isLoading) {
     return <Skeleton />;
   }
 
-  console.log(character);
   return (
     <Stack spacing={10} style={{ padding: "15px" }}>
       <Stack direction="row" justifyContent="space-between">

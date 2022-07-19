@@ -1,21 +1,28 @@
-import { useMutation, useQueryClient } from 'react-query';
-import axios from '../node_modules/axios/index';
-import { FETCH_CHARACTER_KEY } from './useCharacters';
+import { useMutation, useQueryClient } from "react-query";
+import axios from "../node_modules/axios/index";
+import { FETCH_CHARACTER_KEY } from "./useCharacters";
 type MutateProps = {
   _id: string;
   healthChangeAmount: number;
-  type: 'heal' | 'damage' | 'add temporary hitpoints';
+  type: "heal" | "damage" | "add temporary hitpoints";
+  hitpoints: number;
 };
+
 export default function useUpdateHitPoints() {
   const queryClient = useQueryClient();
 
   return useMutation(
-    ({ healthChangeAmount, type, _id }) =>
-      axios.post('/api/updateCharacterHitpoints', {
-        data: { healthChangeAmount, _id, type },
+    ({ healthChangeAmount, type, _id, hitpoints }) =>
+      axios.post("/api/updateCharacterHitpoints", {
+        data: { healthChangeAmount, _id, type, hitpoints },
       }),
     {
-      onMutate: async ({ healthChangeAmount, type, _id }: MutateProps) => {
+      onMutate: async ({
+        healthChangeAmount,
+        type,
+        _id,
+        hitpoints,
+      }: MutateProps) => {
         const CHARACTER_QUERY_KEY = [FETCH_CHARACTER_KEY, _id];
 
         await queryClient.cancelQueries(CHARACTER_QUERY_KEY);
@@ -28,17 +35,19 @@ export default function useUpdateHitPoints() {
           ...rest
         } = previousCharacterState.data;
 
-        console.log(rest.hitpoints - damage);
+        console.log(hitpoints - (hitpoints - healthChangeAmount));
         const newCharacterState = {
           ...rest,
           characterState: {
             damage:
-              type !== 'add temporary hitpoints'
-                ? type === 'heal'
-                  ? damage - healthChangeAmount <= 0
+              type !== "add temporary hitpoints"
+                ? type === "heal"
+                  ? Math.sign(hitpoints - damage) === -1
+                    ? Math.sign(hitpoints - healthChangeAmount)
+                      ? 0
+                      : hitpoints - healthChangeAmount
+                    : damage - healthChangeAmount <= 0
                     ? 0
-                    : Math.sign(rest.hitpoints - damage) === (-1 || 0)
-                    ? healthChangeAmount
                     : damage - healthChangeAmount
                   : damage +
                     (healthChangeAmount - temporaryHitpoints <= 0
@@ -46,11 +55,11 @@ export default function useUpdateHitPoints() {
                       : healthChangeAmount - temporaryHitpoints)
                 : damage,
             temporaryHitpoints:
-              type === 'add temporary hitpoints'
+              type === "add temporary hitpoints"
                 ? healthChangeAmount > temporaryHitpoints
                   ? healthChangeAmount
                   : temporaryHitpoints
-                : type === 'damage'
+                : type === "damage"
                 ? temporaryHitpoints - healthChangeAmount <= 0
                   ? 0
                   : temporaryHitpoints - healthChangeAmount

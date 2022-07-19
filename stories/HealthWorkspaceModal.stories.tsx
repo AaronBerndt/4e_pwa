@@ -18,11 +18,16 @@ const characterState = (overides?) => ({
 });
 
 export const Main: any = () => (
-  <HealthWorkspaceModal hitpoints={10} characterState={characterState()} />
+  <HealthWorkspaceModal
+    _id={"123456"}
+    hitpoints={10}
+    characterState={characterState()}
+  />
 );
 
 export const Damage: any = () => (
   <HealthWorkspaceModal
+    _id={"12345"}
     hitpoints={10}
     characterState={characterState({
       damage: 1,
@@ -32,6 +37,7 @@ export const Damage: any = () => (
 
 export const Bloodied: any = () => (
   <HealthWorkspaceModal
+    _id={"12345"}
     hitpoints={10}
     characterState={characterState({
       damage: 5,
@@ -41,9 +47,21 @@ export const Bloodied: any = () => (
 
 export const TemporaryHitpoints: any = () => (
   <HealthWorkspaceModal
+    _id={"12345"}
     hitpoints={10}
     characterState={characterState({
       temporaryHitpoints: 10,
+    })}
+  />
+);
+
+export const DeathSaves: any = () => (
+  <HealthWorkspaceModal
+    _id={"12345"}
+    hitpoints={10}
+    characterState={characterState({
+      damage: 10,
+      deathSaves: 2,
     })}
   />
 );

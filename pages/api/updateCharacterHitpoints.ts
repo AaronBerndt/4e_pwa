@@ -1,16 +1,16 @@
-import { orderBy } from 'lodash';
+import { orderBy } from "lodash";
 import {
   fetchCollection,
   insertIntoCollection,
   updateCollection,
-} from '../../utils/mongoUtils';
-import { ObjectId } from 'mongodb';
+} from "../../utils/mongoUtils";
+import { ObjectId } from "mongodb";
 
 export default async function handler(req, res) {
   try {
-    const { _id, type, healthChangeAmount } = req.body.data;
+    const { _id, type, healthChangeAmount, hitpoints } = req.body.data;
 
-    const data = await fetchCollection('characters', {
+    const data = await fetchCollection("characters", {
       _id: new ObjectId(_id),
     });
 
@@ -21,17 +21,18 @@ export default async function handler(req, res) {
       },
     ] = data;
 
-
     const newCharacterState = {
       ...rest,
       characterState: {
         damage:
-          type !== 'add temporary hitpoints'
-            ? type === 'heal'
-              ? damage - healthChangeAmount <= 0
+          type !== "add temporary hitpoints"
+            ? type === "heal"
+              ? Math.sign(hitpoints - damage) === -1
+                ? Math.sign(hitpoints - healthChangeAmount)
+                  ? 0
+                  : hitpoints - healthChangeAmount
+                : damage - healthChangeAmount <= 0
                 ? 0
-                : Math.sign(rest.hitpoints - damage) === (-1 || 0)
-                ? healthChangeAmount
                 : damage - healthChangeAmount
               : damage +
                 (healthChangeAmount - temporaryHitpoints <= 0
@@ -39,11 +40,11 @@ export default async function handler(req, res) {
                   : healthChangeAmount - temporaryHitpoints)
             : damage,
         temporaryHitpoints:
-          type === 'add temporary hitpoints'
+          type === "add temporary hitpoints"
             ? healthChangeAmount > temporaryHitpoints
               ? healthChangeAmount
               : temporaryHitpoints
-            : type === 'damage'
+            : type === "damage"
             ? temporaryHitpoints - healthChangeAmount <= 0
               ? 0
               : temporaryHitpoints - healthChangeAmount
@@ -52,7 +53,34 @@ export default async function handler(req, res) {
       },
     };
 
-    const result = await updateCollection('characters', newCharacterState, {
+    console.log({
+      damage:
+        type !== "add temporary hitpoints"
+          ? type === "heal"
+            ? damage - healthChangeAmount <= 0
+              ? 0
+              : Math.sign(rest.hitpoints - damage) === -1
+              ? healthChangeAmount
+              : damage - healthChangeAmount
+            : damage +
+              (healthChangeAmount - temporaryHitpoints <= 0
+                ? 0
+                : healthChangeAmount - temporaryHitpoints)
+          : damage,
+      temporaryHitpoints:
+        type === "add temporary hitpoints"
+          ? healthChangeAmount > temporaryHitpoints
+            ? healthChangeAmount
+            : temporaryHitpoints
+          : type === "damage"
+          ? temporaryHitpoints - healthChangeAmount <= 0
+            ? 0
+            : temporaryHitpoints - healthChangeAmount
+          : temporaryHitpoints,
+      ...characterStateRest,
+    });
+
+    const result = await updateCollection("characters", newCharacterState, {
       _id: new ObjectId(_id),
     });
 
