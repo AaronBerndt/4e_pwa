@@ -20,22 +20,18 @@ export default function useUpdateHitPoints() {
 
         const previousCharacterState: any =
           queryClient.getQueryData(CHARACTER_QUERY_KEY);
+        console.log(previousCharacterState);
 
         const {
-          characterState: {
-            characterState: { deathSaves, ...characterStateRest },
-            ...rest
-          },
+          characterState: { deathSaves, ...characterStateRest },
+          ...rest
         } = previousCharacterState.data;
 
         const newCharacterState = {
           ...rest,
           characterState: {
-            ...rest,
-            characterState: {
-              deathSaves: deathSaves === 3 ? 3 : deathSaves + 1,
-              ...characterStateRest,
-            },
+            deathSaves: deathSaves === 3 ? 3 : deathSaves + 1,
+            ...characterStateRest,
           },
         };
 

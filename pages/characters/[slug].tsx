@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { useCharacter } from "../../hooks/useCharacters";
 import {
+  Button,
   Container,
   Skeleton,
   Stack,
@@ -14,6 +15,8 @@ import {
   DefenesesSpace,
   OtherSpaces,
 } from "../../components/CharacterSheet/Spaces";
+import { GiCampfire } from "react-icons/gi";
+import FullRestModal from "../../components/CharacterSheet/FullRestModal";
 
 export default function CharacterPage(props) {
   const { query } = useRouter();
@@ -27,11 +30,15 @@ export default function CharacterPage(props) {
     <Stack spacing={10} style={{ padding: "15px" }}>
       <Stack direction="row" justifyContent="space-between">
         <h2>{character.name}</h2>
-        <HealthWorkspaceModal
-          hitpoints={character.hitpoints}
-          characterState={character.characterState}
-          _id={character._id}
-        />
+
+        <Stack direction="column" alignItems="center" spacing={1}>
+          <HealthWorkspaceModal
+            hitpoints={character.hitpoints}
+            characterState={character.characterState}
+            _id={character._id}
+          />
+          <FullRestModal _id={character._id} />
+        </Stack>
       </Stack>
       <DefenesesSpace defeneses={character.defeneses} />
       <OtherSpaces

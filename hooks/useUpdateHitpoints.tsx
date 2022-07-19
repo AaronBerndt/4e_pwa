@@ -35,7 +35,6 @@ export default function useUpdateHitPoints() {
           ...rest
         } = previousCharacterState.data;
 
-        console.log(hitpoints - (hitpoints - healthChangeAmount));
         const newCharacterState = {
           ...rest,
           characterState: {

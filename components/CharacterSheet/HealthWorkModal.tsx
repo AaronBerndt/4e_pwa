@@ -108,16 +108,21 @@ export function HealthWorkspaceModal({
                   activeStep={characterState.deathSaves}
                   alternativeLabel
                 >
-                  {range(1, 4).map((label) => (
+                  {range(characterState.deathSaves).map((label) => (
                     <Step key={label}>
-                      <StepLabel />
+                      <StepLabel StepIconComponent={GiDeathSkull} />
                     </Step>
                   ))}
                 </Stepper>
 
-                <Button variant="contained" onClick={() => updateDeathSaves()}>
-                  Add Death Save
-                </Button>
+                <ButtonGroup fullWidth>
+                  <Button
+                    variant="contained"
+                    onClick={() => updateDeathSaves({ _id })}
+                  >
+                    Add
+                  </Button>
+                </ButtonGroup>
               </>
             )}
 
