@@ -1,5 +1,6 @@
 import { GiCampfire } from "react-icons/gi";
 import styled from "styled-components";
+import useRest from "../../hooks/useRest";
 import useToggle from "../../hooks/useToggleOpen";
 import {
   Button,
@@ -16,11 +17,12 @@ type Props = {
 };
 
 const RestButton = styled(Button)`
-  font-size: 13px;
+  font-size: 12px;
 `;
 
 export default function FullRestModal({ _id }: Props) {
   const { open, toggleOpen } = useToggle();
+  const { mutate: rest } = useRest();
 
   return (
     <>
@@ -31,7 +33,10 @@ export default function FullRestModal({ _id }: Props) {
       <Dialog open={open} fullScreen>
         <DialogContent>
           <Stack space spacing={2}>
-            <RestButton variant="contained">
+            <RestButton
+              variant="contained"
+              onClick={() => rest({ _id, type: "full" })}
+            >
               <Stack>
                 <h3>Full Rest</h3>
                 <List>
@@ -50,7 +55,10 @@ export default function FullRestModal({ _id }: Props) {
                 </List>
               </Stack>
             </RestButton>
-            <RestButton variant="contained">
+            <RestButton
+              variant="contained"
+              onClick={() => rest({ _id, type: "full" })}
+            >
               <Stack>
                 <h3>Short Rest</h3>
                 <List>
