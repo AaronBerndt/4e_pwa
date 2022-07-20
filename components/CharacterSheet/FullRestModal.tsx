@@ -76,17 +76,17 @@ export default function FullRestModal({ _id }: Props) {
               </Stack>
             </RestButton>
           </Stack>
-          <DialogActions>
-            <Button
-              onClick={toggleOpen}
-              fullWidth
-              variant="contained"
-              color="secondary"
-            >
-              Cancel
-            </Button>
-          </DialogActions>
         </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={toggleOpen}
+            fullWidth
+            variant="contained"
+            color="secondary"
+          >
+            Cancel
+          </Button>
+        </DialogActions>
       </Dialog>
     </>
   );

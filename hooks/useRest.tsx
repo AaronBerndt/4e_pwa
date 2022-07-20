@@ -40,7 +40,7 @@ export default function useRest() {
             secondWind: 1,
             expendedSurges:
               type === "full"
-                ? rest.surgesPerDay
+                ? 0
                 : characterState.expendedSurges + surgesToSpend,
             expendedPowers:
               type === "full"

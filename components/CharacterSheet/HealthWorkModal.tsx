@@ -24,6 +24,7 @@ import useUpdateDeathSaves from "../../hooks/useUpdateDeathSaves";
 
 type Props = {
   hitpoints: number;
+  surges: number;
   characterState: CharacterState;
   _id: string;
 };
@@ -52,9 +53,11 @@ const DeathSaveMarker = styled.span`
 
 export function HealthWorkspaceModal({
   hitpoints,
+  surges,
   characterState,
   _id,
 }: Props) {
+  console.log(surges);
   const hitpointsRemaining = hitpoints - characterState.damage;
   const { open, toggleOpen } = useToggle();
   const [value, setValue] = useState(0);
@@ -92,7 +95,7 @@ export function HealthWorkspaceModal({
           </Stack>
         </Stack>
       </Button>
-      <Dialog open={open}>
+      <Dialog open={open} fullScreen>
         <DialogTitle>Health Workspace</DialogTitle>
         <DialogContent>
           <Stack spacing={2}>
@@ -100,6 +103,7 @@ export function HealthWorkspaceModal({
               hitpointsRemaining={hitpointsRemaining}
               temporaryHitpoints={characterState.temporaryHitpoints}
               hitpoints={hitpoints}
+              surges={surges - characterState.expendedSurges}
             />
 
             {hitpointsRemaining <= 0 && (
@@ -155,7 +159,12 @@ export function HealthWorkspaceModal({
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={toggleOpen}>
+          <Button
+            variant="contained"
+            onClick={toggleOpen}
+            fullWidth
+            color="secondary"
+          >
             Close
           </Button>
         </DialogActions>

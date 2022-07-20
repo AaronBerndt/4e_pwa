@@ -20,6 +20,7 @@ type HealWorkSpaceProps = {
   hitpoints: number;
   hitpointsRemaining: number;
   temporaryHitpoints: number;
+  surges: number;
 };
 
 const Div = styled.div`
@@ -90,6 +91,7 @@ export function OtherSpaces({
 export function HealthWorkSpace({
   hitpointsRemaining,
   temporaryHitpoints,
+  surges,
   hitpoints,
 }: HealWorkSpaceProps) {
   return (
@@ -103,6 +105,7 @@ export function HealthWorkSpace({
         "Current HP": hitpointsRemaining,
         "Max HP": hitpoints,
         "Temp HP": temporaryHitpoints,
+        "Surges Remaining": surges,
       }).map(([NAME, VALUE]) => (
         <Div key={NAME}>
           <AttributeValue>{VALUE}</AttributeValue>

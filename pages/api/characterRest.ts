@@ -28,9 +28,7 @@ export default async function handler(req, res) {
         actionPoints: type === "full" ? 1 : characterState.actionPoints,
         secondWind: 1,
         expendedSurges:
-          type === "full"
-            ? rest.surgesPerDay
-            : characterState.expendedSurges + surgesToSpend,
+          type === "full" ? 0 : characterState.expendedSurges + surgesToSpend,
         expendedPowers:
           type === "full"
             ? []

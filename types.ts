@@ -51,8 +51,8 @@ export type CharacterState = {
   deathSaves: number;
   temporaryHitpoints: number;
   damage: number;
-  surges: number;
-  expended: string[];
+  expendedSurges: number;
+  expendedPowers: string[];
   effects: string[];
 };
 

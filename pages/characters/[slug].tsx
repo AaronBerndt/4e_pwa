@@ -27,7 +27,7 @@ export default function CharacterPage(props) {
   }
 
   return (
-    <Stack spacing={10} style={{ padding: "15px" }}>
+    <Stack spacing={2} style={{ padding: "15px" }}>
       <Stack direction="row" justifyContent="space-between">
         <h2>{character.name}</h2>
 
@@ -35,6 +35,7 @@ export default function CharacterPage(props) {
           <HealthWorkspaceModal
             hitpoints={character.hitpoints}
             characterState={character.characterState}
+            surges={character.surgesPerDay}
             _id={character._id}
           />
           <FullRestModal _id={character._id} />
