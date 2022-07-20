@@ -9,17 +9,16 @@ type Props = {
   cards: Cards;
 };
 export function PowerCards({ cards }: Props) {
+  const atWills = cards.filter((card) => card.type.match(/At-Will/));
+  const encounters = cards.filter((card) => card.type.match(/Enc/));
+  const dailies = cards.filter((card) => card.type.match(/Daily/));
+  console.log(atWills, encounters, dailies);
   return (
-    <Swiper
-      spaceBetween={50}
-      slidesPerView={1}
-      onSlideChange={() => console.log("slide change")}
-      onSwiper={(swiper) => console.log(swiper)}
-    >
-      {chunk(cards, 3).map((chunk, i) => (
+    <Swiper spaceBetween={50} slidesPerView={1}>
+      {[atWills, encounters, dailies].map((group, i) => (
         <SwiperSlide key={i}>
-          {chunk.map(({ html, name }) => (
-            <DisplayCard htmlToRender={html} key={name} />
+          {group.map((card) => (
+            <DisplayCard htmlToRender={card.html} key={card.name} />
           ))}
         </SwiperSlide>
       ))}
