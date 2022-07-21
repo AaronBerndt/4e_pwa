@@ -45,8 +45,8 @@ export default function useRest() {
             expendedPowers:
               type === "full"
                 ? []
-                : characterState.expendedPowers.filter(
-                    (power) => power.type !== "encounter"
+                : characterState.expendedPowers.filter((power) =>
+                    /encounter/i.test(power.type)
                   ),
             effects: [],
           },

@@ -5,6 +5,7 @@ import "swiper/css";
 import { useCharacter } from "../../hooks/useCharacters";
 import {
   Button,
+  ButtonGroup,
   Container,
   Skeleton,
   Stack,
@@ -38,7 +39,7 @@ export default function CharacterPage(props) {
             surges={character.surgesPerDay}
             _id={character._id}
           />
-          <FullRestModal _id={character._id} />
+          <FullRestModal characterData={character} />
         </Stack>
       </Stack>
       <DefenesesSpace defeneses={character.defeneses} />
