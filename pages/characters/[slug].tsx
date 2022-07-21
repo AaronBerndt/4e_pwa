@@ -53,6 +53,12 @@ export default function CharacterPage(props) {
         <SwiperSlide>
           <PowerCards cards={character.powers} />
         </SwiperSlide>
+        <SwiperSlide>
+          <div>Skills</div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div>Gear</div>
+        </SwiperSlide>
       </Swiper>
     </Stack>
   );
