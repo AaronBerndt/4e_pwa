@@ -49,7 +49,11 @@ export default function CharacterPage(props) {
         actionPoints={character.characterState.actionPoints}
       />
 
-      <PowerCards cards={character.powers} />
+      <Swiper spaceBetween={50} slidesPerView={1}>
+        <SwiperSlide>
+          <PowerCards cards={character.powers} />
+        </SwiperSlide>
+      </Swiper>
     </Stack>
   );
 }
