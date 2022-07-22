@@ -1,6 +1,6 @@
 import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import "swiper/css";
 import { useCharacter } from "../../hooks/useCharacters";
 import {
@@ -28,13 +28,16 @@ import {
 import FullRestModal from "../../components/CharacterSheet/FullRestModal";
 import { SkillList } from "../../components/CharacterSheet/SkillList";
 import { GearView } from "../../components/CharacterSheet/GearView";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function CharacterPage(props) {
   const { query } = useRouter();
   const { data: character, isLoading } = useCharacter(query.slug);
   const [activeView, setActiveView] = useState(0);
+  const swiper = useSwiper();
+  const sliderRef: any = useRef();
 
+  console.log(swiper);
   if (!query.slug || isLoading) {
     return <Skeleton />;
   }
@@ -69,50 +72,52 @@ export default function CharacterPage(props) {
         <Button
           variant="contained"
           color={activeView === 0 ? "secondary" : "primary"}
-          onClick={() => setActiveView(0)}
+          onClick={() => sliderRef?.current?.swiper.slideTo(0)}
         >
           <GiMagicSwirl size="2em" />
         </Button>
         <Button
           variant="contained"
           color={activeView === 1 ? "secondary" : "primary"}
-          onClick={() => setActiveView(1)}
+          onClick={() => sliderRef?.current?.swiper.slideTo(1)}
         >
           <GiStarSwirl size="2em" />
         </Button>
         <Button
           variant="contained"
           color={activeView === 2 ? "secondary" : "primary"}
-          onClick={() => setActiveView(2)}
+          onClick={() => sliderRef?.current?.swiper.slideTo(2)}
         >
           <GiBattleGear size="2em" />
         </Button>
         <Button
           variant="contained"
           color={activeView === 3 ? "secondary" : "primary"}
-          onClick={() => setActiveView(3)}
+          onClick={() => sliderRef?.current?.swiper.slideTo(3)}
         >
           <GiScrollUnfurled size="2em" />
         </Button>
       </Stack>
 
       <Swiper
-        activeIndex={1}
+        ref={sliderRef}
+        initialSlide={activeView}
         spaceBetween={50}
         slidesPerView={1}
-        onSlideChange={(swiper) => console.log(swiper)}
+        onSlideChange={(swiper) => setActiveView(swiper.activeIndex)}
       >
         <SwiperSlide>
           <PowerCards cards={character.powers} />
         </SwiperSlide>
-        <SwiperSlide>
-          <div>Features</div>
-        </SwiperSlide>
+
         <SwiperSlide>
           <SkillList skills={character.skills} />
         </SwiperSlide>
         <SwiperSlide>
           <GearView gear={character.gear} />
+        </SwiperSlide>
+        <SwiperSlide>
+          <div>Features</div>
         </SwiperSlide>
       </Swiper>
     </Stack>
