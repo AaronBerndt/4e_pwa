@@ -15,25 +15,17 @@ type Props = {
   cards: Cards;
 };
 export function PowerCards({ cards }: Props) {
-  const [powerFilter, setPowerFilter] = useState("all");
+  const [powerFilter, setPowerFilter] = useState("atWills");
   const cardObject = {
     atWills: cards.filter((card) => card.type.match(/At-Will/)),
     encounters: cards.filter((card) => card.type.match(/Enc/)),
     dailies: cards.filter((card) => card.type.match(/Daily/)),
-    all: cards,
   };
 
   const onClick = (type: string) => setPowerFilter(type);
-
   return (
     <Stack>
       <ButtonGroup fullwidth>
-        <Button
-          color={powerFilter === "all" ? "secondary" : "primary"}
-          onClick={() => onClick("all")}
-        >
-          All
-        </Button>
         <Button
           color={powerFilter === "atWills" ? "secondary" : "primary"}
           onClick={() => onClick("atWills")}

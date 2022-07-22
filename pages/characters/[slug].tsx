@@ -42,16 +42,19 @@ export default function CharacterPage(props) {
           <FullRestModal characterData={character} />
         </Stack>
       </Stack>
-      <DefenesesSpace defeneses={character.defeneses} />
       <OtherSpaces
         speed={character.speed}
         initiative={character.initiative}
         actionPoints={character.characterState.actionPoints}
       />
+      <DefenesesSpace defeneses={character.defeneses} />
 
       <Swiper spaceBetween={50} slidesPerView={1}>
         <SwiperSlide>
           <PowerCards cards={character.powers} />
+        </SwiperSlide>
+        <SwiperSlide>
+          <div>Features</div>
         </SwiperSlide>
         <SwiperSlide>
           <div>Skills</div>

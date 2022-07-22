@@ -56,14 +56,20 @@ export default function FullRestModal({ characterData }: Props) {
                 <Button
                   variant="contained"
                   onClick={() => {
-                    rest({ _id, type: "short", surgesToSpend: surgeAmount });
+                    rest({
+                      _id,
+                      type: "short",
+                      surgesToSpend: surgeAmount,
+                      surgeValue,
+                    });
                     toggleOpen();
+                    setIsShortRest(false);
                   }}
-                  disbled={currentSurgeAmounts < surgeAmount}
+                  disabled={currentSurgeAmounts < surgeAmount}
                   key={surgeAmount}
                 >
                   Spend {surgeAmount}: New Hitpoint Total (
-                  {currentHitPoints + surgeValue * surgeAmount === hitpoints
+                  {currentHitPoints + surgeValue * surgeAmount >= hitpoints
                     ? hitpoints
                     : currentHitPoints + surgeValue * surgeAmount}
                   )
@@ -74,7 +80,10 @@ export default function FullRestModal({ characterData }: Props) {
             <Stack space spacing={2}>
               <RestButton
                 variant="contained"
-                onClick={() => rest({ _id: characterData._id, type: "full" })}
+                onClick={() => {
+                  rest({ _id: characterData._id, type: "full" });
+                  toggleOpen();
+                }}
               >
                 <Stack>
                   <h3>Full Rest</h3>
@@ -117,6 +126,20 @@ export default function FullRestModal({ characterData }: Props) {
             </Stack>
           )}
         </DialogContent>
+        <DialogActions>
+          {isShortRest && (
+            <Button
+              onClick={() => {
+                setIsShortRest(false);
+              }}
+              fullWidth
+              variant="contained"
+              color="secondary"
+            >
+              Back to Rest Menu
+            </Button>
+          )}
+        </DialogActions>
         <DialogActions>
           <Button
             onClick={() => {

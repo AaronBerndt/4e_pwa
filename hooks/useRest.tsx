@@ -5,14 +5,15 @@ type MutateProps = {
   _id: string;
   type: "full" | "short";
   surgesToSpend?: number;
+  surgeValue?: number;
 };
 export default function useRest() {
   const queryClient = useQueryClient();
 
   return useMutation(
-    ({ _id, type, surgesToSpend }) =>
+    ({ _id, type, surgesToSpend, surgeAmount, surgeValue }) =>
       axios.post("/api/characterRest", {
-        data: { _id, type, surgesToSpend },
+        data: { _id, type, surgesToSpend, surgeValue },
       }),
     {
       onMutate: async ({ _id, type, surgesToSpend }: MutateProps) => {

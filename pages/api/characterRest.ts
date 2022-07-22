@@ -9,10 +9,14 @@ import { ObjectId } from "mongodb";
 
 export default async function handler(req, res) {
   try {
-    const { _id, type, surgesToSpend } = req.body.data;
+    const { _id, type, surgesToSpend, surgeValue } = req.body.data;
 
-    const data = axios(`/api/characters?_id=${_id}`);
-    const { characterState, ...rest } = data;
+    const data = await fetchCollection(
+      "characters",
+      _id ? { _id: new ObjectId(_id) } : null
+    );
+
+    const [{ characterState, ...rest }] = data;
 
     const newCharacterState = {
       ...rest,
@@ -20,9 +24,9 @@ export default async function handler(req, res) {
         damage:
           type === "full"
             ? 0
-            : characterState.damage - rest.surgeValue * surgesToSpend <= 0
+            : characterState.damage - surgeValue * surgesToSpend <= 0
             ? 0
-            : characterState.damage - rest.surgeValue * surgesToSpend,
+            : characterState.damage - surgeValue * surgesToSpend,
         temporaryHitpoints: 0,
         deathSaves: type == "full" ? 0 : characterState.deathSaves,
         actionPoints: type === "full" ? 1 : characterState.actionPoints,
@@ -32,8 +36,8 @@ export default async function handler(req, res) {
         expendedPowers:
           type === "full"
             ? []
-            : characterState.expendedPowers.filter(
-                (power) => power.type !== "encounter"
+            : characterState.expendedPowers.filter((power) =>
+                /encounter/i.test(power.type)
               ),
         effects: [],
       },

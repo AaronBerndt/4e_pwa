@@ -57,7 +57,6 @@ export function HealthWorkspaceModal({
   characterState,
   _id,
 }: Props) {
-  console.log(surges);
   const hitpointsRemaining = hitpoints - characterState.damage;
   const { open, toggleOpen } = useToggle();
   const [value, setValue] = useState(0);
@@ -74,7 +73,7 @@ export function HealthWorkspaceModal({
 
   return (
     <>
-      <Button onClick={toggleOpen} variant="contained">
+      <Button onClick={toggleOpen} variant="contained" size="small">
         <Stack
           direction="column"
           justifyContent="center"

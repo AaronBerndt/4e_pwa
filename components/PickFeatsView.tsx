@@ -16,7 +16,7 @@ import {
 import { Feat } from "../types";
 import { ListItemDrawer } from "./ListItemDrawer";
 
-export function PickFeatsView() {
+export function PickFeatsView({ feats }) {
   const {
     feats: selectedFeats,
     powers,
@@ -28,30 +28,30 @@ export function PickFeatsView() {
   } = useCharacterBuilderContext();
   const [featTypeFilter, setFeatTypeFilter] = useState<any>("All");
 
-  const {
-    data: feats,
-    isLoading,
-    refetch,
-  } = useFeats({
-    ancestry,
-    characterClass,
-    level,
-    powerList: powers,
-    featList: selectedFeats,
-    abilityScores,
-  });
+  // const {
+  //   data: feats,
+  //   isLoading,
+  //   refetch,
+  // } = useFeats({
+  //   ancestry,
+  //   characterClass,
+  //   level,
+  //   powerList: powers,
+  //   featList: selectedFeats,
+  //   abilityScores,
+  // });
 
-  if (feats === [] && ancestry && characterClass && !isLoading) {
-    refetch();
-  }
+  // if (feats === [] && ancestry && characterClass && !isLoading) {
+  //   refetch();
+  // }
 
-  if (isLoading) {
-    return <div>...Loading</div>;
-  }
+  // if (isLoading) {
+  //   return <div>...Loading</div>;
+  // }
 
-  if (!feats) {
-    return <div>No Data Found</div>;
-  }
+  // if (!feats) {
+  //   return <div>No Data Found</div>;
+  // }
 
   const onSelectFeatAdd = (featToSelect: Feat) =>
     setFeats((prev: string[]) => [...prev, featToSelect.name]);

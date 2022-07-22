@@ -45,6 +45,12 @@ const AttributeHeader = styled.div`
 `;
 
 export function DefenesesSpace({ defeneses }: DefenesesSpaceProps) {
+  const nameObject = {
+    AC: "AC",
+    Fortitude: "Fort",
+    Reflex: "Ref",
+    Will: "Will",
+  };
   return (
     <Stack
       direction="row"
@@ -55,7 +61,7 @@ export function DefenesesSpace({ defeneses }: DefenesesSpaceProps) {
       {Object.entries(defeneses).map(([NAME, VALUE]) => (
         <Div key={NAME}>
           <AttributeValue>{VALUE}</AttributeValue>
-          <AttributeHeader>{NAME}</AttributeHeader>
+          <AttributeHeader>{nameObject[NAME]}</AttributeHeader>
         </Div>
       ))}
     </Stack>
