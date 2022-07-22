@@ -8,6 +8,7 @@ type DefenesesSpaceProps = {
     Reflex: number;
     Will: number;
   };
+  speed: number;
 };
 
 type OtherSpacesProps = {
@@ -44,7 +45,7 @@ const AttributeHeader = styled.div`
   font-size: 20px;
 `;
 
-export function DefenesesSpace({ defeneses }: DefenesesSpaceProps) {
+export function DefenesesSpace({ defeneses, speed }: DefenesesSpaceProps) {
   const nameObject = {
     AC: "AC",
     Fortitude: "Fort",
@@ -55,15 +56,21 @@ export function DefenesesSpace({ defeneses }: DefenesesSpaceProps) {
     <Stack
       direction="row"
       spacing={2}
-      justifyContent="center"
+      justifyContent="space-between"
       alignItems="center"
     >
-      {Object.entries(defeneses).map(([NAME, VALUE]) => (
-        <Div key={NAME}>
-          <AttributeValue>{VALUE}</AttributeValue>
-          <AttributeHeader>{nameObject[NAME]}</AttributeHeader>
-        </Div>
-      ))}
+      <Stack direction="row">
+        {Object.entries(defeneses).map(([NAME, VALUE]) => (
+          <Div key={NAME}>
+            <AttributeValue>{VALUE}</AttributeValue>
+            <AttributeHeader>{nameObject[NAME]}</AttributeHeader>
+          </Div>
+        ))}
+      </Stack>
+      <Div>
+        <AttributeValue>Speed</AttributeValue>
+        <AttributeHeader>{speed}</AttributeHeader>
+      </Div>
     </Stack>
   );
 }

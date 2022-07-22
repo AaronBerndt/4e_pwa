@@ -7,6 +7,7 @@ import {
   Button,
   ButtonGroup,
   Container,
+  IconButton,
   Skeleton,
   Stack,
 } from "../../node_modules/@mui/material/index";
@@ -16,12 +17,23 @@ import {
   DefenesesSpace,
   OtherSpaces,
 } from "../../components/CharacterSheet/Spaces";
-import { GiCampfire } from "react-icons/gi";
+import {
+  GiCampfire,
+  GiWingfoot,
+  GiStarSwirl,
+  GiMagicSwirl,
+  GiBattleGear,
+  GiScrollUnfurled,
+} from "react-icons/gi";
 import FullRestModal from "../../components/CharacterSheet/FullRestModal";
+import { SkillList } from "../../components/CharacterSheet/SkillList";
+import { GearView } from "../../components/CharacterSheet/GearView";
+import { useState } from "react";
 
 export default function CharacterPage(props) {
   const { query } = useRouter();
   const { data: character, isLoading } = useCharacter(query.slug);
+  const [activeView, setActiveView] = useState(0);
 
   if (!query.slug || isLoading) {
     return <Skeleton />;
@@ -42,14 +54,54 @@ export default function CharacterPage(props) {
           <FullRestModal characterData={character} />
         </Stack>
       </Stack>
-      <OtherSpaces
-        speed={character.speed}
-        initiative={character.initiative}
-        actionPoints={character.characterState.actionPoints}
-      />
-      <DefenesesSpace defeneses={character.defeneses} />
 
-      <Swiper spaceBetween={50} slidesPerView={1}>
+      <Stack direction="row" alignItems="center" spacing={1}>
+        <Button variant="contained" fullwidth>
+          {character.characterState.actionPoints}
+        </Button>
+        <Button variant="contained">
+          <GiWingfoot size="2em" />
+          {character.initiative}
+        </Button>
+      </Stack>
+      <DefenesesSpace defeneses={character.defeneses} speed={character.speed} />
+      <Stack direction="row" alignItems="center" spacing={3}>
+        <Button
+          variant="contained"
+          color={activeView === 0 ? "secondary" : "primary"}
+          onClick={() => setActiveView(0)}
+        >
+          <GiMagicSwirl size="2em" />
+        </Button>
+        <Button
+          variant="contained"
+          color={activeView === 1 ? "secondary" : "primary"}
+          onClick={() => setActiveView(1)}
+        >
+          <GiStarSwirl size="2em" />
+        </Button>
+        <Button
+          variant="contained"
+          color={activeView === 2 ? "secondary" : "primary"}
+          onClick={() => setActiveView(2)}
+        >
+          <GiBattleGear size="2em" />
+        </Button>
+        <Button
+          variant="contained"
+          color={activeView === 3 ? "secondary" : "primary"}
+          onClick={() => setActiveView(3)}
+        >
+          <GiScrollUnfurled size="2em" />
+        </Button>
+      </Stack>
+
+      <Swiper
+        activeIndex={1}
+        spaceBetween={50}
+        slidesPerView={1}
+        onSlideChange={(swiper) => console.log(swiper)}
+      >
         <SwiperSlide>
           <PowerCards cards={character.powers} />
         </SwiperSlide>
@@ -57,10 +109,10 @@ export default function CharacterPage(props) {
           <div>Features</div>
         </SwiperSlide>
         <SwiperSlide>
-          <div>Skills</div>
+          <SkillList skills={character.skills} />
         </SwiperSlide>
         <SwiperSlide>
-          <div>Gear</div>
+          <GearView gear={character.gear} />
         </SwiperSlide>
       </Swiper>
     </Stack>
