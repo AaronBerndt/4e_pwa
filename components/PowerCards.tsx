@@ -2,7 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import { Cards } from "../types";
-import { DisplayCard } from "./DisplayCard";
+import { DisplayCard, PowerDisplayCard } from "./DisplayCard";
 import { chunk } from "lodash";
 import {
   Button,
@@ -12,9 +12,11 @@ import {
 import { useState } from "react";
 
 type Props = {
+  _id: string;
   cards: Cards;
+  expendedPowers: string[];
 };
-export function PowerCards({ cards }: Props) {
+export function PowerCards({ cards, expendedPowers, _id }: Props) {
   const [powerFilter, setPowerFilter] = useState("atWills");
   const cardObject = {
     atWills: cards.filter((card) => card.type.match(/At-Will/)),
@@ -45,9 +47,27 @@ export function PowerCards({ cards }: Props) {
           Daily
         </Button>
       </ButtonGroup>
-      {cardObject[powerFilter].map((card) => (
-        <DisplayCard htmlToRender={card.html} key={card.name} />
-      ))}
+      {cardObject[powerFilter].map((card) => {
+        const regex = /<h1 class=(.*?)>(.*?)<\/h1>(.*)/;
+        const result = regex.exec(card.html);
+        const string = `<h1 className=${result[1]}>
+              ${card.name}
+              ${powerFilter === "atWills" ? "" : `<input />`}
+            </h1>`;
+
+        console.log(`${string}${result[3]}`);
+        return (
+          <>
+            <PowerDisplayCard
+              _id={_id}
+              powerName={card.name}
+              htmlToRender={`${string}${result[3]}`}
+              expendedPowers={expendedPowers}
+              key={card.name}
+            />
+          </>
+        );
+      })}
     </Stack>
   );
 }

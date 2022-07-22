@@ -107,7 +107,11 @@ export default function CharacterPage(props) {
         onSlideChange={(swiper) => setActiveView(swiper.activeIndex)}
       >
         <SwiperSlide>
-          <PowerCards cards={character.powers} />
+          <PowerCards
+            cards={character.powers}
+            _id={character._id}
+            expendedPowers={character.characterState.expendedPowers}
+          />
         </SwiperSlide>
 
         <SwiperSlide>
