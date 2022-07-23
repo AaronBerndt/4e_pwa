@@ -15,8 +15,8 @@ export function SkillList({ skills }: Props) {
   return (
     <Stack>
       <List>
-        {Object.entries(skills).map(([NAME, VALUE]) => (
-          <ListItem dense>
+        {Object.entries(skills).map(([NAME, VALUE]: any) => (
+          <ListItem dense key={NAME}>
             <ListItemText primary={NAME} />
             <ListItemSecondaryAction>
               <Button>{VALUE}</Button>

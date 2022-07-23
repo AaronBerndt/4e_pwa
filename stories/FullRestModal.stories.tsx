@@ -5,4 +5,4 @@ export default {
   title: "CharacterSheet/RestModal",
 };
 
-export const Main: any = () => <FullRestModal _id={"123456"} />;
+export const Main: any = () => <FullRestModal characterData={{}} />;

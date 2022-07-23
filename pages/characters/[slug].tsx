@@ -1,6 +1,6 @@
 import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { SwiperSlide, useSwiper } from "swiper/react";
 import "swiper/css";
 import { useCharacter } from "../../hooks/useCharacters";
 import {
@@ -29,6 +29,7 @@ import FullRestModal from "../../components/CharacterSheet/FullRestModal";
 import { SkillList } from "../../components/CharacterSheet/SkillList";
 import { GearView } from "../../components/CharacterSheet/GearView";
 import { useRef, useState } from "react";
+import Swiper from "../../components/Swiper";
 
 export default function CharacterPage(props) {
   const { query } = useRouter();
@@ -59,7 +60,7 @@ export default function CharacterPage(props) {
       </Stack>
 
       <Stack direction="row" alignItems="center" spacing={1}>
-        <Button variant="contained" fullwidth>
+        <Button variant="contained" fullWidth>
           {character.characterState.actionPoints}
         </Button>
         <Button variant="contained">

@@ -16,6 +16,7 @@ export const Main: any = () => (
       Reflex: 10,
       Will: 10,
     }}
+    speed={10}
   />
 );
 

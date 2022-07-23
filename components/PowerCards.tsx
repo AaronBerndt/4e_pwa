@@ -27,7 +27,7 @@ export function PowerCards({ cards, expendedPowers, _id }: Props) {
   const onClick = (type: string) => setPowerFilter(type);
   return (
     <Stack>
-      <ButtonGroup fullwidth>
+      <ButtonGroup>
         <Button
           color={powerFilter === "atWills" ? "secondary" : "primary"}
           onClick={() => onClick("atWills")}

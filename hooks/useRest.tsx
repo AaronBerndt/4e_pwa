@@ -11,7 +11,7 @@ export default function useRest() {
   const queryClient = useQueryClient();
 
   return useMutation(
-    ({ _id, type, surgesToSpend, surgeAmount, surgeValue }) =>
+    ({ _id, type, surgesToSpend, surgeValue }) =>
       axios.post("/api/characterRest", {
         data: { _id, type, surgesToSpend, surgeValue },
       }),

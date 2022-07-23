@@ -36,7 +36,6 @@ async function calculateSpeed(characterData) {
     name: new RegExp("^" + characterData.ancestry),
   });
 
-
   return ancestryData[0].speed;
 }
 
@@ -222,61 +221,61 @@ export default async function handler(req, res) {
       newPowerList = newPowerList.map((power) => {
         const { html, ...rest } = power;
 
-        const newHtml = html
-          .replace(/strength modifier/i, abilityModifiers["strength"])
-          .replace(/dexterity modifier/i, abilityModifiers["dexterity"])
-          .replace(/constitution modifier/i, abilityModifiers["constitution"])
-          .replace(/intelligence modifier/i, abilityModifiers["intelligence"])
-          .replace(/wisdom modifier/i, abilityModifiers["wisdom"])
-          .replace(/charisma modifier/i, abilityModifiers["charisma"])
-          .replace(
-            /Strength/,
-            calculateAttackBonus(
-              abilityModifiers["strength"],
-              data,
-              rest.keywords
-            )
-          )
-          .replace(
-            /Dexterity/,
-            calculateAttackBonus(
-              abilityModifiers["dexterity"],
-              data,
-              rest.keywords
-            )
-          )
-          .replace(
-            /Constitution/,
-            calculateAttackBonus(
-              abilityModifiers["constitution"],
-              data,
-              rest.keywords
-            )
-          )
-          .replace(
-            /Intelligence/,
-            calculateAttackBonus(
-              abilityModifiers["intelligence"],
-              data,
-              rest.keywords
-            )
-          )
-          .replace(
-            /Wisdom/,
-            calculateAttackBonus(
-              abilityModifiers["wisdom"],
-              data,
-              rest.keywords
-            )
-          )
-          .replace(
-            /Charisma/,
-            calculateAttackBonus(
-              abilityModifiers["charisma"],
-              data,
-              rest.keywords
-            )
-          );
+        const newHtml = html;
+        // .replace(/strength modifier/i, abilityModifiers["strength"])
+        // .replace(/dexterity modifier/i, abilityModifiers["dexterity"])
+        // .replace(/constitution modifier/i, abilityModifiers["constitution"])
+        // .replace(/intelligence modifier/i, abilityModifiers["intelligence"])
+        // .replace(/wisdom modifier/i, abilityModifiers["wisdom"])
+        // .replace(/charisma modifier/i, abilityModifiers["charisma"])
+        // .replace(
+        //   /Strength/,
+        //   calculateAttackBonus(
+        //     abilityModifiers["strength"],
+        //     data,
+        //     rest.keywords
+        //   )
+        // )
+        // .replace(
+        //   /Dexterity/,
+        //   calculateAttackBonus(
+        //     abilityModifiers["dexterity"],
+        //     data,
+        //     rest.keywords
+        //   )
+        // )
+        // .replace(
+        //   /Constitution/,
+        //   calculateAttackBonus(
+        //     abilityModifiers["constitution"],
+        //     data,
+        //     rest.keywords
+        //   )
+        // )
+        // .replace(
+        //   /Intelligence/,
+        //   calculateAttackBonus(
+        //     abilityModifiers["intelligence"],
+        //     data,
+        //     rest.keywords
+        //   )
+        // )
+        // .replace(
+        //   /Wisdom/,
+        //   calculateAttackBonus(
+        //     abilityModifiers["wisdom"],
+        //     data,
+        //     rest.keywords
+        //   )
+        // )
+        // .replace(
+        //   /Charisma/,
+        //   calculateAttackBonus(
+        //     abilityModifiers["charisma"],
+        //     data,
+        //     rest.keywords
+        //   )
+        // );
 
         return { html: newHtml, ...rest };
       });

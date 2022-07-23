@@ -27,16 +27,21 @@ export function PowerDisplayCard({
   expendedPowers,
 }: PowerDisplayCardProps) {
   const { mutate: adjustUsedPowers } = useUpdatePowerUsage();
+
   return (
-    <div className="detail">
+    <div
+      className={
+        expendedPowers.includes(powerName) ? "detail expended" : "detail"
+      }
+    >
       {parse(htmlToRender, {
-        replace: (domNode) => {
+        replace: (domNode: any) => {
           if (domNode.name === "input") {
-            delete domNode.attribs.onclick;
+            console.log(domNode.name);
             return (
               <Checkbox
                 checked={expendedPowers.includes(powerName)}
-                onClick={(e) => {
+                onClick={(e: any) => {
                   adjustUsedPowers({
                     _id,
                     powerName,

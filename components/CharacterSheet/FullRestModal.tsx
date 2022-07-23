@@ -77,7 +77,7 @@ export default function FullRestModal({ characterData }: Props) {
               ))}
             </Stack>
           ) : (
-            <Stack space spacing={2}>
+            <Stack spacing={2}>
               <RestButton
                 variant="contained"
                 onClick={() => {

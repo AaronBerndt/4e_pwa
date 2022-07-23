@@ -132,7 +132,7 @@ export function HealthWorkspaceModal({
             <TextField
               type="number"
               defaultValue={value}
-              onChange={(e) => setValue(e.target.value)}
+              onChange={(e: any) => setValue(e.target.value)}
             />
 
             <ButtonGroup fullWidth>
