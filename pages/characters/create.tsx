@@ -25,6 +25,7 @@ import { WrapupView } from "../../components/WrapUpView";
 import { PickTrainedSkillsView } from "../../components/PickTrainedSkillsView";
 
 export default function CreateCharacterPage(props) {
+  console.log(props);
   const slides = ["Name/Level/Class/Race", "Powers", "Feats"];
   const [activeStep, setActiveStep] = useState(0);
   const handleNext = () => {
@@ -89,7 +90,7 @@ export default function CreateCharacterPage(props) {
             <PickPowersView />
           </SwiperSlide>
           <SwiperSlide>
-            <PickFeatsView />
+            <PickFeatsView feats={props.feats} />
           </SwiperSlide>
           <SwiperSlide>
             <PickGearView />
@@ -118,4 +119,13 @@ export default function CreateCharacterPage(props) {
       />
     </Grid>
   );
+}
+
+export async function getStaticProps(context) {
+  let data = await fetchCollection("feats");
+  return {
+    props: {
+      feats: data.map(({ _id, ...rest }) => rest),
+    },
+  };
 }

@@ -12,6 +12,8 @@ export const preFetchCharacters = (queryClient: QueryClient) =>
 export default function useCharacters() {
   return useQuery<any>(KEY, fetchCharacters, {
     select: ({ data }) => data,
+    refetchOnWindowFocus: false,
+    cacheTime: Infinity,
   });
 }
 
@@ -21,6 +23,8 @@ export function usePlayerCharacters(playerId: string) {
     () => axios.get(`/api/characters?playerId=${playerId}`),
     {
       select: ({ data }) => data,
+      refetchOnWindowFocus: false,
+      cacheTime: Infinity,
     }
   );
 }
@@ -31,6 +35,8 @@ export function useCharacter(characterId: any) {
     () => axios.get(`/api/characters?_id=${characterId}`),
     {
       select: ({ data }) => data,
+      refetchOnWindowFocus: false,
+      cacheTime: Infinity,
     }
   );
 }

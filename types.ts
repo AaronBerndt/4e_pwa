@@ -42,15 +42,18 @@ export type Character = {
   inventory: Item[];
   skills: string[];
   gear: Gear;
-  characterState: [
-    actionPoints: number,
-    secondWind: number,
-    deathSaves: number,
-    damage: number,
-    surges: number,
-    expended: string[],
-    effects: string[]
-  ];
+  characterState: CharacterState;
+};
+
+export type CharacterState = {
+  actionPoints: number;
+  secondWind: number;
+  deathSaves: number;
+  temporaryHitpoints: number;
+  damage: number;
+  expendedSurges: number;
+  expendedPowers: string[];
+  effects: string[];
 };
 
 export type Item = {
