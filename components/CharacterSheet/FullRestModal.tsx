@@ -12,11 +12,8 @@ import {
   DialogTitle,
   List,
   ListItem,
-  ListItemText,
   Stack,
 } from "../../node_modules/@mui/material/index";
-import { Character } from "../../types";
-import { ShortRestModal } from "./ShortRestModal";
 type Props = {
   characterData: any;
 };
