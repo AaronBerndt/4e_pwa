@@ -1,22 +1,19 @@
 import { useState } from "react";
+import { find, orderBy } from "lodash";
 import { useCharacterBuilderContext } from "../context/CharacterBuildContext";
-import useAncestries from "../hooks/useAncestries";
-import useFeats from "../hooks/useFeats";
 import {
   Button,
   ButtonGroup,
   Divider,
-  Grid,
   List,
   ListItem,
-  ListItemButton,
   Stack,
-  SwipeableDrawer,
+  TextField,
 } from "../node_modules/@mui/material/index";
 import { Feat } from "../types";
 import { ListItemDrawer } from "./ListItemDrawer";
 
-export function PickFeatsView({ feats }) {
+export function PickFeatsView({ feats, ancestries, classes }) {
   const {
     feats: selectedFeats,
     powers,
@@ -25,33 +22,11 @@ export function PickFeatsView({ feats }) {
     ancestry,
     abilityScores,
     level,
+    trainedSkills,
   } = useCharacterBuilderContext();
-  const [featTypeFilter, setFeatTypeFilter] = useState<any>("All");
-
-  // const {
-  //   data: feats,
-  //   isLoading,
-  //   refetch,
-  // } = useFeats({
-  //   ancestry,
-  //   characterClass,
-  //   level,
-  //   powerList: powers,
-  //   featList: selectedFeats,
-  //   abilityScores,
-  // });
-
-  // if (feats === [] && ancestry && characterClass && !isLoading) {
-  //   refetch();
-  // }
-
-  // if (isLoading) {
-  //   return <div>...Loading</div>;
-  // }
-
-  // if (!feats) {
-  //   return <div>No Data Found</div>;
-  // }
+  const [featTypeFilter, setFeatTypeFilter] = useState<any>("Heroic");
+  const [featFilter, setFeatFilter] = useState<any>("Others");
+  const [search, setSearch] = useState<any>("");
 
   const onSelectFeatAdd = (featToSelect: Feat) =>
     setFeats((prev: string[]) => [...prev, featToSelect.name]);
@@ -61,20 +36,65 @@ export function PickFeatsView({ feats }) {
       prev.filter((featName) => featName !== featToSelect.name)
     );
 
-  const filteredFeats =
-    featTypeFilter === "All"
-      ? feats
-      : feats.filter(({ tier }: Feat) => tier === featTypeFilter);
+  const genericFeats = orderBy(
+    feats
+      .filter(({ tier }: Feat) => tier === featTypeFilter)
+      .filter(({ prerequisite }) => prerequisite === "")
+      .filter(({ name, prereq }) => {
+        const regex = new RegExp(search, "i");
+        return regex.test(name) || regex.test(prereq);
+      }),
+    "name"
+  );
+
+  const featsFilteredByChoices = orderBy(
+    feats
+      .filter(({ tier }: Feat) => tier === featTypeFilter)
+      .filter(({ prerequisite }) => prerequisite !== "")
+      .filter(({ prerequisite }) => {
+        const prerequisiteList = prerequisite
+          .split(",")
+          .map((prereq) => prereq.trim().toLowerCase());
+
+        const ancestryObject = find(ancestries, { name: ancestry }) || {
+          origin: "None",
+        };
+
+        const classesObject = find(classes, { name: characterClass }) || {
+          role: "None",
+          powerSource: "None",
+        };
+
+        return prerequisiteList.every((prereq) => {
+          return [
+            characterClass.toLowerCase(),
+            ancestry.toLowerCase(),
+            ancestryObject?.origin.toLowerCase(),
+            classesObject?.powerSource.toLowerCase(),
+            classesObject?.role.toLowerCase(),
+            ...powers.map((power: string) => power.toLowerCase()),
+            ...selectedFeats.map((selectedFeat: string) =>
+              selectedFeat.toLowerCase()
+            ),
+            ...trainedSkills.map((trainedSkill: string) =>
+              trainedSkill.toLowerCase()
+            ),
+          ].some((choice: string) => {
+            const regex = new RegExp(choice);
+            return regex.test(prereq);
+          });
+        });
+      })
+      .filter(({ name, prerequisite }) => {
+        const regex = new RegExp(search, "i");
+        return regex.test(name) || regex.test(prerequisite);
+      }),
+    "name"
+  );
 
   return (
     <Stack spacing={2} style={{ padding: "15px" }}>
       <ButtonGroup fullWidth>
-        <Button
-          color={featTypeFilter === "All" ? "secondary" : "primary"}
-          onClick={() => setFeatTypeFilter("All")}
-        >
-          All
-        </Button>
         <Button
           color={featTypeFilter === "Heroic" ? "secondary" : "primary"}
           onClick={() => setFeatTypeFilter("Heroic")}
@@ -84,21 +104,51 @@ export function PickFeatsView({ feats }) {
         <Button
           color={featTypeFilter === "Paragon" ? "secondary" : "primary"}
           onClick={() => setFeatTypeFilter("Paragon")}
+          disabled={level >= 11}
         >
           Paragon
         </Button>
         <Button
           color={featTypeFilter === "Epic" ? "secondary" : "primary"}
           onClick={() => setFeatTypeFilter("Epic")}
+          disabled={level >= 21}
         >
           Epic
         </Button>
       </ButtonGroup>
+      <ButtonGroup fullWidth>
+        <Button
+          color={featFilter === "General" ? "secondary" : "primary"}
+          onClick={() => setFeatFilter("General")}
+        >
+          General
+        </Button>
+        <Button
+          color={featFilter === "Others" ? "secondary" : "primary"}
+          onClick={() => setFeatFilter("Others")}
+        >
+          By Class, Ancestry, Powers
+        </Button>
+      </ButtonGroup>
+
+      <TextField
+        fullWidth
+        label="Search Feats by Name, Prerequisite"
+        onChange={(e) => setSearch(e.target.value)}
+      />
 
       <List>
-        {filteredFeats.map((feat: Feat) => (
+        {orderBy(
+          [
+            ...(featFilter === "Others"
+              ? featsFilteredByChoices
+              : genericFeats),
+          ],
+          "name"
+        ).map((feat: Feat) => (
           <>
             <ListItem
+              dense
               style={{ border: "10px" }}
               secondaryAction={
                 <>

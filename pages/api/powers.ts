@@ -5,6 +5,7 @@ export default async function handler(req, res) {
   try {
     let { powerList, className, level }: any = req.query;
 
+    console.log(level, className);
     className = className.includes("Fighter") ? "Fighter" : className;
     const data = await fetchCollection(
       "powers",
@@ -15,7 +16,7 @@ export default async function handler(req, res) {
             $or: [className]
               .filter((value) => value !== "")
               .map((value) => ({ class: value })),
-            level: { $lte: level },
+            level: { $lte: Number(level) },
           }
         : null
     );

@@ -3,7 +3,7 @@ import { MongoClient } from "mongodb";
 import { omit } from "lodash";
 
 import "swiper/css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { CreateCharacterForm } from "../../components/CreateCharacterForm";
 import { PickAncestryView } from "../../components/PickAncestryView";
 import { PickClassView } from "../../components/PickClassView";
@@ -17,6 +17,7 @@ import {
   Typography,
   Paper,
   Box,
+  Stack,
 } from "../../node_modules/@mui/material/index";
 import { fetchCollection } from "../../utils/mongoUtils";
 import { PickFeatsView } from "../../components/PickFeatsView";
@@ -25,15 +26,18 @@ import { WrapupView } from "../../components/WrapUpView";
 import { PickTrainedSkillsView } from "../../components/PickTrainedSkillsView";
 
 export default function CreateCharacterPage(props) {
-  console.log(props);
   const slides = ["Name/Level/Class/Race", "Powers", "Feats"];
   const [activeStep, setActiveStep] = useState(0);
+
+  const sliderRef: any = useRef();
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    sliderRef.current.swiper.slideTo(activeStep + 1);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    sliderRef.current.swiper.slideTo(activeStep - 1);
   };
 
   const steps = [
@@ -48,7 +52,7 @@ export default function CreateCharacterPage(props) {
   ];
 
   return (
-    <Grid>
+    <Stack spacing={2}>
       <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
         <Paper
           square
@@ -67,6 +71,7 @@ export default function CreateCharacterPage(props) {
 
       <CharacterBuilderProvider>
         <Swiper
+          ref={sliderRef}
           spaceBetween={15}
           slidesPerView={1}
           onSlideChange={({ activeIndex }) => {
@@ -78,10 +83,16 @@ export default function CreateCharacterPage(props) {
             <CreateCharacterForm />
           </SwiperSlide>
           <SwiperSlide>
-            <PickAncestryView setActiveStep={setActiveStep} />
+            <PickAncestryView
+              setActiveStep={setActiveStep}
+              ancestries={props.ancestries}
+            />
           </SwiperSlide>
           <SwiperSlide>
-            <PickClassView setActiveStep={setActiveStep} />
+            <PickClassView
+              setActiveStep={setActiveStep}
+              classes={props.classes}
+            />
           </SwiperSlide>
           <SwiperSlide>
             <PickTrainedSkillsView />
@@ -90,7 +101,11 @@ export default function CreateCharacterPage(props) {
             <PickPowersView />
           </SwiperSlide>
           <SwiperSlide>
-            <PickFeatsView feats={props.feats} />
+            <PickFeatsView
+              feats={props.feats}
+              ancestries={props.ancestries}
+              classes={props.classes}
+            />
           </SwiperSlide>
           <SwiperSlide>
             <PickGearView />
@@ -102,6 +117,7 @@ export default function CreateCharacterPage(props) {
       </CharacterBuilderProvider>
       <MobileStepper
         variant="dots"
+        style={{}}
         steps={steps.length}
         position="bottom"
         activeStep={activeStep}
@@ -117,15 +133,19 @@ export default function CreateCharacterPage(props) {
           </Button>
         }
       />
-    </Grid>
+    </Stack>
   );
 }
 
 export async function getStaticProps(context) {
-  let data = await fetchCollection("feats");
+  let ancestries = await fetchCollection("ancestries");
+  let feats = await fetchCollection("feats");
+  let classes = await fetchCollection("classes");
   return {
     props: {
-      feats: data.map(({ _id, ...rest }) => rest),
+      ancestries: ancestries.map(({ _id, ...rest }) => rest),
+      feats: feats.map(({ _id, ...rest }) => rest),
+      classes: classes.map(({ _id, ...rest }) => rest),
     },
   };
 }

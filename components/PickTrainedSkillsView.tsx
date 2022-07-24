@@ -1,4 +1,5 @@
 import { skillList } from "../constants";
+import { orderBy } from "lodash";
 import { useCharacterBuilderContext } from "../context/CharacterBuildContext";
 import {
   Button,
@@ -23,9 +24,10 @@ export function PickTrainedSkillsView() {
   return (
     <Stack spacing={2} style={{ padding: "15px" }}>
       <List>
-        {skillList.map((skill) => (
+        {orderBy(skillList, "name").map((skill) => (
           <>
             <ListItem
+              dense
               style={{ border: "10px" }}
               secondaryAction={
                 <>

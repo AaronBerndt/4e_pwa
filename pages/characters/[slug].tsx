@@ -1,24 +1,16 @@
-import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
 import { SwiperSlide, useSwiper } from "swiper/react";
 import "swiper/css";
 import { useCharacter } from "../../hooks/useCharacters";
 import {
   Button,
-  ButtonGroup,
-  Container,
-  IconButton,
   Skeleton,
   Stack,
 } from "../../node_modules/@mui/material/index";
 import { PowerCards } from "../../components/PowerCards";
 import { HealthWorkspaceModal } from "../../components/CharacterSheet/HealthWorkModal";
+import { DefenesesSpace } from "../../components/CharacterSheet/Spaces";
 import {
-  DefenesesSpace,
-  OtherSpaces,
-} from "../../components/CharacterSheet/Spaces";
-import {
-  GiCampfire,
   GiWingfoot,
   GiStarSwirl,
   GiMagicSwirl,
@@ -38,7 +30,6 @@ export default function CharacterPage(props) {
   const swiper = useSwiper();
   const sliderRef: any = useRef();
 
-  console.log(swiper);
   if (!query.slug || isLoading) {
     return <Skeleton />;
   }
@@ -63,7 +54,7 @@ export default function CharacterPage(props) {
         <Button variant="contained" fullWidth>
           {character.characterState.actionPoints}
         </Button>
-        <Button variant="contained">
+        <Button variant="contained" fullWidth>
           <GiWingfoot size="2em" />
           {character.initiative}
         </Button>

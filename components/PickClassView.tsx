@@ -1,26 +1,18 @@
 import { useCharacterBuilderContext } from "../context/CharacterBuildContext";
-import useClasses from "../hooks/useClasses";
 import {
   Button,
-  Grid,
+  Divider,
   List,
   ListItem,
-  ListItemButton,
   Stack,
-  SwipeableDrawer,
 } from "../node_modules/@mui/material/index";
 import { DisplayCard } from "./DisplayCard";
 import { ListItemDrawer } from "./ListItemDrawer";
-import { find } from "lodash";
+import { find, orderBy } from "lodash";
 
-export function PickClassView({ setActiveStep }) {
-  const { data: classes, isLoading }: any = useClasses();
+export function PickClassView({ setActiveStep, classes }) {
   const { characterClass: selectedCharacterClass, setCharacterClass } =
     useCharacterBuilderContext();
-
-  if (isLoading) {
-    return <div>...Loading</div>;
-  }
 
   const onSelectClass = (classToSelect) => {
     setCharacterClass(classToSelect.name);
@@ -33,27 +25,31 @@ export function PickClassView({ setActiveStep }) {
     <Stack spacing={2} style={{ padding: "15px" }}>
       {selectedCharacterClass !== "" ? (
         <>
-          <DisplayCard
-            htmlToRender={find(classes, { name: selectedCharacterClass }).html}
-          />
           <Button variant="contained" onClick={onRemoveClass} fullWidth>
             Choose another Class
           </Button>
+          <DisplayCard
+            htmlToRender={find(classes, { name: selectedCharacterClass }).html}
+          />
         </>
       ) : (
         <List>
-          {classes.map((characterClass) => (
-            <ListItem
-              key={characterClass.name}
-              style={{ border: "10px" }}
-              secondaryAction={
-                <Button onClick={() => onSelectClass(characterClass)}>
-                  Select
-                </Button>
-              }
-            >
-              <ListItemDrawer content={characterClass} />
-            </ListItem>
+          {orderBy(classes, "name").map((characterClass) => (
+            <>
+              <ListItem
+                dense
+                key={characterClass.name}
+                style={{ border: "10px" }}
+                secondaryAction={
+                  <Button onClick={() => onSelectClass(characterClass)}>
+                    Select
+                  </Button>
+                }
+              >
+                <ListItemDrawer content={characterClass} />
+              </ListItem>
+              <Divider />
+            </>
           ))}
         </List>
       )}

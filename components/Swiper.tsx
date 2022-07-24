@@ -4,9 +4,7 @@ interface SwiperRef {
   ref: any;
 }
 
-const CustomSwiper = <C extends React.ElementType>(
-  props: SwiperProps & SwiperRef
-) => {
+const CustomSwiper = (props: SwiperProps & SwiperRef) => {
   return <Swiper {...props}>{props.children}</Swiper>;
 };
 
