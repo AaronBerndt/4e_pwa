@@ -8,8 +8,11 @@ import {
   Stack,
   ListItem,
   Skeleton,
+  IconButton,
 } from "../node_modules/@mui/material/index";
 import Link from "../node_modules/next/link";
+import { AiOutlineEdit } from "react-icons/ai";
+import { BsFillTrashFill } from "react-icons/bs";
 
 export default function CharactersPage() {
   const { data: characters, isLoading } = useCharacters();
@@ -26,11 +29,27 @@ export default function CharactersPage() {
       >
         <List>
           {characters.map((character, i) => (
-            <ListItemButton key={i}>
-              <Link href={`/characters/${character._id}`}>
-                <a>{character.name}</a>
-              </Link>
-            </ListItemButton>
+            <ListItem
+              key={character._id}
+              secondaryAction={
+                <Stack direction="row" spacing={2}>
+                  <Link href={`/characters/edit/${character._id}`}>
+                    <IconButton edge="end" aria-label="comments">
+                      <AiOutlineEdit />
+                    </IconButton>
+                  </Link>
+                  <IconButton edge="end" aria-label="comments">
+                    <BsFillTrashFill />
+                  </IconButton>
+                </Stack>
+              }
+            >
+              <ListItemButton>
+                <Link href={`/characters/${character._id}`}>
+                  <a>{character.name}</a>
+                </Link>
+              </ListItemButton>
+            </ListItem>
           ))}
         </List>
         <Link href="characters/create" passHref>

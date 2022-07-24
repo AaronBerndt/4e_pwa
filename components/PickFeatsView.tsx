@@ -12,8 +12,11 @@ import {
 } from "../node_modules/@mui/material/index";
 import { Feat } from "../types";
 import { ListItemDrawer } from "./ListItemDrawer";
+import { useCharacterEditContext } from "../context/CharacterEditContext";
+import { useRouter } from "../node_modules/next/router";
 
 export function PickFeatsView({ feats, ancestries, classes }) {
+  const { pathname } = useRouter();
   const {
     feats: selectedFeats,
     powers,
@@ -23,7 +26,10 @@ export function PickFeatsView({ feats, ancestries, classes }) {
     abilityScores,
     level,
     trainedSkills,
-  } = useCharacterBuilderContext();
+  } = pathname.includes("edit")
+    ? useCharacterEditContext()
+    : useCharacterBuilderContext();
+
   const [featTypeFilter, setFeatTypeFilter] = useState<any>("Heroic");
   const [featFilter, setFeatFilter] = useState<any>("Others");
   const [search, setSearch] = useState<any>("");

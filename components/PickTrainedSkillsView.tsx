@@ -9,9 +9,14 @@ import {
   ListItemText,
   Stack,
 } from "../node_modules/@mui/material/index";
+import { useRouter } from "../node_modules/next/router";
+import { useCharacterEditContext } from "../context/CharacterEditContext";
 
 export function PickTrainedSkillsView() {
-  const { trainedSkills, setTrainedSkills } = useCharacterBuilderContext();
+  const { pathname } = useRouter();
+  const { trainedSkills, setTrainedSkills } = pathname.includes("edit")
+    ? useCharacterEditContext()
+    : useCharacterBuilderContext();
 
   const onSelectPowerAdd = (skillToSelect: string) =>
     setTrainedSkills((prev: string[]) => [...prev, skillToSelect]);

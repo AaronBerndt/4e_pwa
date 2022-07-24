@@ -5,6 +5,7 @@ interface SwiperRef {
 }
 
 const CustomSwiper = (props: SwiperProps & SwiperRef) => {
+  console.log(props.ref);
   return <Swiper {...props}>{props.children}</Swiper>;
 };
 

@@ -2,35 +2,39 @@ import SwiperClass from "swiper";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { MongoClient } from "mongodb";
 import { omit } from "lodash";
-
 import "swiper/css";
 import { useRef, useState } from "react";
-import { CreateCharacterForm } from "../../components/CreateCharacterForm";
-import { PickAncestryView } from "../../components/PickAncestryView";
-import { PickClassView } from "../../components/PickClassView";
-import { PickParagonPathView } from "../../components/PickParagonPathView";
-import { PickPowersView } from "../../components/PickPowersView";
-import { CharacterBuilderProvider } from "../../context/CharacterBuildContext";
+import { CreateCharacterForm } from "../../../components/CreateCharacterForm";
+import { PickAncestryView } from "../../../components/PickAncestryView";
+import { PickClassView } from "../../../components/PickClassView";
+import { PickFeatsView } from "../../../components/PickFeatsView";
+import { PickGearView } from "../../../components/PickGearView";
+import { PickPowersView } from "../../../components/PickPowersView";
+import { PickTrainedSkillsView } from "../../../components/PickTrainedSkillsView";
+import { WrapupView } from "../../../components/WrapUpView";
+import { CharacterBuilderProvider } from "../../../context/CharacterBuildContext";
+import { useCharacterForEdit } from "../../../hooks/useCharacters";
 import {
+  Stack,
+  Box,
+  Paper,
+  Typography,
   MobileStepper,
   Button,
-  Grid,
-  Typography,
-  Paper,
-  Box,
-  Stack,
-} from "../../node_modules/@mui/material/index";
-import { fetchCollection } from "../../utils/mongoUtils";
-import { PickFeatsView } from "../../components/PickFeatsView";
-import { PickGearView } from "../../components/PickGearView";
-import { WrapupView } from "../../components/WrapUpView";
-import { PickTrainedSkillsView } from "../../components/PickTrainedSkillsView";
+  Skeleton,
+} from "../../../node_modules/@mui/material/index";
+import { useRouter } from "../../../node_modules/next/router";
+import { fetchCollection } from "../../../utils/mongoUtils";
+import { CharacterEditProvider } from "../../../context/CharacterEditContext";
 
-export default function CreateCharacterPage(props) {
+export default function EditCharacterPage(props) {
+  const { query } = useRouter();
   const slides = ["Name/Level/Class/Race", "Powers", "Feats"];
   const [activeStep, setActiveStep] = useState(0);
 
   const sliderRef = useRef<SwiperClass>();
+
+  const { data: characterData, isLoading } = useCharacterForEdit(query.slug);
 
   const handleNext = () => {
     console.log(sliderRef);
@@ -54,6 +58,10 @@ export default function CreateCharacterPage(props) {
     "Wrap Up",
   ];
 
+  if (isLoading) {
+    return <Skeleton />;
+  }
+
   return (
     <Stack spacing={2}>
       <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
@@ -72,7 +80,7 @@ export default function CreateCharacterPage(props) {
         </Paper>
       </Box>
 
-      <CharacterBuilderProvider>
+      <CharacterEditProvider characterData={characterData}>
         <Swiper
           ref={sliderRef}
           spaceBetween={15}
@@ -117,7 +125,7 @@ export default function CreateCharacterPage(props) {
             <WrapupView />
           </SwiperSlide>
         </Swiper>
-      </CharacterBuilderProvider>
+      </CharacterEditProvider>
       <MobileStepper
         variant="dots"
         style={{}}
@@ -150,5 +158,12 @@ export async function getStaticProps(context) {
       feats: feats.map(({ _id, ...rest }) => rest),
       classes: classes.map(({ _id, ...rest }) => rest),
     },
+  };
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [], //indicates that no page needs be created at build time
+    fallback: "blocking", //indicates the type of fallback
   };
 }

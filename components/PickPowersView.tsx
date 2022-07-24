@@ -13,14 +13,20 @@ import {
 } from "../node_modules/@mui/material/index";
 import { Power } from "../types";
 import { ListItemDrawer } from "./ListItemDrawer";
+import { useCharacterEditContext } from "../context/CharacterEditContext";
+import { useRouter } from "../node_modules/next/router";
 
 export function PickPowersView() {
+  const { pathname } = useRouter();
   const {
     powers: selectedPowers,
     setPowers,
     level,
     characterClass,
-  } = useCharacterBuilderContext();
+  } = pathname.includes("edit")
+    ? useCharacterEditContext()
+    : useCharacterBuilderContext();
+
   const [search, setSearch] = useState<any>("");
   const [powerFilter, setPowerFilter] = useState("atWills");
 

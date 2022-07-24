@@ -9,10 +9,15 @@ import {
 import { DisplayCard } from "./DisplayCard";
 import { ListItemDrawer } from "./ListItemDrawer";
 import { find, orderBy } from "lodash";
+import { useRouter } from "../node_modules/next/router";
+import { useCharacterEditContext } from "../context/CharacterEditContext";
 
 export function PickClassView({ setActiveStep, classes }) {
+  const { pathname } = useRouter();
   const { characterClass: selectedCharacterClass, setCharacterClass } =
-    useCharacterBuilderContext();
+    pathname.includes("edit")
+      ? useCharacterEditContext()
+      : useCharacterBuilderContext();
 
   const onSelectClass = (classToSelect) => {
     setCharacterClass(classToSelect.name);

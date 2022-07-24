@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import { SwiperSlide, useSwiper } from "swiper/react";
+import { SwiperSlide } from "swiper/react";
+import SwiperClass from "swiper";
 import "swiper/css";
 import { useCharacter } from "../../hooks/useCharacters";
 import {
@@ -27,9 +28,9 @@ export default function CharacterPage(props) {
   const { query } = useRouter();
   const { data: character, isLoading } = useCharacter(query.slug);
   const [activeView, setActiveView] = useState(0);
-  const swiper = useSwiper();
-  const sliderRef: any = useRef();
+  const sliderRef = useRef<any>();
 
+  console.log(sliderRef);
   if (!query.slug || isLoading) {
     return <Skeleton />;
   }
@@ -78,7 +79,7 @@ export default function CharacterPage(props) {
         <Button
           variant="contained"
           color={activeView === 2 ? "secondary" : "primary"}
-          onClick={() => sliderRef?.current?.swiper.slideTo(2)}
+          onClick={() => sliderRef?.current?.slideTo(2)}
         >
           <GiBattleGear size="2em" />
         </Button>

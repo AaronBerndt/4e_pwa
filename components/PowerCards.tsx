@@ -29,18 +29,21 @@ export function PowerCards({ cards, expendedPowers, _id }: Props) {
     <Stack>
       <ButtonGroup fullWidth>
         <Button
+          variant={powerFilter === "atWills" ? "contained" : "outlined"}
           color={powerFilter === "atWills" ? "secondary" : "primary"}
           onClick={() => onClick("atWills")}
         >
           At Wills
         </Button>
         <Button
+          variant={powerFilter === "encounters" ? "contained" : "outlined"}
           color={powerFilter === "encounters" ? "secondary" : "primary"}
           onClick={() => onClick("encounters")}
         >
           Encounters
         </Button>
         <Button
+          variant={powerFilter === "dailies" ? "contained" : "outlined"}
           color={powerFilter === "dailies" ? "secondary" : "primary"}
           onClick={() => onClick("dailies")}
         >
@@ -55,7 +58,6 @@ export function PowerCards({ cards, expendedPowers, _id }: Props) {
               ${powerFilter === "atWills" ? "" : `<input />`}
             </h1>`;
 
-        console.log(`${string}${result[3]}`);
         return (
           <>
             <PowerDisplayCard

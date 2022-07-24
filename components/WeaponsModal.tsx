@@ -19,9 +19,14 @@ import {
 import { Gear } from "../types";
 import { find, range } from "lodash";
 import { DisplayCard } from "./DisplayCard";
+import { useCharacterEditContext } from "../context/CharacterEditContext";
+import { useRouter } from "../node_modules/next/router";
 
 export function WeaponsModal() {
-  const { gear, setGear } = useCharacterBuilderContext();
+  const { pathname } = useRouter();
+  const { gear, setGear } = pathname.includes("edit")
+    ? useCharacterEditContext()
+    : useCharacterBuilderContext();
   const { data: weapons, isLoading } = useWeapons();
   const { open, toggleOpen } = useToggle();
   const [baseWeapon, setBaseWeapon] = useState(null);

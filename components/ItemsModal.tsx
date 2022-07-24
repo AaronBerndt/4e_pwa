@@ -19,9 +19,15 @@ import {
 import { Gear } from "../types";
 import { useState } from "react";
 import { DisplayCard } from "./DisplayCard";
+import { useRouter } from "../node_modules/next/router";
+import { useCharacterEditContext } from "../context/CharacterEditContext";
 
 export function ItemsModal({ gearName }) {
-  const { gear, setGear } = useCharacterBuilderContext();
+  const { pathname } = useRouter();
+  const { gear, setGear } = pathname.includes("edit")
+    ? useCharacterEditContext()
+    : useCharacterBuilderContext();
+
   const [item, setItem] = useState(null);
 
   const { data: items, isLoading } = useItems({

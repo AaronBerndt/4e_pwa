@@ -10,12 +10,16 @@ import {
 import { DisplayCard } from "./DisplayCard";
 import { ListItemDrawer } from "./ListItemDrawer";
 import { find, orderBy } from "lodash";
+import { useRouter } from "../node_modules/next/router";
+import { useCharacterEditContext } from "../context/CharacterEditContext";
 
 export function PickAncestryView({ setActiveStep, ancestries }) {
+  const { pathname } = useRouter();
   const [filter, setFilter] = useState({ name: "", value: "" });
 
-  const { ancestry: selectedAncestry, setAncestry } =
-    useCharacterBuilderContext();
+  const { ancestry: selectedAncestry, setAncestry } = pathname.includes("edit")
+    ? useCharacterEditContext()
+    : useCharacterBuilderContext();
 
   const onSelectAncestry = (ancestryToSelect) => {
     setAncestry(ancestryToSelect.name);
@@ -38,7 +42,7 @@ export function PickAncestryView({ setActiveStep, ancestries }) {
       ) : (
         <List>
           {orderBy(ancestries, "name").map((ancestry) => (
-            <>
+            <div key={ancestry.name}>
               <ListItem
                 dense
                 style={{ border: "10px" }}
@@ -51,7 +55,7 @@ export function PickAncestryView({ setActiveStep, ancestries }) {
                 <ListItemDrawer content={ancestry} />
               </ListItem>
               <Divider />
-            </>
+            </div>
           ))}
         </List>
       )}
