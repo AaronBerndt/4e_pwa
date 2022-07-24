@@ -13,9 +13,11 @@ import {
 import Link from "../node_modules/next/link";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
+import useDeleteCharacter from "../hooks/useDeleteCharacter";
 
 export default function CharactersPage() {
   const { data: characters, isLoading } = useCharacters();
+  const { mutate: deleteCharacter } = useDeleteCharacter();
 
   if (isLoading) {
     return <Skeleton />;
@@ -38,7 +40,11 @@ export default function CharactersPage() {
                       <AiOutlineEdit />
                     </IconButton>
                   </Link>
-                  <IconButton edge="end" aria-label="comments">
+                  <IconButton
+                    edge="end"
+                    aria-label="comments"
+                    onClick={() => deleteCharacter(character._id)}
+                  >
                     <BsFillTrashFill />
                   </IconButton>
                 </Stack>

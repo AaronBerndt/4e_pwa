@@ -7,8 +7,6 @@ import {
   Button,
   Stack,
   DialogTitle,
-  List,
-  ListItemButton,
   Dialog,
   FormControl,
   InputLabel,
@@ -17,7 +15,7 @@ import {
   DialogActions,
 } from "../node_modules/@mui/material/index";
 import { Gear } from "../types";
-import { find, range } from "lodash";
+import { find } from "lodash";
 import { DisplayCard } from "./DisplayCard";
 import { useCharacterEditContext } from "../context/CharacterEditContext";
 import { useRouter } from "../node_modules/next/router";
