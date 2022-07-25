@@ -90,8 +90,8 @@ async function calculateDefenses(characterData, classData, abilityModifiers) {
   );
 
   const acModifier = max([
-    abilityModifiers.strength,
-    abilityModifiers.constitution,
+    abilityModifiers.dexterity,
+    abilityModifiers.intelligence,
   ]);
 
   const fortitudeModifter = max([
