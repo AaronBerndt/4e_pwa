@@ -23,9 +23,7 @@ export function PickPowersView() {
     setPowers,
     level,
     characterClass,
-  } = pathname.includes("edit")
-    ? useCharacterEditContext()
-    : useCharacterBuilderContext();
+  } = useCharacterBuilderContext();
 
   const [search, setSearch] = useState<any>("");
   const [powerFilter, setPowerFilter] = useState("atWills");

@@ -23,9 +23,7 @@ import { useCharacterEditContext } from "../context/CharacterEditContext";
 
 export function ArmorModal() {
   const { pathname } = useRouter();
-  const { gear, setGear } = pathname.includes("edit")
-    ? useCharacterEditContext()
-    : useCharacterBuilderContext();
+  const { gear, setGear } = useCharacterBuilderContext();
 
   const [baseArmor, setBaseArmor] = useState(null);
   const [enhancement, setEnhancement] = useState(0);

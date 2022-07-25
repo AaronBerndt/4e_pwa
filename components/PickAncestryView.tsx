@@ -14,12 +14,10 @@ import { useRouter } from "../node_modules/next/router";
 import { useCharacterEditContext } from "../context/CharacterEditContext";
 
 export function PickAncestryView({ setActiveStep, ancestries }) {
-  const { pathname } = useRouter();
   const [filter, setFilter] = useState({ name: "", value: "" });
 
-  const { ancestry: selectedAncestry, setAncestry } = pathname.includes("edit")
-    ? useCharacterEditContext()
-    : useCharacterBuilderContext();
+  const { ancestry: selectedAncestry, setAncestry } =
+    useCharacterBuilderContext();
 
   const onSelectAncestry = (ancestryToSelect) => {
     setAncestry(ancestryToSelect.name);

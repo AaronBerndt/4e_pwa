@@ -21,10 +21,7 @@ import { useCharacterEditContext } from "../context/CharacterEditContext";
 import { useRouter } from "../node_modules/next/router";
 
 export function WeaponsModal() {
-  const { pathname } = useRouter();
-  const { gear, setGear } = pathname.includes("edit")
-    ? useCharacterEditContext()
-    : useCharacterBuilderContext();
+  const { gear, setGear } = useCharacterBuilderContext();
   const { data: weapons, isLoading } = useWeapons();
   const { open, toggleOpen } = useToggle();
   const [baseWeapon, setBaseWeapon] = useState(null);

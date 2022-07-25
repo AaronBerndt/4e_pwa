@@ -80,7 +80,7 @@ export default function EditCharacterPage(props) {
         </Paper>
       </Box>
 
-      <CharacterEditProvider characterData={characterData}>
+      <CharacterBuilderProvider characterData={characterData}>
         <Swiper
           ref={sliderRef}
           spaceBetween={15}
@@ -125,7 +125,7 @@ export default function EditCharacterPage(props) {
             <WrapupView />
           </SwiperSlide>
         </Swiper>
-      </CharacterEditProvider>
+      </CharacterBuilderProvider>
       <MobileStepper
         variant="dots"
         style={{}}

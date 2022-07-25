@@ -20,7 +20,7 @@ export default function useEditCharacter(_id: any) {
     gear,
     inventory,
     currency,
-  } = useCharacterEditContext();
+  } = useCharacterBuilderContext();
 
   console.log(_id);
   return useMutation(

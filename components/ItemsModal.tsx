@@ -23,10 +23,7 @@ import { useRouter } from "../node_modules/next/router";
 import { useCharacterEditContext } from "../context/CharacterEditContext";
 
 export function ItemsModal({ gearName }) {
-  const { pathname } = useRouter();
-  const { gear, setGear } = pathname.includes("edit")
-    ? useCharacterEditContext()
-    : useCharacterBuilderContext();
+  const { gear, setGear } = useCharacterBuilderContext();
 
   const [item, setItem] = useState(null);
 

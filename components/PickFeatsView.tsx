@@ -16,7 +16,6 @@ import { useCharacterEditContext } from "../context/CharacterEditContext";
 import { useRouter } from "../node_modules/next/router";
 
 export function PickFeatsView({ feats, ancestries, classes }) {
-  const { pathname } = useRouter();
   const {
     feats: selectedFeats,
     powers,
@@ -26,9 +25,7 @@ export function PickFeatsView({ feats, ancestries, classes }) {
     abilityScores,
     level,
     trainedSkills,
-  } = pathname.includes("edit")
-    ? useCharacterEditContext()
-    : useCharacterBuilderContext();
+  } = useCharacterBuilderContext();
 
   const [featTypeFilter, setFeatTypeFilter] = useState<any>("Heroic");
   const [featFilter, setFeatFilter] = useState<any>("Others");

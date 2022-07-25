@@ -9,10 +9,7 @@ import { useCharacterEditContext } from "../context/CharacterEditContext";
 import { useRouter } from "../node_modules/next/router";
 
 export function PickGearView() {
-  const { pathname } = useRouter();
-  const { gear, setGear } = pathname.includes("edit")
-    ? useCharacterEditContext()
-    : useCharacterBuilderContext();
+  const { gear, setGear } = useCharacterBuilderContext();
 
   return (
     <Stack spacing={2}>

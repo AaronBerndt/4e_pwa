@@ -13,11 +13,8 @@ import { useRouter } from "../node_modules/next/router";
 import { useCharacterEditContext } from "../context/CharacterEditContext";
 
 export function PickClassView({ setActiveStep, classes }) {
-  const { pathname } = useRouter();
   const { characterClass: selectedCharacterClass, setCharacterClass } =
-    pathname.includes("edit")
-      ? useCharacterEditContext()
-      : useCharacterBuilderContext();
+    useCharacterBuilderContext();
 
   const onSelectClass = (classToSelect) => {
     setCharacterClass(classToSelect.name);
