@@ -61,7 +61,12 @@ export default function CharacterPage(props) {
         </Button>
       </Stack>
       <DefenesesSpace defeneses={character.defeneses} speed={character.speed} />
-      <Stack direction="row" alignItems="center" spacing={3}>
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="center"
+        spacing={3}
+      >
         <Button
           variant="contained"
           color={activeView === 0 ? "secondary" : "primary"}
