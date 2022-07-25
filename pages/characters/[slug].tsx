@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { SwiperSlide } from "swiper/react";
+import { SwiperSlide, Swiper } from "swiper/react";
 import SwiperClass from "swiper";
 import "swiper/css";
 import { useCharacter } from "../../hooks/useCharacters";
@@ -23,7 +23,7 @@ import FullRestModal from "../../components/CharacterSheet/FullRestModal";
 import { SkillList } from "../../components/CharacterSheet/SkillList";
 import { GearView } from "../../components/CharacterSheet/GearView";
 import { useRef, useState } from "react";
-import Swiper from "../../components/Swiper";
+import FeaturesView from "../../components/CharacterSheet/FeaturesView";
 
 export default function CharacterPage(props) {
   const { query } = useRouter();
@@ -86,7 +86,7 @@ export default function CharacterPage(props) {
         <Button
           variant="contained"
           color={activeView === 2 ? "secondary" : "primary"}
-          onClick={() => sliderRef?.current?.slideTo(2)}
+          onClick={() => sliderRef?.current?.swiper.slideTo(2)}
         >
           <GiBattleGear size="2em" />
         </Button>
@@ -121,7 +121,7 @@ export default function CharacterPage(props) {
           <GearView gear={character.gear} _id={character._id} />
         </SwiperSlide>
         <SwiperSlide>
-          <div>Features</div>
+          <FeaturesView characterData={character} />
         </SwiperSlide>
       </Swiper>
     </Stack>

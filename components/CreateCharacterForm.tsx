@@ -3,7 +3,6 @@ import {
   FormControl,
   Grid,
   InputLabel,
-  option,
   NativeSelect,
   Stack,
   TextField,

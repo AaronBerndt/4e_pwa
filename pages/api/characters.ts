@@ -30,11 +30,8 @@ function calculateAttackBonus(
   );
 }
 
-async function calculateSpeed(characterData) {
+async function calculateSpeed(characterData, ancestryData) {
   const { ancestry, gear } = characterData;
-  const ancestryData = await fetchCollection("ancestries", {
-    name: new RegExp("^" + characterData.ancestry),
-  });
 
   return ancestryData[0].speed;
 }
@@ -198,6 +195,10 @@ export default async function handler(req, res) {
         name: characterClass,
       });
 
+      const ancestryData = await fetchCollection("ancestries", {
+        name: new RegExp("^" + characterData.ancestry),
+      });
+
       let newPowerList = await fetchCollection("powers", {
         $or: [
           ...powers.map((power) => ({
@@ -205,10 +206,25 @@ export default async function handler(req, res) {
           })),
           {
             class: new RegExp("^" + ancestry, "i"),
-            level: characterData.level,
+            level: { $lte: characterData.level },
+          },
+          {
+            class: new RegExp("^" + ancestry, "i"),
+            level: "",
           },
         ],
       });
+
+      let newFeatList =
+        feats.length === 0
+          ? []
+          : await fetchCollection("feats", {
+              $or: [
+                ...feats.map((feat) => ({
+                  name: { $regex: new RegExp("^" + feat + "$") },
+                })),
+              ],
+            });
 
       const abilityModifiers = Object.assign(
         {},
@@ -287,7 +303,9 @@ export default async function handler(req, res) {
       finalData = {
         ...rest,
         hitpoints,
-        speed: await calculateSpeed(characterData),
+        ancestry: ancestryData[0].html,
+        class: classData[0].html,
+        speed: await calculateSpeed(characterData, ancestryData),
         initiative: calculateInitiative(characterData, abilityModifiers),
         surgesPerDay: calculateHealSurges(
           abilityModifiers.constitution,
@@ -301,7 +319,7 @@ export default async function handler(req, res) {
         surgeValue: calculateHealSurgeValue(hitpoints),
         powers: newPowerList,
         skills: calculateSkills(characterData, abilityModifiers),
-        feats,
+        feats: newFeatList,
       };
     }
 
