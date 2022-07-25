@@ -16,10 +16,7 @@ export function CreateCharacterForm() {
   const { pathname } = useRouter();
   const editCharacter = useCharacterEditContext();
   const { name, level, setLevel, setName, abilityScores, setAbilityScores } =
-    pathname.includes("edit")
-      ? useCharacterEditContext()
-      : useCharacterBuilderContext();
-  console.log(editCharacter);
+    useCharacterBuilderContext();
 
   return (
     <Stack spacing={2} style={{ padding: "15px" }}>

@@ -1,5 +1,5 @@
 import SwiperClass from "swiper";
-import { SwiperSlide, Swiper } from "swiper/react";
+import { SwiperSlide } from "swiper/react";
 import { MongoClient } from "mongodb";
 import { omit } from "lodash";
 
@@ -25,6 +25,7 @@ import { PickFeatsView } from "../../components/PickFeatsView";
 import { PickGearView } from "../../components/PickGearView";
 import { WrapupView } from "../../components/WrapUpView";
 import { PickTrainedSkillsView } from "../../components/PickTrainedSkillsView";
+import Swiper from "../../components/Swiper";
 
 export default function CreateCharacterPage(props) {
   const slides = ["Name/Level/Class/Race", "Powers", "Feats"];

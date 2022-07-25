@@ -17,6 +17,7 @@ import {
   GiMagicSwirl,
   GiBattleGear,
   GiScrollUnfurled,
+  GiStarFormation,
 } from "react-icons/gi";
 import FullRestModal from "../../components/CharacterSheet/FullRestModal";
 import { SkillList } from "../../components/CharacterSheet/SkillList";
@@ -53,6 +54,7 @@ export default function CharacterPage(props) {
 
       <Stack direction="row" alignItems="center" spacing={1}>
         <Button variant="contained" fullWidth>
+          <GiStarFormation size="2em" />
           {character.characterState.actionPoints}
         </Button>
         <Button variant="contained" fullWidth>

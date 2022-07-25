@@ -1,5 +1,5 @@
 import SwiperClass from "swiper";
-import { SwiperSlide, Swiper } from "swiper/react";
+import { SwiperSlide } from "swiper/react";
 import { MongoClient } from "mongodb";
 import { omit } from "lodash";
 import "swiper/css";
@@ -26,6 +26,7 @@ import {
 import { useRouter } from "../../../node_modules/next/router";
 import { fetchCollection } from "../../../utils/mongoUtils";
 import { CharacterEditProvider } from "../../../context/CharacterEditContext";
+import Swiper from "../../../components/Swiper";
 
 export default function EditCharacterPage(props) {
   const { query } = useRouter();

@@ -59,33 +59,45 @@ const CharacterBuilderContext = createContext<any>({
   currency: defaultCurrency,
 });
 
-export function CharacterBuilderProvider({ children, values }: any) {
-  const [name, setName] = useState(values?.name ? values.name : "");
-  const [level, setLevel] = useState(values?.level ? values.level : 1);
+export function CharacterBuilderProvider({ children, characterData }: any) {
+  const [name, setName] = useState(
+    characterData?.name ? characterData.name : ""
+  );
+  const [level, setLevel] = useState(
+    characterData?.level ? characterData.level : 1
+  );
   const [ancestry, setAncestry] = useState(
-    values?.ancestry ? values.ancestry : ""
+    characterData?.ancestry ? characterData.ancestry : ""
   );
   const [abilityScores, setAbilityScores] = useState(
-    values?.abilityScores ? values.abilityScores : defaultAbilityScores
+    characterData?.abilityScores
+      ? characterData.abilityScores
+      : defaultAbilityScores
   );
   const [characterClass, setCharacterClass] = useState(
-    values?.class ? values.class : ""
+    characterData?.characterClass ? characterData.characterClass : ""
   );
   const [paragonPath, setParagonPath] = useState(
-    values?.paragonPath ? values.paragonPath : ""
+    characterData?.paragonPath ? characterData.paragonPath : ""
   );
   const [epicDestiny, setEpicDestiny] = useState(
-    values?.epicDestiny ? values.epicDestiny : ""
+    characterData?.epicDestiny ? characterData.epicDestiny : ""
   );
 
-  const [powers, setPowers] = useState(values?.powers ? values.powers : []);
-  const [feats, setFeats] = useState(values?.feats ? values.feats : []);
-  const [trainedSkills, setTrainedSkills] = useState(
-    values?.trainedSkills ? values.trainedSkills : []
+  const [powers, setPowers] = useState(
+    characterData?.powers ? characterData.powers : []
   );
-  const [gear, setGear] = useState(values?.gear ? values.gear : defaultGear);
+  const [feats, setFeats] = useState(
+    characterData?.feats ? characterData.feats : []
+  );
+  const [trainedSkills, setTrainedSkills] = useState(
+    characterData?.trainedSkills ? characterData.trainedSkills : []
+  );
+  const [gear, setGear] = useState(
+    characterData?.gear ? characterData.gear : defaultGear
+  );
   const [inventory, setInventory] = useState(
-    values?.inventory ? values.inventory : []
+    characterData?.inventory ? characterData.inventory : []
   );
 
   return (
