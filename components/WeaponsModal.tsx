@@ -13,6 +13,7 @@ import {
   MenuItem,
   Select,
   DialogActions,
+  NativeSelect,
 } from "../node_modules/@mui/material/index";
 import { Gear } from "../types";
 import { find } from "lodash";
@@ -46,9 +47,8 @@ export function WeaponsModal() {
         <Stack>
           <DialogTitle>Weapons</DialogTitle>
           <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id="weapon">Base Weapon</InputLabel>
-            <Select
-              id="weapon"
+            <InputLabel htmlFor="weapon">Base Weapon</InputLabel>
+            <NativeSelect
               onChange={(e) => {
                 setBaseWeapon(find(weapons, { name: e.target.value }));
               }}
@@ -56,11 +56,11 @@ export function WeaponsModal() {
               {weapons
                 .filter(({ rarity }) => rarity === "Mundane")
                 .map((item) => (
-                  <MenuItem value={item.name} key={item.name}>
+                  <option value={item.name} key={item.name}>
                     {item.name}
-                  </MenuItem>
+                  </option>
                 ))}
-            </Select>
+            </NativeSelect>
           </FormControl>
           {baseWeapon && <DisplayCard htmlToRender={baseWeapon.html} />}
           <DialogActions>

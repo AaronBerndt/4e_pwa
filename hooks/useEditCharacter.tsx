@@ -22,7 +22,6 @@ export default function useEditCharacter(_id: any) {
     currency,
   } = useCharacterBuilderContext();
 
-  console.log(_id);
   return useMutation(
     () =>
       axios.post(`/api/editCharacter?_id=${_id}`, {

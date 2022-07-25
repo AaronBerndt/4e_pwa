@@ -3,8 +3,8 @@ import {
   FormControl,
   Grid,
   InputLabel,
-  MenuItem,
-  Select,
+  option,
+  NativeSelect,
   Stack,
   TextField,
 } from "../node_modules/@mui/material/index";
@@ -31,19 +31,23 @@ export function CreateCharacterForm() {
         }}
       />
       <FormControl fullWidth>
-        <InputLabel id="levelLabel">Level</InputLabel>
-        <Select
-          labelId="levelLabel"
+        <InputLabel variant="standard" htmlFor="levelLabel">
+          Level
+        </InputLabel>
+        <NativeSelect
           value={level}
-          label="level"
+          inputProps={{
+            name: "level",
+            id: "levelLabel",
+          }}
           onChange={(e: any) => setLevel(e.target.value)}
         >
           {range(1, 31).map((value) => (
-            <MenuItem value={value} key={value}>
+            <option value={value} key={value}>
               {value}
-            </MenuItem>
+            </option>
           ))}
-        </Select>
+        </NativeSelect>
       </FormControl>
 
       <h1>Character Attributes</h1>
@@ -56,11 +60,16 @@ export function CreateCharacterForm() {
         "charisma",
       ].map((abilityScore) => (
         <FormControl fullWidth key={abilityScore}>
-          <InputLabel id={abilityScore}>{capitalize(abilityScore)}</InputLabel>
-          <Select
-            fullWidth
+          <InputLabel variant="standard" htmlFor={abilityScore}>
+            {capitalize(abilityScore)}
+          </InputLabel>
+          <NativeSelect
             id={abilityScore}
             value={abilityScores[abilityScore]}
+            inputProps={{
+              name: abilityScore,
+              id: abilityScore,
+            }}
             onChange={(e: any) =>
               setAbilityScores((prev) => ({
                 ...prev,
@@ -69,11 +78,11 @@ export function CreateCharacterForm() {
             }
           >
             {range(1, 31).map((value) => (
-              <MenuItem value={value} key={value}>
+              <option value={value} key={value}>
                 {value}
-              </MenuItem>
+              </option>
             ))}
-          </Select>
+          </NativeSelect>
         </FormControl>
       ))}
     </Stack>

@@ -48,16 +48,18 @@ function calculateInitiative(characterData, abilityModifiers) {
 function calculateSkills(characterData, abilityModifiers) {
   const characterLevel = Math.floor(characterData.level / 2);
 
+  console.log(abilityModifiers);
+  console.log(characterLevel);
+
   return Object.assign(
     {},
     ...skillList.map((skill) => {
+      console.log(abilityModifiers[skill.modifier]);
       return {
         [skill.name]:
           characterLevel +
           abilityModifiers[skill.modifier] +
-          characterData.trainedSkills.includes(skill.name)
-            ? 5
-            : 0,
+          (characterData.trainedSkills.includes(skill.name) ? 5 : 0),
       };
     })
   );
@@ -138,12 +140,12 @@ function calculateHitpoints(characterData: Character, classData) {
   const result = regex.exec(classData.hitpointsAtFirstLevel);
 
   const firstLevelHitpoints =
-    Number(result[1]) + characterData.abilityScores.constitution;
+    Number(result[1]) + Number(characterData.abilityScores.constitution);
 
   const otherLevelsHitpoints =
-    (characterData.level - 1) * Number(classData.hitpointsPerLevel);
+    Number(characterData.level - 1) * Number(classData.hitpointsPerLevel);
 
-  return firstLevelHitpoints + otherLevelsHitpoints;
+  return Number(firstLevelHitpoints) + Number(otherLevelsHitpoints);
 }
 
 function calculateHealSurges(constitutionModifer, classData) {

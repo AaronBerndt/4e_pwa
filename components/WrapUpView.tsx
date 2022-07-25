@@ -9,7 +9,6 @@ export function WrapupView() {
   const { pathname, query } = useRouter();
   const { name, level, characterClass } = useCharacterBuilderContext();
 
-  console.log(query.slug);
   const { mutate: createCharacter }: any = useCreateChracter();
   const { mutate: editCharacter }: any = useEditCharacter(query.slug);
 

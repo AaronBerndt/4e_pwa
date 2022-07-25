@@ -1,15 +1,18 @@
-import { Button, Stack } from "../../node_modules/@mui/material/index";
+import { Button, Link, Stack } from "../../node_modules/@mui/material/index";
 
 type Props = {
   gear: any;
+  _id: string;
 };
 
-export function GearView({ gear }: Props) {
+export function GearView({ gear, _id }: Props) {
   return (
     <Stack>
-      <Button fullWidth variant="contained">
-        Manage Gear
-      </Button>
+      <Link href={`/characters/editGear/${_id}`}>
+        <Button fullWidth variant="contained">
+          Manage Gear
+        </Button>
+      </Link>
     </Stack>
   );
 }

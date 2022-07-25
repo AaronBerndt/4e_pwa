@@ -50,11 +50,11 @@ export default function CharactersPage() {
                 </Stack>
               }
             >
-              <ListItemButton>
-                <Link href={`/characters/${character._id}`}>
+              <Link href={`/characters/${character._id}`}>
+                <ListItemButton>
                   <a>{character.name}</a>
-                </Link>
-              </ListItemButton>
+                </ListItemButton>
+              </Link>
             </ListItem>
           ))}
         </List>

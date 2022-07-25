@@ -118,7 +118,7 @@ export default function CharacterPage(props) {
           <SkillList skills={character.skills} />
         </SwiperSlide>
         <SwiperSlide>
-          <GearView gear={character.gear} />
+          <GearView gear={character.gear} _id={character._id} />
         </SwiperSlide>
         <SwiperSlide>
           <div>Features</div>
