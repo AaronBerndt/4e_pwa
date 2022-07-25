@@ -11,6 +11,7 @@ export function WrapupView() {
     ? useCharacterEditContext()
     : useCharacterBuilderContext();
 
+  console.log(query.slug);
   const { mutate: createCharacter }: any = useCreateChracter();
   const { mutate: editCharacter }: any = useEditCharacter(query.slug);
 
@@ -34,7 +35,9 @@ export function WrapupView() {
           variant="outlined"
           color="secondary"
           fullWidth
-          onClick={() => createCharacter()}
+          onClick={() =>
+            pathname.includes("edit") ? editCharacter() : createCharacter()
+          }
         >
           {pathname.includes("edit") ? "Edit" : "Create"} Character
         </Button>

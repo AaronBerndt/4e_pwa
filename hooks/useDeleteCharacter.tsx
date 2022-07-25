@@ -8,7 +8,7 @@ export default function useDeleteCharacter() {
 
   const characterData = {};
   return useMutation(
-    (_id) => axios.delete(`/api/deleteCharacter?_id${_id}`),
+    (_id) => axios.delete(`/api/deleteCharacter?_id=${_id}`),
 
     {
       onMutate: async (_id) => {

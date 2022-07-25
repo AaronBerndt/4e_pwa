@@ -6,12 +6,14 @@ export default async function handler(req, res) {
   try {
     const _id = req.query._id;
     const { documents } = req.body.data;
-
-    const result = await updateCollection("characters", documents, {
-      _id: new ObjectId(_id),
-    });
-
-    console.log(result);
+    console.log(documents);
+    const result = await updateCollection(
+      "characters",
+      { _id, ...documents },
+      {
+        _id: new ObjectId(_id),
+      }
+    );
 
     res.status(200).send(result);
   } catch (e) {
