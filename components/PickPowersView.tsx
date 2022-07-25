@@ -89,9 +89,11 @@ export function PickPowersView() {
       <List>
         {Object.entries(
           groupBy(
-            powersObject[powerFilter].filter(({ name, keywords, action }) => {
+            powersObject[powerFilter].filter(({ name, keywords, html }) => {
               const regex = new RegExp(search, "i");
-              return regex.test(name) || regex.test(keywords);
+              return (
+                regex.test(name) || regex.test(keywords) || regex.test(html)
+              );
             }),
             "level"
           )
