@@ -5,6 +5,8 @@ import { ItemsModal } from "./ItemsModal";
 import { WeaponsModal } from "./WeaponsModal";
 import { capitalize } from "lodash";
 import { ShieldModal } from "./ShieldModal";
+import { useCharacterEditContext } from "../context/CharacterEditContext";
+import { useRouter } from "../node_modules/next/router";
 
 export function PickGearView() {
   const { gear, setGear } = useCharacterBuilderContext();

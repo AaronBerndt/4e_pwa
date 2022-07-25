@@ -1,10 +1,17 @@
 import { useCharacterBuilderContext } from "../context/CharacterBuildContext";
+import { useCharacterEditContext } from "../context/CharacterEditContext";
 import useCreateChracter from "../hooks/useCreateCharacter";
-import { Button, Grid } from "../node_modules/@mui/material/index";
+import useEditCharacter from "../hooks/useEditCharacter";
+import { Button, Grid, Link } from "../node_modules/@mui/material/index";
+import { useRouter } from "../node_modules/next/router";
 
 export function WrapupView() {
+  const { pathname, query } = useRouter();
   const { name, level, characterClass } = useCharacterBuilderContext();
+
+  console.log(query.slug);
   const { mutate: createCharacter }: any = useCreateChracter();
+  const { mutate: editCharacter }: any = useEditCharacter(query.slug);
 
   return (
     <Grid>
@@ -21,14 +28,18 @@ export function WrapupView() {
       <Grid item xs={12}></Grid>
       <Grid item xs={12}></Grid>
 
-      <Button
-        variant="outlined"
-        color="secondary"
-        fullWidth
-        onClick={() => createCharacter()}
-      >
-        Create Character
-      </Button>
+      <Link href={`/`}>
+        <Button
+          variant="outlined"
+          color="secondary"
+          fullWidth
+          onClick={() =>
+            pathname.includes("edit") ? editCharacter() : createCharacter()
+          }
+        >
+          {pathname.includes("edit") ? "Edit" : "Create"} Character
+        </Button>
+      </Link>
     </Grid>
   );
 }

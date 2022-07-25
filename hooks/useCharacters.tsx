@@ -40,3 +40,15 @@ export function useCharacter(characterId: any) {
     }
   );
 }
+
+export function useCharacterForEdit(characterId: any) {
+  return useQuery(
+    [FETCH_CHARACTER_KEY, characterId],
+    () => axios.get(`/api/characters?_id=${characterId}&type=edit`),
+    {
+      select: ({ data }) => data[0],
+      refetchOnWindowFocus: false,
+      cacheTime: Infinity,
+    }
+  );
+}

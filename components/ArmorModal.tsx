@@ -18,9 +18,13 @@ import { Armor, Gear } from "../types";
 import { find, range } from "lodash";
 import { useState } from "react";
 import { DisplayCard } from "./DisplayCard";
+import { useRouter } from "../node_modules/next/router";
+import { useCharacterEditContext } from "../context/CharacterEditContext";
 
 export function ArmorModal() {
+  const { pathname } = useRouter();
   const { gear, setGear } = useCharacterBuilderContext();
+
   const [baseArmor, setBaseArmor] = useState(null);
   const [enhancement, setEnhancement] = useState(0);
   const [magicArmor, setMagicArmor] = useState(null);

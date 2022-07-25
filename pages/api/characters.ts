@@ -175,6 +175,7 @@ function calculateDamageRoll(
 export default async function handler(req, res) {
   try {
     const _id: any = req.query._id;
+    const type: any = req.query.type;
     let finalData = null;
 
     const data = await fetchCollection(
@@ -182,7 +183,7 @@ export default async function handler(req, res) {
       _id ? { _id: new ObjectId(_id) } : null
     );
 
-    if (_id) {
+    if (_id && type !== "edit") {
       const characterData = data[0];
 
       const {
@@ -306,7 +307,7 @@ export default async function handler(req, res) {
       };
     }
 
-    res.status(200).send(_id ? finalData : data);
+    res.status(200).send(_id && type !== "edit" ? finalData : data);
   } catch (e) {
     console.log(e);
     res.status(504).send(e);

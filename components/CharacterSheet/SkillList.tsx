@@ -1,5 +1,6 @@
 import {
   Button,
+  Divider,
   List,
   ListItem,
   ListItemSecondaryAction,
@@ -16,12 +17,15 @@ export function SkillList({ skills }: Props) {
     <Stack>
       <List>
         {Object.entries(skills).map(([NAME, VALUE]: any) => (
-          <ListItem dense key={NAME}>
-            <ListItemText primary={NAME} />
-            <ListItemSecondaryAction>
-              <Button>{VALUE}</Button>
-            </ListItemSecondaryAction>
-          </ListItem>
+          <>
+            <ListItem dense key={NAME}>
+              <ListItemText primary={NAME} />
+              <ListItemSecondaryAction>
+                <Button variant="outlined">{VALUE}</Button>
+              </ListItemSecondaryAction>
+            </ListItem>
+            <Divider />
+          </>
         ))}
       </List>
     </Stack>

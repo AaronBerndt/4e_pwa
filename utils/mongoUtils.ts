@@ -99,3 +99,21 @@ export async function updateCollection(
     throw e;
   }
 }
+
+export async function deleteFromCollection(collectionName: string, query: any) {
+  try {
+    if (uri === undefined) {
+      throw "URI is undefined";
+    }
+
+    const database = await connectToDatabase();
+    const collection = database.collection(collectionName);
+
+    await collection.deleteOne(query);
+
+    return { message: `Sucessfully deleted document from ${collection}` };
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}

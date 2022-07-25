@@ -9,8 +9,12 @@ import {
   TextField,
 } from "../node_modules/@mui/material/index";
 import { useCharacterBuilderContext } from "../context/CharacterBuildContext";
+import { useRouter } from "../node_modules/next/router";
+import { useCharacterEditContext } from "../context/CharacterEditContext";
 
 export function CreateCharacterForm() {
+  const { pathname } = useRouter();
+  const editCharacter = useCharacterEditContext();
   const { name, level, setLevel, setName, abilityScores, setAbilityScores } =
     useCharacterBuilderContext();
 

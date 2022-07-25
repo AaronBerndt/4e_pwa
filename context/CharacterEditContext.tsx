@@ -32,7 +32,7 @@ const defaultCurrency = {
   platinum: 0,
 };
 
-const CharacterBuilderContext = createContext<any>({
+const CharacterEditContext = createContext<any>({
   name: "",
   level: 1,
   setName: Function,
@@ -59,7 +59,8 @@ const CharacterBuilderContext = createContext<any>({
   currency: defaultCurrency,
 });
 
-export function CharacterBuilderProvider({ children, characterData }: any) {
+export function CharacterEditProvider({ children, characterData }: any) {
+  console.log(characterData);
   const [name, setName] = useState(
     characterData?.name ? characterData.name : ""
   );
@@ -101,7 +102,7 @@ export function CharacterBuilderProvider({ children, characterData }: any) {
   );
 
   return (
-    <CharacterBuilderContext.Provider
+    <CharacterEditContext.Provider
       value={{
         name,
         level,
@@ -130,10 +131,10 @@ export function CharacterBuilderProvider({ children, characterData }: any) {
       }}
     >
       {children}
-    </CharacterBuilderContext.Provider>
+    </CharacterEditContext.Provider>
   );
 }
 
-export function useCharacterBuilderContext() {
-  return useContext(CharacterBuilderContext);
+export function useCharacterEditContext() {
+  return useContext(CharacterEditContext);
 }
