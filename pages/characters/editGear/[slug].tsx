@@ -9,6 +9,7 @@ import {
   Skeleton,
   Stack,
 } from "../../../node_modules/@mui/material/index";
+import axios from "../../../node_modules/axios/index";
 import { useRouter } from "../../../node_modules/next/router";
 
 export default function EditGearPage() {
@@ -22,7 +23,7 @@ export default function EditGearPage() {
 
   return (
     <Stack>
-      <CharacterBuilderProvider>
+      <CharacterBuilderProvider characterData={character}>
         <PickGearView />
       </CharacterBuilderProvider>
 
